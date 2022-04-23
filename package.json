@@ -1,0 +1,26 @@
+{
+  "name": "milkui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/**/*"
+  ],
+  "scripts": {
+    "start": "vite",
+    "build": "vite build --outDir docs",
+    "test": "vitest ",
+    "coverage": "vitest run --coverage",
+    "exports": "exports packages/components.js --exports --types --main components",
+    "prepublishOnly": "npm run coverage && npm run exports"
+  },
+  "dependencies": {
+    "atomico": "^1.52.0"
+  },
+  "devDependencies": {
+    "@atomico/exports": "^0.27.0",
+    "@atomico/plugin-vite": "^1.1.1",
+    "@atomico/scaffold": "^0.2.0",
+    "vite": "latest"
+  }
+}
