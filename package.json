@@ -1,26 +1,42 @@
 {
   "name": "milkui",
-  "version": "0.0.0",
   "private": true,
-  "type": "module",
+  "license": "MIT",
+  "packageManager": "yarn@3.2.0",
   "workspaces": [
-    "packages/**/*"
+    "packages/*/*"
   ],
   "scripts": {
-    "start": "vite",
-    "build": "vite build --outDir docs",
-    "test": "vitest ",
-    "coverage": "vitest run --coverage",
-    "exports": "exports packages/components.js --exports --types --main components",
-    "prepublishOnly": "npm run coverage && npm run exports"
-  },
-  "dependencies": {
-    "atomico": "^1.52.0"
+    "start": "start-storybook -p 6006",
+    "build": "turbo run build",
+    "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
-    "@atomico/exports": "^0.27.0",
-    "@atomico/plugin-vite": "^1.1.1",
-    "@atomico/scaffold": "^0.2.0",
-    "vite": "latest"
+    "@atomico/hooks": "^3.36.0",
+    "@atomico/react": "^2.1.0",
+    "@babel/core": "^7.17.10",
+    "@babel/plugin-transform-react-jsx": "^7.17.3",
+    "@changesets/cli": "^2.22.0",
+    "@storybook/addon-actions": "^6.4.22",
+    "@storybook/addon-essentials": "^6.4.22",
+    "@storybook/addon-links": "^6.4.22",
+    "@storybook/client-api": "^6.4.22",
+    "@storybook/html": "^6.4.22",
+    "@storybook/testing-library": "^0.0.11",
+    "@types/react": "^18.0.8",
+    "@types/react-dom": "^18.0.3",
+    "atomico": "^1.52.0",
+    "babel-loader": "^8.2.5",
+    "prettier": "^2.6.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "tsup": "^5.12.6",
+    "turbo": "^1.2.5",
+    "typescript": "^4.6.3",
+    "webpack": "^5.72.0"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true
   }
 }

@@ -1,2 +1,17 @@
-/node_modules
-/package-lock.json
+node_modules
+dist
+.DS_Store
+.turbo
+.env
+.cache
+*.log
+*.local
+
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.yarn/*
+#!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
