@@ -1,4 +1,5 @@
 import * as Atomico from 'atomico';
+import { html } from 'atomico';
 import { createContext } from '@milkui/create-context';
 import { useControllableState } from '@milkui/use-controllable-state';
 
@@ -25,20 +26,14 @@ const collapsible = (props: CollapsibleProps): CollapsibleEvents => {
     changeEvent: 'OpenChange',
   });
 
-  useCollapsibleProvider(
-    {
-      id,
-      open,
-      onTriggerClick: () => setOpen((open) => !open),
-    },
-    [id, open]
-  );
+  const provider = { id, open, onTriggerClick: () => setOpen((open) => !open) };
+  useCollapsibleProvider(provider, [id, open]);
 
-  return (
-    <host shadowDom data-state={open ? 'open' : 'closed'}>
+  return html`
+    <host shadowDom>
       <slot></slot>
     </host>
-  );
+  `;
 };
 
 collapsible.props = {
@@ -54,18 +49,17 @@ interface CollapsibleTriggerProps {}
 
 const collapsibleTrigger = (props: CollapsibleTriggerProps) => {
   const context = useCollapsibleContext();
-
-  return (
+  return html`
     <host
       shadowDom
-      data-state={context.open ? 'open' : 'closed'}
-      onclick={preventable(context.onTriggerClick)}
+      data-state=${context.open ? 'open' : 'closed'}
+      onclick=${preventable(context.onTriggerClick)}
     >
-      <button {...props} part="root" aria-controls={context.id} aria-expanded={context.open}>
+      <button part="root" aria-controls=${context.id} aria-expanded=${context.open}>
         <slot></slot>
       </button>
     </host>
-  );
+  `;
 };
 
 collapsibleTrigger.props = {
@@ -80,15 +74,18 @@ interface CollapsibleContentProps {}
 
 const collapsibleContent = (props: CollapsibleContentProps) => {
   const context = useCollapsibleContext();
-  return (
-    <host shadowDom data-state={context.open ? 'open' : 'closed'}>
-      {context.open ? (
-        <div {...props} part="root" id={context.id}>
-          <slot></slot>
-        </div>
-      ) : null}
+  return html`
+    <host shadowDom data-state=${context.open ? 'open' : 'closed'}>
+      ${
+        context.open &&
+        html`
+          <div part="root" id=${context.id}>
+            <slot></slot>
+          </div>
+        `
+      }
     </host>
-  );
+  `;
 };
 
 collapsibleContent.props = {

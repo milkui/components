@@ -5,7 +5,6 @@
     "moduleResolution": "Node",
     "target": "ESNext",
     "jsx": "react-jsx",
-    "jsxImportSource": "atomico",
     "allowJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
@@ -13,7 +12,10 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "types": ["node"],
     "paths": {
+      "~/*": ["./*"],
       "@milkui/react-*": ["packages/react/*/src"],
+      "@milkui/use-*": ["packages/core/_utils/use-*/src"],
+      "@milkui/create-*": ["packages/core/_utils/create-*/src"],
       "@milkui/*": ["packages/core/*/src"]
     }
   }

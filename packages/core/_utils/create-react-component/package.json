@@ -1,7 +1,7 @@
 {
-  "name": "@milkui/react-collapsible",
+  "name": "@milkui/create-react-component",
   "version": "0.0.0",
-  "sideEffects": true,
+  "sideEffects": false,
   "main": "src/index.ts",
   "publishConfig": {
     "main": "dist/index.js",
@@ -16,11 +16,6 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --splitting --external react",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
-  },
-  "dependencies": {
-    "@atomico/react": "^2.1.0",
-    "@milkui/collapsible": "workspace:*",
-    "atomico": "^1.52.0"
   },
   "peerDependencies": {
     "react": "^16.8 || ^17.0 || ^18.0"

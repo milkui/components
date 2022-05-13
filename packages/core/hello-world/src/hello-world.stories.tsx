@@ -1,10 +1,9 @@
-import { template } from 'atomico';
-import * as HelloWorld from './hello-world';
+import './hello-world';
 
 export default {
-  title: 'Core/HelloWorld'
-}
+  title: 'Core/HelloWorld',
+};
 
-export const Base = () => template(
-  <HelloWorld.Root name="Jenna" />
-);
+export const Base = () => /*html*/ `
+  <milk-hello-world name="Jenna"></milk-hello-world>
+`;

@@ -5,7 +5,7 @@ import * as Atomico from 'atomico';
  * -----------------------------------------------------------------------------------------------*/
 
 function helloWorld({ name }: Atomico.Props<typeof helloWorld.props>) {
-  return <host shadowDom>Hello, {name}</host>;
+  return Atomico.html`<host shadowDom>Hello, ${name}</host>`;
 }
 
 helloWorld.props = {
@@ -16,7 +16,9 @@ helloWorld.props = {
 
 const HelloWorld = Atomico.c(helloWorld);
 
-customElements.define('milk-hello-world', HelloWorld);
+if (!customElements.get('milk-hello-world')) {
+  customElements.define('milk-hello-world', HelloWorld);
+}
 
 export {
   HelloWorld as Root,
