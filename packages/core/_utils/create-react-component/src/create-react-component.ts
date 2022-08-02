@@ -1,16 +1,11 @@
 import * as React from 'react';
 
-let count = 0;
-const getId = () => `${Date.now().toString(36).slice(-5)}${count++}`;
-
 /* -------------------------------------------------------------------------------------------------
  * createReactComponent
  * -----------------------------------------------------------------------------------------------*/
 
-export function createReactComponent<P>(CustomElement: CustomElementConstructor) {
-  const tagName = 'c-' + getId();
-  if (!customElements.get(tagName)) customElements.define(tagName, CustomElement);
-
+export function createReactComponent<P>(tagName: string) {
+  if (!customElements.get(tagName)) return () => null;
   return React.forwardRef<HTMLElement, P>((props, forwardedRef) => {
     // @ts-ignore
     const { children, ...rest } = props;

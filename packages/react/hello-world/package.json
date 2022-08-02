@@ -18,9 +18,8 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@atomico/react": "^2.1.0",
     "@milkui/hello-world": "workspace:*",
-    "atomico": "^1.52.0"
+    "preact": "^10.10.0"
   },
   "peerDependencies": {
     "react": "^16.8 || ^17.0 || ^18.0"

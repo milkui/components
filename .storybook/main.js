@@ -8,6 +8,8 @@ module.exports = {
   webpackFinal(config) {
     config.resolve.alias = {
       ...config.resolve.alias,
+      react: 'preact/compat',
+      'react-dom': 'preact/compat',
       '~': path.resolve(__dirname, '../'),
     };
 
@@ -15,6 +17,10 @@ module.exports = {
   },
   babel: (options) => ({
     ...options,
-    plugins: [...options.plugins, '@babel/plugin-transform-react-jsx', 'auto-import-react'],
+    plugins: [
+      ...options.plugins,
+      '@babel/plugin-transform-react-jsx',
+      ['auto-import', { declarations: [{ default: 'React', path: 'react' }] }],
+    ],
   }),
 };

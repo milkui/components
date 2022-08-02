@@ -1,26 +1,34 @@
-import * as Atomico from 'atomico';
+import register from 'preact-custom-element';
+import * as Preact from 'preact';
+
+const NAME = 'milk-hello-world';
 
 /* -------------------------------------------------------------------------------------------------
  * HelloWorld
  * -----------------------------------------------------------------------------------------------*/
 
-function helloWorld({ name }: Atomico.Props<typeof helloWorld.props>) {
-  return Atomico.html`<host shadowDom>Hello, ${name}</host>`;
+interface HelloWorldProps {
+  children: Preact.ComponentChildren;
 }
 
-helloWorld.props = {
-  name: String,
-};
+function HelloWorld({ children }: HelloWorldProps) {
+  return Preact.cloneElement(children, {
+    onClick: (event) => {
+      if (!event.defaultPrevented) {
+        console.log('click', event.defaultPrevented);
+      }
+    },
+  });
+}
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const HelloWorld = Atomico.c(helloWorld);
-
-if (!customElements.get('milk-hello-world')) {
-  customElements.define('milk-hello-world', HelloWorld);
+if (!customElements.get(NAME)) {
+  register(HelloWorld, NAME, ['children'], { shadow: true });
 }
 
 export {
+  NAME,
   HelloWorld as Root,
   //
   HelloWorld,

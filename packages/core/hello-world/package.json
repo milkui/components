@@ -18,6 +18,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "atomico": "^1.52.0"
+    "preact": "^10.10.0",
+    "preact-custom-element": "^4.2.1"
   }
 }

@@ -6,4 +6,8 @@ export default {
   decorators: [reactDecorator()],
 };
 
-export const Base = () => <HelloWorld.Root name={'Jenna'} />;
+export const Base = () => (
+  <HelloWorld.Root>
+    <input />
+  </HelloWorld.Root>
+);

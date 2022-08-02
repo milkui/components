@@ -5,5 +5,11 @@ export default {
 };
 
 export const Base = () => /*html*/ `
-  <milk-hello-world name="Jenna"></milk-hello-world>
+  <script>
+    function handleClick(event) {
+      event.preventDefault();
+      console.log('consumer click', event);
+    }
+  </script>
+  <milk-hello-world><input onclick="handleClick(event)" /></milk-hello-world>
 `;
