@@ -14,11 +14,12 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --splitting",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "build": "tsup src/index.ts --format esm,cjs --dts --splitting"
   },
   "dependencies": {
-    "@atomico/hooks": "^3.35.1",
-    "atomico": "^1.52.0"
+    "hooked-elements": "^2.2.2"
+  },
+  "devDependencies": {
+    "tsup": "^7.2.0"
   }
 }

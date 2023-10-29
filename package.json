@@ -9,11 +9,10 @@
   "scripts": {
     "start": "start-storybook -p 6006",
     "build": "turbo run build",
-    "clean": "turbo run clean && rm -rf node_modules"
+    "clean": "rm -rf **/node_modules; rm -rf **/dist; rm -rf **/.turbo",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
-    "@atomico/hooks": "^3.36.0",
-    "@atomico/react": "^2.1.0",
     "@babel/core": "^7.17.10",
     "@babel/plugin-transform-react-jsx": "^7.17.3",
     "@changesets/cli": "^2.22.0",
@@ -27,9 +26,10 @@
     "@storybook/testing-library": "^0.0.11",
     "@types/react": "^18.0.8",
     "@types/react-dom": "^18.0.3",
-    "atomico": "^1.52.0",
     "babel-loader": "^8.2.5",
     "babel-plugin-auto-import-react": "^4.0.0",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.6.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",

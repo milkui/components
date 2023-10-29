@@ -1,0 +1,75 @@
+diff --git a/node_modules/hooked-elements/index.d.ts b/node_modules/hooked-elements/index.d.ts
+index a0826a6..cb02289 100644
+--- a/node_modules/hooked-elements/index.d.ts
++++ b/node_modules/hooked-elements/index.d.ts
+@@ -64,6 +64,13 @@ interface IHookedElementsComponent {
+   [k: string]: any;
+ }
+ 
++type Dispatch<A> = (value: A) => void;
++type SetStateAction<S> = S | ((prevState: S) => S);
++
++interface Context<T> {
++  provide(value: T): void;
++}
++
+ declare const hookedElements: {
+   /**
+    * Defines a hooked component via a selector and a literal,
+@@ -121,10 +128,13 @@ declare const hookedElements: {
+    * meaning changes with same value won't trigger a `render()`.
+    * @see https://reactjs.org/docs/hooks-reference.html#usestate
+    */
+-  useState(
+-    initialValue: any,
+-    options?: {async?: boolean, always?: boolean}
+-  ): [any, Function];
++  useState<S>(
++    initialState: S | (() => S),
++    options?: { async?: boolean; always?: boolean }
++  ): [S, Dispatch<SetStateAction<S>>];
++
++  // convenience overload when first argument is omitted
++  useState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>];
+ 
+   /**
+    * Similar to React `useEffect`, and if the effect returned a callback,
+@@ -143,13 +153,13 @@ declare const hookedElements: {
+    * Similar to React `useContext`, accepts a `Context` object.
+    * @see https://reactjs.org/docs/hooks-reference.html#usecontext
+    */
+-  useContext(Context: object): any;
++  useContext<T>(context: Context<T>): T;
+ 
+   /**
+    * Similar to `React.createContext`. Returns a `Context` object.
+    * @see https://reactjs.org/docs/hooks-reference.html#usecontext
+    */
+-  createContext(object: object): object;
++  createContext<T>(value: T): Context<T>;
+ 
+   /**
+    * Similar to React `useReducer`, returns the current `state`
+@@ -175,18 +185,16 @@ declare const hookedElements: {
+    * Similar to React `useMemo`, returns a `memoized` value.
+    * @see https://reactjs.org/docs/hooks-reference.html#usememo
+    */
+-  useMemo(
+-    fn: Function,
++  useMemo<T>(
++    fn: () => T,
+     deps: any[]
+-  ): any;
++  ): T;
+ 
+   /**
+    * Similar to React `useRef`, returns a `{current: value}` object.
+    * @see https://reactjs.org/docs/hooks-reference.html#useref
+    */
+-  useRef(
+-    initialValue?: any
+-  ): {current: any};
++  useRef<T>(initialValue?: T): { current: T };
+ };
+ 
+ export = hookedElements;
