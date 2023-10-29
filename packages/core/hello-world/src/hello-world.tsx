@@ -1,27 +1,28 @@
-import * as Atomico from 'atomico';
+import * as Hooked from 'hooked-elements';
+import { primitive } from '@milkui/primitive';
 
 /* -------------------------------------------------------------------------------------------------
  * HelloWorld
  * -----------------------------------------------------------------------------------------------*/
 
-function helloWorld({ name }: Atomico.Props<typeof helloWorld.props>) {
-  return Atomico.html`<host shadowDom>Hello, ${name}</host>`;
+interface HelloWorldAttrs {
+  name?: string;
 }
 
-helloWorld.props = {
-  name: String,
+const HelloWorld = primitive<'div', HelloWorldAttrs>(['name'], {
+  render(element) {
+    element.replaceChildren(`Hello, ${this.attrs.name}`);
+  },
+});
+
+HelloWorld.config = {
+  element: 'div',
+  attribute: 'data-hello-world',
 };
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const HelloWorld = Atomico.c(helloWorld);
+Hooked.define(`[${HelloWorld.config.attribute}]`, HelloWorld);
 
-if (!customElements.get('milk-hello-world')) {
-  customElements.define('milk-hello-world', HelloWorld);
-}
-
-export {
-  HelloWorld as Root,
-  //
-  HelloWorld,
-};
+export type { HelloWorldAttrs };
+export { HelloWorld as Root };

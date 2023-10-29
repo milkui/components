@@ -1,28 +1,41 @@
-import * as Atomico from "atomico";
+import * as Hooked from 'hooked-elements';
 
-function useControllableState<T>(params: {
-  prop: T;
-  defaultProp: T;
-  changeEvent: string;
-}) {
-  const [value = params.prop, setValue] = Atomico.useState(params.defaultProp);
-  const isControlled = params.prop !== undefined;
-  const dispatchChange = Atomico.useEvent(params.changeEvent, {
-    bubbles: false,
-    cancelable: false,
-    base: CustomEvent,
+/* -------------------------------------------------------------------------------------------------
+ * useControllableState
+ * -----------------------------------------------------------------------------------------------*/
+
+interface UseControllableStateParams<T> {
+  value?: T;
+  defaultValue?: T;
+  onChange?(value: T): void;
+}
+
+function useControllableState<T>(params: UseControllableStateParams<T>) {
+  const [value = params.value, setValue] = Hooked.useState(params.defaultValue);
+  const isControlled = params.value !== undefined;
+
+  const handleValueChange = (change: T | ((prevValue: T) => T)) => {
+    const update = (prevValue = params.value) => {
+      const nextValue = change instanceof Function ? change(prevValue) : change;
+      params.onChange?.(nextValue);
+      return nextValue;
+    };
+
+    if (isControlled) {
+      update();
+    } else {
+      setValue(update);
+    }
+  };
+
+  const handleChangeRef = Hooked.useRef(handleValueChange);
+  Hooked.useLayoutEffect(() => {
+    handleChangeRef.current = handleValueChange;
   });
 
-  function handleChange(update: typeof setValue) {
-    setValue((prevValue = params.prop) => {
-      const isCallback = typeof update === "function";
-      const nextValue = isCallback ? update(prevValue) : update;
-      dispatchChange(nextValue);
-      return isControlled ? prevValue : nextValue;
-    });
-  }
-
-  return [value, handleChange] as const;
+  return [value, handleChangeRef.current] as const;
 }
+
+/* ---------------------------------------------------------------------------------------------- */
 
 export { useControllableState };

@@ -1,8 +1,7 @@
-import '@atomico/react/proxy';
-import { auto } from '@atomico/react';
-import * as HelloWorldElement from '@milkui/hello-world';
+import { createReactComponent } from '@milkui/create-react-component';
+import * as HelloWorldPrimitive from '@milkui/hello-world';
 
-const HelloWorld = auto(HelloWorldElement.Root);
+const HelloWorld = createReactComponent(HelloWorldPrimitive.Root);
 
 export {
   HelloWorld as Root,

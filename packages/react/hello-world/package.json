@@ -14,13 +14,14 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --splitting --external react",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "build": "tsup src/index.ts --format esm,cjs --dts --splitting"
   },
   "dependencies": {
-    "@atomico/react": "^2.1.0",
-    "@milkui/hello-world": "workspace:*",
-    "atomico": "^1.52.0"
+    "@milkui/create-react-component": "workspace:*",
+    "@milkui/hello-world": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^7.2.0"
   },
   "peerDependencies": {
     "react": "^16.8 || ^17.0 || ^18.0"

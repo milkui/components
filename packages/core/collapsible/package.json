@@ -14,12 +14,14 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --splitting",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "build": "tsup src/index.ts --format esm,cjs --dts --splitting"
   },
   "dependencies": {
-    "@milkui/create-context": "workspace:*",
+    "@milkui/primitive": "workspace:*",
     "@milkui/use-controllable-state": "workspace:*",
-    "atomico": "^1.52.0"
+    "hooked-elements": "^2.2.2"
+  },
+  "devDependencies": {
+    "tsup": "^7.2.0"
   }
 }

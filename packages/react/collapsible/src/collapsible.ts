@@ -1,10 +1,9 @@
-import '@atomico/react/proxy';
-import { auto } from '@atomico/react';
-import * as CollapsibleElement from '@milkui/collapsible';
+import { createReactComponent } from '@milkui/create-react-component';
+import * as CollapsiblePrimitive from '@milkui/collapsible';
 
-const Collapsible = auto(CollapsibleElement.Root);
-const CollapsibleTrigger = auto(CollapsibleElement.Trigger);
-const CollapsibleContent = auto(CollapsibleElement.Content);
+const Collapsible = createReactComponent(CollapsiblePrimitive.Root);
+const CollapsibleTrigger = createReactComponent(CollapsiblePrimitive.Trigger);
+const CollapsibleContent = createReactComponent(CollapsiblePrimitive.Content);
 
 export {
   Collapsible as Root,

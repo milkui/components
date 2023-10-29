@@ -1,9 +1,17 @@
 import './hello-world';
 
-export default {
+const meta = {
   title: 'Core/HelloWorld',
+  argTypes: {
+    name: { control: 'text' },
+  },
 };
 
-export const Base = () => /*html*/ `
-  <milk-hello-world name="Jenna"></milk-hello-world>
-`;
+export const Base = (args: Record<keyof typeof meta.argTypes, any>) => {
+  const { name = 'World' } = args;
+  return `
+    <div data-hello-world data-name="${name}"></div>
+  `;
+};
+
+export default meta;

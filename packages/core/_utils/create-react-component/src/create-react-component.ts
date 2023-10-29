@@ -1,46 +1,56 @@
 import * as React from 'react';
-
-let count = 0;
-const getId = () => `${Date.now().toString(36).slice(-5)}${count++}`;
+import type { Primitive } from '@milkui/primitive';
 
 /* -------------------------------------------------------------------------------------------------
  * createReactComponent
  * -----------------------------------------------------------------------------------------------*/
 
-export function createReactComponent<P>(CustomElement: CustomElementConstructor) {
-  const tagName = 'c-' + getId();
-  if (!customElements.get(tagName)) customElements.define(tagName, CustomElement);
+type ElementProps<E> = E extends keyof JSX.IntrinsicElements
+  ? React.ComponentPropsWithoutRef<E>
+  : {};
 
-  return React.forwardRef<HTMLElement, P>((props, forwardedRef) => {
-    // @ts-ignore
+export function createReactComponent<E extends keyof JSX.IntrinsicElements, Attributes>(
+  primitive: E extends keyof HTMLElementTagNameMap ? Primitive<E, Attributes> : never
+) {
+  type Props = React.PropsWithChildren<Omit<ElementProps<E>, keyof Attributes> & Attributes>;
+
+  return React.forwardRef<HTMLElement, Props>((props, forwardedRef) => {
     const { children, ...rest } = props;
     const ref = React.useRef<HTMLElement>(null);
-    const nextProps = { ...omitEvents(rest), ref: mergeRefs(forwardedRef, ref) };
 
     React.useLayoutEffect(() => {
       const node = ref.current;
       let cleanupFns = [];
       if (node) {
         Object.entries(props).forEach(([prop, value]) => {
-          const event = prop.startsWith('on')
-            ? mapReactEventToNativeEvent[prop] || prop.slice(2).toLowerCase()
-            : undefined;
-          if (event) {
+          if (prop.startsWith('on') && typeof value === 'function') {
+            const event = mapReactEventToNativeEvent[prop] || prop.slice(2).toLowerCase();
             node.addEventListener(event, value);
-            cleanupFns = [...cleanupFns, () => node.removeEventListener(event, value)];
+            cleanupFns.push(() => node.removeEventListener(event, value));
+          } else if (primitive.observedAttributes.includes(`data-${prop}`)) {
+            (node.dataset as any)[prop] = value;
+            node.removeAttribute(prop);
           }
         });
         return () => cleanupFns.forEach((fn) => fn());
       }
     }, Object.values(props));
 
-    return React.createElement(tagName, nextProps, children);
+    return React.createElement(
+      primitive.config.element,
+      {
+        [primitive.config.attribute]: '',
+        ref: mergeRefs(forwardedRef, ref),
+        ...omitEvents(rest),
+      },
+      children
+    );
   });
 }
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const mapReactEventToNativeEvent = {
+const mapReactEventToNativeEvent: Record<string, keyof HTMLElementEventMap> = {
   onChange: 'input',
   onMouseEnter: 'mouseover',
   onMouseLeave: 'mouseout',
@@ -63,11 +73,6 @@ function mergeRefs(...refs: React.Ref<unknown>[]) {
 }
 
 function omitEvents<P>(props: P) {
-  return Object.entries(props).reduce(
-    (acc, [key, value]) => ({
-      ...acc,
-      ...(key.startsWith('on') ? {} : { [key]: value }),
-    }),
-    {}
-  );
+  const entries = Object.entries(props).filter(([key]) => !key.startsWith('on'));
+  return Object.fromEntries(entries);
 }

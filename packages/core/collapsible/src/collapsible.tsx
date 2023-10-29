@@ -1,121 +1,109 @@
-import * as Atomico from 'atomico';
-import { html } from 'atomico';
-import { createContext } from '@milkui/create-context';
+import * as Hooked from 'hooked-elements';
+import { primitive, preventableEvent } from '@milkui/primitive';
 import { useControllableState } from '@milkui/use-controllable-state';
-
-const createId = () => Math.random().toString(36).slice(-6);
-
-const [useCollapsibleProvider, useCollapsibleContext] = createContext({
-  id: '',
-  open: false,
-  onTriggerClick: () => {},
-});
 
 /* -------------------------------------------------------------------------------------------------
  * Collapsible
  * -----------------------------------------------------------------------------------------------*/
 
-type CollapsibleEvents = Atomico.Host<{ onOpenChange: CustomEvent<boolean> }>;
-interface CollapsibleProps extends Atomico.Props<typeof collapsible.props> {}
-
-const collapsible = (props: CollapsibleProps): CollapsibleEvents => {
-  const id = Atomico.useMemo(createId, []);
-  const [open, setOpen] = useControllableState({
-    prop: props.open,
-    defaultProp: props.defaultOpen,
-    changeEvent: 'OpenChange',
-  });
-
-  const provider = { id, open, onTriggerClick: () => setOpen((open) => !open) };
-  useCollapsibleProvider(provider, [id, open]);
-
-  return html`
-    <host shadowDom>
-      <slot></slot>
-    </host>
-  `;
+type CollapsibleContextValue = {
+  open: boolean;
+  contentId: string;
+  onTriggerClick(): void;
 };
+const CollapsibleContext = Hooked.createContext<CollapsibleContextValue>({} as any);
 
-collapsible.props = {
-  defaultOpen: Boolean,
-  open: Boolean,
+interface CollapsibleAttrs {
+  open?: boolean;
+  ['default-open']?: boolean;
+}
+
+const Collapsible = primitive<'div', CollapsibleAttrs>(['open', 'default-open'], {
+  render(element) {
+    const { open: openAttr, 'default-open': defaultOpen } = this.attrs;
+    const id = Hooked.useMemo(() => uid(), []);
+    const contentId = `collapsible-content-${id}`;
+
+    const [open = false, setOpen] = useControllableState({
+      value: openAttr,
+      defaultValue: defaultOpen,
+      onChange: (open) => {
+        const event = new CustomEvent('mk-openchange', { detail: open });
+        element.dispatchEvent(event);
+      },
+    });
+
+    const provider = Hooked.useMemo(
+      () => ({ open, contentId, onTriggerClick: () => setOpen((prevOpen) => !prevOpen) }),
+      [contentId, open]
+    );
+
+    element.setAttribute('data-state', getState(open));
+    CollapsibleContext.provide(provider);
+  },
+});
+
+Collapsible.config = {
+  element: 'div',
+  attribute: 'data-collapsible',
 };
 
 /* -------------------------------------------------------------------------------------------------
  * CollapsibleTrigger
  * -----------------------------------------------------------------------------------------------*/
 
-interface CollapsibleTriggerProps {}
+interface CollapsibleTriggerAttrs {
+  type?: string;
+}
 
-const collapsibleTrigger = (props: CollapsibleTriggerProps) => {
-  const context = useCollapsibleContext();
-  return html`
-    <host
-      shadowDom
-      data-state=${context.open ? 'open' : 'closed'}
-      onclick=${preventable(context.onTriggerClick)}
-    >
-      <button part="root" aria-controls=${context.id} aria-expanded=${context.open}>
-        <slot></slot>
-      </button>
-    </host>
-  `;
-};
+const CollapsibleTrigger = primitive<'button', CollapsibleTriggerAttrs>(['type'], {
+  render(element) {
+    const context = Hooked.useContext(CollapsibleContext);
+    const type = this.attrs.type || element.tagName === 'BUTTON' ? 'button' : undefined;
+    if (type) element.setAttribute('type', type);
+    element.setAttribute('aria-controls', context.contentId);
+    element.setAttribute('aria-expanded', String(context.open));
+    element.setAttribute('data-state', getState(context.open));
+    element.onclick = preventableEvent(context.onTriggerClick);
+  },
+});
 
-collapsibleTrigger.props = {
-  id: String,
+CollapsibleTrigger.config = {
+  element: 'button',
+  attribute: 'data-collapsible_trigger',
 };
 
 /* -------------------------------------------------------------------------------------------------
  * CollapsibleContent
  * -----------------------------------------------------------------------------------------------*/
 
-interface CollapsibleContentProps {}
+const CollapsibleContent = primitive<'div', {}>([], {
+  render(element) {
+    const context = Hooked.useContext(CollapsibleContext);
+    element.setAttribute('id', context.contentId);
+    element.setAttribute('data-state', getState(context.open));
+    element.style.setProperty('display', context.open ? 'revert' : 'none');
+  },
+});
 
-const collapsibleContent = (props: CollapsibleContentProps) => {
-  const context = useCollapsibleContext();
-  return html`
-    <host shadowDom data-state=${context.open ? 'open' : 'closed'}>
-      ${
-        context.open &&
-        html`
-          <div part="root" id=${context.id}>
-            <slot></slot>
-          </div>
-        `
-      }
-    </host>
-  `;
-};
-
-collapsibleContent.props = {
-  id: String,
+CollapsibleContent.config = {
+  element: 'div',
+  attribute: 'data-collapsible_content',
 };
 
 /* ---------------------------------------------------------------------------------------------- */
 
-function preventable<T extends Event>(handler: (event: T) => void) {
-  return (event: T) => {
-    if (!event.defaultPrevented) {
-      handler(event);
-    }
-  };
+Hooked.define(`[${Collapsible.config.attribute}]`, Collapsible);
+Hooked.define(`[${CollapsibleTrigger.config.attribute}]`, CollapsibleTrigger);
+Hooked.define(`[${CollapsibleContent.config.attribute}]`, CollapsibleContent);
+
+function getState(open: boolean) {
+  return open ? 'open' : 'closed';
 }
 
-const Collapsible = Atomico.c(collapsible);
-const CollapsibleTrigger = Atomico.c(collapsibleTrigger);
-const CollapsibleContent = Atomico.c(collapsibleContent);
+function uid() {
+  return Math.random().toString(36).slice(2, 8);
+}
 
-customElements.define('milk-collapsible', Collapsible);
-customElements.define('milk-collapsible-trigger', CollapsibleTrigger);
-customElements.define('milk-collapsible-content', CollapsibleContent);
-
-export {
-  Collapsible as Root,
-  CollapsibleTrigger as Trigger,
-  CollapsibleContent as Content,
-  //
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent,
-};
+export type { CollapsibleAttrs, CollapsibleTriggerAttrs };
+export { Collapsible as Root, CollapsibleTrigger as Trigger, CollapsibleContent as Content };
