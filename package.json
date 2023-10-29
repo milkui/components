@@ -30,7 +30,7 @@
     "babel-plugin-auto-import-react": "^4.0.0",
     "patch-package": "^8.0.0",
     "postinstall-postinstall": "^2.1.0",
-    "prettier": "^2.6.2",
+    "prettier": "^3.0.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "tsup": "^5.12.6",
@@ -41,5 +41,8 @@
   "prettier": {
     "printWidth": 100,
     "singleQuote": true
+  },
+  "resolutions": {
+    "prettier": "^3.0.3"
   }
 }

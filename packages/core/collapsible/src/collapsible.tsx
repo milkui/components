@@ -18,9 +18,12 @@ interface CollapsibleAttrs {
   ['default-open']?: boolean;
 }
 
-const Collapsible = primitive<'div', CollapsibleAttrs>(['open', 'default-open'], {
-  render(element) {
-    const { open: openAttr, 'default-open': defaultOpen } = this.attrs;
+const Collapsible = primitive<'div', CollapsibleAttrs>({
+  name: 'collapsible',
+  element: 'div',
+  observedAttributes: ['open', 'default-open'],
+  render(element, attrs) {
+    const { open: openAttr, 'default-open': defaultOpen } = attrs;
     const id = Hooked.useMemo(() => uid(), []);
     const contentId = `collapsible-content-${id}`;
 
@@ -35,18 +38,13 @@ const Collapsible = primitive<'div', CollapsibleAttrs>(['open', 'default-open'],
 
     const provider = Hooked.useMemo(
       () => ({ open, contentId, onTriggerClick: () => setOpen((prevOpen) => !prevOpen) }),
-      [contentId, open]
+      [contentId, open],
     );
 
     element.setAttribute('data-state', getState(open));
     CollapsibleContext.provide(provider);
   },
 });
-
-Collapsible.config = {
-  element: 'div',
-  attribute: 'data-collapsible',
-};
 
 /* -------------------------------------------------------------------------------------------------
  * CollapsibleTrigger
@@ -56,28 +54,31 @@ interface CollapsibleTriggerAttrs {
   type?: string;
 }
 
-const CollapsibleTrigger = primitive<'button', CollapsibleTriggerAttrs>(['type'], {
-  render(element) {
+const CollapsibleTrigger = primitive<'button', CollapsibleTriggerAttrs>({
+  name: 'collapsible_trigger',
+  element: 'button',
+  observedAttributes: ['type'],
+  render(element, attrs) {
     const context = Hooked.useContext(CollapsibleContext);
-    const type = this.attrs.type || element.tagName === 'BUTTON' ? 'button' : undefined;
+    const type = attrs.type || element.tagName === 'BUTTON' ? 'button' : undefined;
     if (type) element.setAttribute('type', type);
     element.setAttribute('aria-controls', context.contentId);
     element.setAttribute('aria-expanded', String(context.open));
     element.setAttribute('data-state', getState(context.open));
-    element.onclick = preventableEvent(context.onTriggerClick);
+    element.onclick = (event) => {
+      console.log('clic');
+      preventableEvent(context.onTriggerClick)(event);
+    };
   },
 });
-
-CollapsibleTrigger.config = {
-  element: 'button',
-  attribute: 'data-collapsible_trigger',
-};
 
 /* -------------------------------------------------------------------------------------------------
  * CollapsibleContent
  * -----------------------------------------------------------------------------------------------*/
 
-const CollapsibleContent = primitive<'div', {}>([], {
+const CollapsibleContent = primitive({
+  name: 'collapsible_content',
+  element: 'div',
   render(element) {
     const context = Hooked.useContext(CollapsibleContext);
     element.setAttribute('id', context.contentId);
@@ -86,16 +87,7 @@ const CollapsibleContent = primitive<'div', {}>([], {
   },
 });
 
-CollapsibleContent.config = {
-  element: 'div',
-  attribute: 'data-collapsible_content',
-};
-
 /* ---------------------------------------------------------------------------------------------- */
-
-Hooked.define(`[${Collapsible.config.attribute}]`, Collapsible);
-Hooked.define(`[${CollapsibleTrigger.config.attribute}]`, CollapsibleTrigger);
-Hooked.define(`[${CollapsibleContent.config.attribute}]`, CollapsibleContent);
 
 function getState(open: boolean) {
   return open ? 'open' : 'closed';

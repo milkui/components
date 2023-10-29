@@ -10,7 +10,7 @@ type ElementProps<E> = E extends keyof JSX.IntrinsicElements
   : {};
 
 export function createReactComponent<E extends keyof JSX.IntrinsicElements, Attributes>(
-  primitive: E extends keyof HTMLElementTagNameMap ? Primitive<E, Attributes> : never
+  primitive: E extends keyof HTMLElementTagNameMap ? Primitive<E, Attributes> : never,
 ) {
   type Props = React.PropsWithChildren<Omit<ElementProps<E>, keyof Attributes> & Attributes>;
 
@@ -23,13 +23,20 @@ export function createReactComponent<E extends keyof JSX.IntrinsicElements, Attr
       let cleanupFns = [];
       if (node) {
         Object.entries(props).forEach(([prop, value]) => {
+          const attribute = `data-${prop}`;
           if (prop.startsWith('on') && typeof value === 'function') {
             const event = mapReactEventToNativeEvent[prop] || prop.slice(2).toLowerCase();
             node.addEventListener(event, value);
             cleanupFns.push(() => node.removeEventListener(event, value));
-          } else if (primitive.observedAttributes.includes(`data-${prop}`)) {
-            (node.dataset as any)[prop] = value;
+          } else if (primitive.observedAttributes.includes(attribute)) {
             node.removeAttribute(prop);
+            if (value === undefined) {
+              node.removeAttribute(attribute);
+            } else if (typeof value === 'boolean') {
+              node.setAttribute(attribute, value ? '' : 'false');
+            } else {
+              node.setAttribute(attribute, String(value));
+            }
           }
         });
         return () => cleanupFns.forEach((fn) => fn());
@@ -37,13 +44,13 @@ export function createReactComponent<E extends keyof JSX.IntrinsicElements, Attr
     }, Object.values(props));
 
     return React.createElement(
-      primitive.config.element,
+      primitive.element,
       {
-        [primitive.config.attribute]: '',
+        [primitive.selector]: '',
         ref: mergeRefs(forwardedRef, ref),
         ...omitEvents(rest),
       },
-      children
+      children,
     );
   });
 }

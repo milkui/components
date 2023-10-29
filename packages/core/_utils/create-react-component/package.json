@@ -19,9 +19,6 @@
   "dependencies": {
     "@milkui/primitive": "workspace:*"
   },
-  "devDependencies": {
-    "tsup": "^7.2.0"
-  },
   "peerDependencies": {
     "react": "^16.8 || ^17.0 || ^18.0"
   }
