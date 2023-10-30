@@ -10,6 +10,8 @@ interface UseControllableStateParams<T> {
   onChange?(value: T): void;
 }
 
+// TODO: figure out why this isn't controlled on first render
+
 function useControllableState<T>(params: UseControllableStateParams<T>) {
   const [value = params.value, setValue] = Hooked.useState(params.defaultValue);
   const isControlled = params.value !== undefined;

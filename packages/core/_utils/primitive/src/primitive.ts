@@ -6,37 +6,47 @@ type HookedElementsComponent = Exclude<Parameters<typeof Hooked.define>[1], Func
  * primitive
  * -----------------------------------------------------------------------------------------------*/
 
-interface PrimitiveDefinition<E extends keyof HTMLElementTagNameMap, A extends Record<string, any>>
-  extends Omit<HookedElementsComponent, 'observedAttributes' | 'render'> {
-  render(this: Primitive<E, A>, element: HTMLElementTagNameMap[E]): void;
-}
-
 interface Primitive<E extends keyof HTMLElementTagNameMap, A extends Record<string, any>>
-  extends PrimitiveDefinition<E, A> {
+  extends HookedElementsComponent {
+  selector: string;
+  element: E;
   attrs: A;
-  observedAttributes: HookedElementsComponent['observedAttributes'];
-  config?: { element: E; attribute: string };
 }
 
-function primitive<E extends keyof HTMLElementTagNameMap, A extends Record<string, any>>(
-  attrs: (keyof A)[],
-  comp: PrimitiveDefinition<E, A>
-): Primitive<E, A> {
-  return {
-    ...comp,
+function primitive<
+  E extends keyof HTMLElementTagNameMap,
+  A extends Record<string, any> = {},
+>(config: {
+  name: string;
+  element: E;
+  observedAttributes?: string[];
+  render(element: HTMLElementTagNameMap[E], attrs: A): void;
+}): Primitive<E, A> {
+  const definition = {
+    selector: `data-${config.name}`,
+    element: config.element,
     attrs: {} as A,
-    observedAttributes: attrs.map((attr) => `data-${String(attr)}`),
+    observedAttributes: config.observedAttributes,
     attributeChanged(name: string, prev: string, value: string) {
-      comp.attributeChanged?.call(this, name, prev, value);
-      const attr = name.replace(/^data-/, '');
-      try {
-        this.attrs[attr] = JSON.parse(value);
-      } catch (e) {
-        this.attrs[attr] = value === '' ? true : value;
+      const attr = name.replace(/^data-/, '').replace(/-([a-z])/g, (_, m) => m.toUpperCase());
+      if (value == null) {
+        this.attrs[attr] = undefined;
+      } else {
+        try {
+          this.attrs[attr] = JSON.parse(value);
+        } catch (e) {
+          this.attrs[attr] = value === '' ? true : value;
+        }
       }
-      comp.render.call(this, this.element);
+      this.render.call(this, this.element, this.attrs);
+    },
+    render(element: unknown) {
+      config.render.call(this, element, this.attrs);
     },
   };
+
+  Hooked.define(`[${definition.selector}]`, definition);
+  return definition;
 }
 
 /* -------------------------------------------------------------------------------------------------
