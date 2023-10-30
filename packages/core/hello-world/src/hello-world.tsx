@@ -9,20 +9,16 @@ interface HelloWorldAttrs {
   name?: string;
 }
 
-const HelloWorld = primitive<'div', HelloWorldAttrs>(['name'], {
-  render(element) {
-    element.replaceChildren(`Hello, ${this.attrs.name}`);
+const HelloWorld = primitive<'div', HelloWorldAttrs>({
+  element: 'div',
+  name: 'hello-world',
+  observedAttributes: ['data-name'],
+  render(element, attrs) {
+    element.replaceChildren(`Hello, ${attrs.name}`);
   },
 });
 
-HelloWorld.config = {
-  element: 'div',
-  attribute: 'data-hello-world',
-};
-
 /* ---------------------------------------------------------------------------------------------- */
-
-Hooked.define(`[${HelloWorld.config.attribute}]`, HelloWorld);
 
 export type { HelloWorldAttrs };
 export { HelloWorld as Root };

@@ -19,8 +19,5 @@
   "dependencies": {
     "@milkui/primitive": "workspace:*",
     "hooked-elements": "^2.2.2"
-  },
-  "devDependencies": {
-    "tsup": "^7.2.0"
   }
 }
