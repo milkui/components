@@ -8,11 +8,9 @@ const ScopeContext = React.createContext<PrimitiveScope | undefined>(undefined);
 const useLayoutEffect = typeof document === 'undefined' ? React.useEffect : React.useLayoutEffect;
 
 /** The sole React bridge: component-specific primitive stays in the native definition. */
-export function createReactComponent<
-  P extends object,
-  Tag extends NativeTag,
-  PrimitiveInstance extends Primitive<P>,
->(part: PrimitiveDefinition<P, Tag, PrimitiveInstance>) {
+export function createReactComponent<P extends object, Tag extends NativeTag, PrimitiveInstance extends Primitive<P>>(
+  part: PrimitiveDefinition<P, Tag, PrimitiveInstance>,
+) {
   type Props = Omit<React.ComponentPropsWithoutRef<Tag>, keyof P> & P & { asChild?: boolean };
   const Component = React.forwardRef<HTMLElementTagNameMap[Tag], Props>((props, forwardedRef) => {
     const { asChild, children, ...elementProps } = props as DOMProps;
@@ -31,11 +29,7 @@ export function createReactComponent<
         parent,
       }),
     );
-    const snapshot = React.useSyncExternalStore(
-      primitive.subscribe,
-      primitive.getSnapshot,
-      primitive.getSnapshot,
-    );
+    const snapshot = React.useSyncExternalStore(primitive.subscribe, primitive.getSnapshot, primitive.getSnapshot);
     const composedRef = React.useCallback(
       (node: HTMLElementTagNameMap[Tag] | null) => {
         if (node) primitive.connect(node, true);

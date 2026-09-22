@@ -1,8 +1,7 @@
 import type { AttributesFor, Primitive, createPrimitive } from '../src/primitive/index.js';
 
 type Expect<T extends true> = T;
-type Equal<Left, Right> =
-  (<T>() => T extends Left ? 1 : 2) extends <T>() => T extends Right ? 1 : 2 ? true : false;
+type Equal<Left, Right> = (<T>() => T extends Left ? 1 : 2) extends <T>() => T extends Right ? 1 : 2 ? true : false;
 
 declare const createPrimitiveForTypeTest: typeof createPrimitive;
 
@@ -59,19 +58,11 @@ const NullDefaults = createPrimitiveForTypeTest(NullDefaultAttributesPrimitive);
 
 type CompleteTag = Expect<Equal<typeof Complete.tag, 'div'>>;
 type CompleteProps = Expect<Equal<(typeof Complete)['props'], readonly (keyof ContentProps)[]>>;
-type CompleteDefaults = Expect<
-  Equal<(typeof Complete)['defaultAttributes'], AttributesFor<'div'> | null>
->;
+type CompleteDefaults = Expect<Equal<(typeof Complete)['defaultAttributes'], AttributesFor<'div'> | null>>;
 type InheritedTag = Expect<Equal<typeof Inherited.tag, 'div'>>;
-type InheritedDefaults = Expect<
-  Equal<(typeof Inherited)['defaultAttributes'], AttributesFor<'div'> | null>
->;
-type NullDefaultAttributes = Expect<
-  Equal<(typeof NullDefaults)['defaultAttributes'], AttributesFor<'div'> | null>
->;
-type InheritedInstance = Expect<
-  Equal<ReturnType<(typeof Inherited)['create']>, InheritedContentPrimitive>
->;
+type InheritedDefaults = Expect<Equal<(typeof Inherited)['defaultAttributes'], AttributesFor<'div'> | null>>;
+type NullDefaultAttributes = Expect<Equal<(typeof NullDefaults)['defaultAttributes'], AttributesFor<'div'> | null>>;
+type InheritedInstance = Expect<Equal<ReturnType<(typeof Inherited)['create']>, InheritedContentPrimitive>>;
 
 Complete.create({ disabled: true });
 Inherited.create({ disabled: true });

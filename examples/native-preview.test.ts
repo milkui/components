@@ -50,10 +50,7 @@ describe('native preview default attributes', () => {
   });
 
   it('renders two independent accordions with revealable content and matching links', () => {
-    const document = new DOMParser().parseFromString(
-      renderNativePreviewDocument('accordion-independent'),
-      'text/html',
-    );
+    const document = new DOMParser().parseFromString(renderNativePreviewDocument('accordion-independent'), 'text/html');
     expect(document.querySelectorAll('[mlk-accordion-root]')).toHaveLength(2);
     expect(document.querySelectorAll('[hidden="until-found"]')).toHaveLength(2);
     expect(document.querySelectorAll('[data-open]')).toHaveLength(2);
@@ -67,10 +64,7 @@ describe('native preview default attributes', () => {
   });
 
   it('serves no-JS button semantics in initial preview HTML', () => {
-    const document = new DOMParser().parseFromString(
-      renderNativePreviewDocument('button-basic'),
-      'text/html',
-    );
+    const document = new DOMParser().parseFromString(renderNativePreviewDocument('button-basic'), 'text/html');
     const button = document.querySelector<HTMLButtonElement>('[mlk-button]')!;
 
     expect(button.getAttribute('type')).toBe('button');

@@ -112,8 +112,7 @@ class AccordionRootPrimitive extends Primitive<AccordionRootProps> {
       defaultValue: initialValues(element, type),
       collapsible: element.hasAttribute('data-collapsible'),
       disabled: element.hasAttribute('data-disabled'),
-      orientation:
-        element.getAttribute('data-orientation') === 'horizontal' ? 'horizontal' : undefined,
+      orientation: element.getAttribute('data-orientation') === 'horizontal' ? 'horizontal' : undefined,
       dir: element.getAttribute('dir') === 'rtl' ? 'rtl' : undefined,
     } as Partial<AccordionRootProps>;
   }
@@ -172,9 +171,7 @@ class AccordionRootPrimitive extends Primitive<AccordionRootProps> {
   }
 
   get collapsible() {
-    return this.type === 'single' && 'collapsible' in this.props
-      ? (this.props.collapsible ?? false)
-      : false;
+    return this.type === 'single' && 'collapsible' in this.props ? (this.props.collapsible ?? false) : false;
   }
 
   setItemOpen = (itemValue: string, open: boolean) => {
@@ -213,9 +210,7 @@ class AccordionRootPrimitive extends Primitive<AccordionRootProps> {
   protected onValueChange(value: string | string[]) {
     const callback = this.props.onValueChange as ((value: string | string[]) => void) | undefined;
     callback?.(value);
-    this.element?.dispatchEvent(
-      new CustomEvent('mlk-accordion:value-change', { bubbles: true, detail: { value } }),
-    );
+    this.element?.dispatchEvent(new CustomEvent('mlk-accordion:value-change', { bubbles: true, detail: { value } }));
   }
 
   protected override render() {
@@ -255,10 +250,7 @@ type AccordionItemProps = {
 class AccordionItemPrimitive extends CollapsibleRootPrimitive<AccordionItemProps> {
   #nativeContentId: string | undefined;
   static override attribute: string = 'mlk-accordion-item';
-  static override props: readonly string[] = [
-    'value',
-    'disabled',
-  ] satisfies readonly (keyof AccordionItemProps)[];
+  static override props: readonly string[] = ['value', 'disabled'] satisfies readonly (keyof AccordionItemProps)[];
 
   static override initialProps(element: HTMLElement): Partial<AccordionItemProps> {
     return {
@@ -415,8 +407,7 @@ class AccordionTriggerPrimitive extends CollapsibleTriggerPrimitive {
     return {
       ...super.getAttributes(root),
       id: item.triggerId || undefined,
-      'aria-disabled':
-        root.enhanced && (item.lockedOpen || this.getDisabled(root)) ? 'true' : undefined,
+      'aria-disabled': root.enhanced && (item.lockedOpen || this.getDisabled(root)) ? 'true' : undefined,
       'data-orientation': this.accordionContext.orientation,
     };
   }
@@ -555,10 +546,7 @@ function keyDirection(
 function accordionTriggers(root: AccordionContextValue) {
   return Array.from(root.triggers)
     .filter(
-      (trigger) =>
-        trigger.isConnected &&
-        !trigger.hasAttribute('data-disabled') &&
-        !trigger.hasAttribute('disabled'),
+      (trigger) => trigger.isConnected && !trigger.hasAttribute('data-disabled') && !trigger.hasAttribute('disabled'),
     )
     .sort((left, right) => {
       if (left === right) return 0;

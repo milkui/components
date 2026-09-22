@@ -550,11 +550,7 @@ function CollapsibleNestedDemo() {
       </Collapsible.Root>
       <DemoControls>
         <label>
-          <input
-            type="checkbox"
-            checked={preventToggle}
-            onChange={(event) => setPreventToggle(event.target.checked)}
-          />
+          <input type="checkbox" checked={preventToggle} onChange={(event) => setPreventToggle(event.target.checked)} />
           Prevent outer toggle
         </label>
       </DemoControls>
@@ -639,12 +635,7 @@ function AccordionMultipleDemo() {
 function AccordionHorizontalDemo() {
   return (
     <ExampleDemo title="Horizontal orientation">
-      <Accordion.Root
-        className="accordion-horizontal"
-        type="single"
-        orientation="horizontal"
-        defaultValue="one"
-      >
+      <Accordion.Root className="accordion-horizontal" type="single" orientation="horizontal" defaultValue="one">
         <AccordionItem value="one" title="One">
           Horizontal item one.
         </AccordionItem>
@@ -707,11 +698,7 @@ function ButtonHeroDemo() {
 }
 
 function ButtonDisabledDemo() {
-  return (
-    <Button disabled>
-      Save changes
-    </Button>
-  );
+  return <Button disabled>Save changes</Button>;
 }
 
 const collapsibleExamples: Example[] = [
@@ -828,11 +815,7 @@ const buttonExamples: Example[] = [
 
 export function App({ state }: { state: DocsState }) {
   const page =
-    state.component === 'accordion'
-      ? accordionPage
-      : state.component === 'button'
-        ? buttonPage
-        : collapsiblePage;
+    state.component === 'accordion' ? accordionPage : state.component === 'button' ? buttonPage : collapsiblePage;
 
   React.useEffect(() => {
     document.title = `Milk UI · ${page.title}`;
@@ -867,11 +850,7 @@ export function App({ state }: { state: DocsState }) {
             <CodeBlock
               css={page.styles}
               title={state.framework === 'react' ? 'React source' : 'Native source'}
-              code={
-                state.framework === 'react'
-                  ? page.heroReactCode
-                  : withDefaultAttributes(page.heroNativeCode)
-              }
+              code={state.framework === 'react' ? page.heroReactCode : withDefaultAttributes(page.heroNativeCode)}
             />
           </section>
 
@@ -984,9 +963,7 @@ function FrameworkSwitch({ state }: { state: DocsState }) {
 
 function NativePreview(props: { example: NativeExampleKey; title: string }) {
   const frame = React.useRef<HTMLIFrameElement>(null);
-  const fixedHeight = ['accordion-hero', 'collapsible-basic', 'button-basic'].includes(
-    props.example,
-  );
+  const fixedHeight = ['accordion-hero', 'collapsible-basic', 'button-basic'].includes(props.example);
   const initialHeight = props.example === 'accordion-independent' ? 620 : 320;
   const [height, setHeight] = React.useState(initialHeight);
 
@@ -1022,9 +999,7 @@ function NativePreview(props: { example: NativeExampleKey; title: string }) {
   );
 }
 
-function isResizeMessage(
-  value: unknown,
-): value is { type: string; example: NativeExampleKey; height: number } {
+function isResizeMessage(value: unknown): value is { type: string; example: NativeExampleKey; height: number } {
   if (!value || typeof value !== 'object') return false;
   const message = value as Record<string, unknown>;
   return (
@@ -1066,18 +1041,13 @@ function AnatomySection(props: { framework: Framework; page: DocsPage }) {
       <h2 id="anatomy-title">Anatomy</h2>
       {props.page.title !== 'Button' && (
         <p>
-          Triggers link to content marked hidden="until-found" before JavaScript. Following a link
-          reveals that panel without resetting others. Enhancement adds toggle and keyboard
-          behavior.
+          Triggers link to content marked hidden="until-found" before JavaScript. Following a link reveals that panel
+          without resetting others. Enhancement adds toggle and keyboard behavior.
         </p>
       )}
       <CodeBlock
         title={props.framework === 'react' ? 'React anatomy' : 'Native anatomy'}
-        code={
-          props.framework === 'react'
-            ? props.page.reactAnatomy
-            : withDefaultAttributes(props.page.nativeAnatomy)
-        }
+        code={props.framework === 'react' ? props.page.reactAnatomy : withDefaultAttributes(props.page.nativeAnatomy)}
       />
       {props.page.title !== 'Button' && (
         <details>
@@ -1132,9 +1102,7 @@ function CodeBlock(props: { title: string; code: string; language?: string; css?
                   if (next === undefined) return;
                   event.preventDefault();
                   setTab(next === 0 ? 'markup' : 'css');
-                  event.currentTarget.parentElement
-                    ?.querySelectorAll<HTMLButtonElement>('[role="tab"]')
-                    [next]?.focus();
+                  event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus();
                 }}
               >
                 {format === 'markup' ? 'Markup' : 'CSS'}
@@ -1190,16 +1158,9 @@ function CollapsibleApi(props: { framework: Framework }) {
         rows={[
           ['defaultOpen', 'boolean', 'false', 'Initial uncontrolled open state.'],
           ['open', 'boolean', 'undefined', 'Controlled open state.'],
-          [
-            'onOpenChange',
-            '(open: boolean) => void',
-            'undefined',
-            'State change request callback.',
-          ],
+          ['onOpenChange', '(open: boolean) => void', 'undefined', 'State change request callback.'],
           ['disabled', 'boolean', 'false', 'Prevents trigger activation.'],
-          ...(props.framework === 'react'
-            ? [['asChild', 'boolean', 'false', 'Render onto the child element.']]
-            : []),
+          ...(props.framework === 'react' ? [['asChild', 'boolean', 'false', 'Render onto the child element.']] : []),
         ]}
       />
       <ApiPart
@@ -1207,17 +1168,13 @@ function CollapsibleApi(props: { framework: Framework }) {
         rows={[
           ['disabled', 'boolean', 'false', 'Disables only this trigger.'],
           ['href', 'string', 'Content fragment', 'Link to the content before enhancement.'],
-          ...(props.framework === 'react'
-            ? [['asChild', 'boolean', 'false', 'Render onto the child element.']]
-            : []),
+          ...(props.framework === 'react' ? [['asChild', 'boolean', 'false', 'Render onto the child element.']] : []),
         ]}
       />
       <ApiPart
         title={props.framework === 'react' ? 'Collapsible.Content' : 'Content'}
         rows={[
-          ...(props.framework === 'react'
-            ? [['asChild', 'boolean', 'false', 'Render onto the child element.']]
-            : []),
+          ...(props.framework === 'react' ? [['asChild', 'boolean', 'false', 'Render onto the child element.']] : []),
         ]}
       />
       <Table
@@ -1262,28 +1219,17 @@ function AccordionApi(props: { framework: Framework }) {
           ['disabled', 'boolean', 'false', 'Disable every item.'],
           ['orientation', '"vertical" | "horizontal"', '"vertical"', 'Keyboard orientation.'],
           ['dir', '"ltr" | "rtl"', '"ltr"', 'Direction for horizontal navigation.'],
-          ...(props.framework === 'react'
-            ? [['asChild', 'boolean', 'false', 'Render onto the child element.']]
-            : []),
+          ...(props.framework === 'react' ? [['asChild', 'boolean', 'false', 'Render onto the child element.']] : []),
         ]}
       />
       <ApiPart
         title={props.framework === 'react' ? 'Accordion.Item' : 'Item'}
         rows={[
           ...(props.framework === 'react'
-            ? [
-                [
-                  'value',
-                  'string',
-                  'Generated identifier',
-                  'Selection value; independent of the generated DOM ID.',
-                ],
-              ]
+            ? [['value', 'string', 'Generated identifier', 'Selection value; independent of the generated DOM ID.']]
             : []),
           ['disabled', 'boolean', 'false', 'Disable this item.'],
-          ...(props.framework === 'react'
-            ? [['asChild', 'boolean', 'false', 'Render onto the child element.']]
-            : []),
+          ...(props.framework === 'react' ? [['asChild', 'boolean', 'false', 'Render onto the child element.']] : []),
         ]}
       />
       <ApiPart
@@ -1313,14 +1259,7 @@ function AccordionApi(props: { framework: Framework }) {
         rows={[
           ...(props.framework === 'react'
             ? [['asChild', 'boolean', 'false', 'Render onto the child element.']]
-            : [
-                [
-                  'id',
-                  'string',
-                  'required for fragment links',
-                  'Unique content ID; also its native selection value.',
-                ],
-              ]),
+            : [['id', 'string', 'required for fragment links', 'Unique content ID; also its native selection value.']]),
         ]}
       />
       <Table
@@ -1359,9 +1298,7 @@ function ButtonApi(props: { framework: Framework }) {
         title="Button"
         rows={[
           ['disabled', 'boolean', 'false', 'Disable the button.'],
-          ...(props.framework === 'react'
-            ? [['asChild', 'boolean', 'false', 'Render onto the child element.']]
-            : []),
+          ...(props.framework === 'react' ? [['asChild', 'boolean', 'false', 'Render onto the child element.']] : []),
         ]}
       />
       <Table
@@ -1403,9 +1340,7 @@ function Table(props: { headers: string[]; rows: string[][] }) {
           {props.rows.map((row) => (
             <tr key={row.join('|')}>
               {row.map((cell, index) => (
-                <td key={props.headers[index]}>
-                  {index === row.length - 1 ? cell : <code>{cell}</code>}
-                </td>
+                <td key={props.headers[index]}>{index === row.length - 1 ? cell : <code>{cell}</code>}</td>
               ))}
             </tr>
           ))}
@@ -1433,18 +1368,10 @@ function ExamplesSection(props: { framework: Framework; examples: Example[] }) {
             </div>
             <CodeBlock
               title={props.framework === 'react' ? 'React source' : 'Native source'}
-              code={
-                props.framework === 'react'
-                  ? example.reactCode
-                  : withDefaultAttributes(example.nativeCode)
-              }
+              code={props.framework === 'react' ? example.reactCode : withDefaultAttributes(example.nativeCode)}
             />
             {example.key === 'collapsible-animation' && (
-              <CodeBlock
-                title="Transition styles"
-                code={collapsibleStyles}
-                language="css"
-              />
+              <CodeBlock title="Transition styles" code={collapsibleStyles} language="css" />
             )}
           </article>
         ))}

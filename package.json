@@ -17,7 +17,9 @@
     "typecheck": "turbo run typecheck",
     "clean": "pnpm exec rm -rf node_modules .turbo && pnpm -r exec rm -rf node_modules .turbo dist",
     "build:docs": "vite build examples && vite build examples --ssr entry-server.tsx --outDir dist/server && node examples/prerender.mjs",
-    "preview:docs": "vite preview examples --host 127.0.0.1"
+    "preview:docs": "vite preview examples --host 127.0.0.1",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^8.4.7",
@@ -39,7 +41,7 @@
     "vitest": "^2.1.8"
   },
   "prettier": {
-    "printWidth": 100,
+    "printWidth": 120,
     "singleQuote": true
   }
 }

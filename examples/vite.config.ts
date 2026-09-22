@@ -76,11 +76,7 @@ function docsSsrPlugin(): Plugin {
           const { render } = await server.ssrLoadModule('/entry-server.tsx');
           const page = render(url.pathname);
           response.setHeader('Content-Type', 'text/html; charset=utf-8');
-          response.end(
-            html
-              .replace('<!--app-title-->', () => page.title)
-              .replace('<!--app-html-->', () => page.html),
-          );
+          response.end(html.replace('<!--app-title-->', () => page.title).replace('<!--app-html-->', () => page.html));
         } catch (error) {
           server.ssrFixStacktrace(error as Error);
           next(error);
@@ -108,10 +104,7 @@ function nativePreviewHtmlPlugin(): Plugin {
         try {
           const preview = await server.ssrLoadModule('/native-preview.ts');
           const example = preview.resolveNativeExample(match[1]);
-          const html = await server.transformIndexHtml(
-            url.pathname,
-            preview.renderNativePreviewDocument(example),
-          );
+          const html = await server.transformIndexHtml(url.pathname, preview.renderNativePreviewDocument(example));
           response.setHeader('Content-Type', 'text/html; charset=utf-8');
           response.end(html);
         } catch (error) {
@@ -157,10 +150,7 @@ function replaceNativePreview(html: string, example: (typeof allNativeExamples)[
   return html
     .replace(/<title>.*?<\/title>/, `<title>Milk UI Native · ${example}</title>`)
     .replace(/data-example="[^"]*"/, `data-example="${example}"`)
-    .replace(
-      /(<main\b[^>]*>)[\s\S]*?(<\/main>)/,
-      (_match, open, close) => `${open}${templates[example]}${close}`,
-    );
+    .replace(/(<main\b[^>]*>)[\s\S]*?(<\/main>)/, (_match, open, close) => `${open}${templates[example]}${close}`);
 }
 
 export default defineConfig({
@@ -175,30 +165,16 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@milkui/core/primitive': fileURLToPath(
-        new URL('../packages/core/src/primitive/index.ts', import.meta.url),
-      ),
-      '@milkui/core/collapsible': fileURLToPath(
-        new URL('../packages/core/src/collapsible/index.ts', import.meta.url),
-      ),
-      '@milkui/core/button': fileURLToPath(
-        new URL('../packages/core/src/button/index.ts', import.meta.url),
-      ),
-      '@milkui/core/accordion': fileURLToPath(
-        new URL('../packages/core/src/accordion/index.ts', import.meta.url),
-      ),
-      '@milkui/react/primitive': fileURLToPath(
-        new URL('../packages/react/src/primitive/index.ts', import.meta.url),
-      ),
+      '@milkui/core/primitive': fileURLToPath(new URL('../packages/core/src/primitive/index.ts', import.meta.url)),
+      '@milkui/core/collapsible': fileURLToPath(new URL('../packages/core/src/collapsible/index.ts', import.meta.url)),
+      '@milkui/core/button': fileURLToPath(new URL('../packages/core/src/button/index.ts', import.meta.url)),
+      '@milkui/core/accordion': fileURLToPath(new URL('../packages/core/src/accordion/index.ts', import.meta.url)),
+      '@milkui/react/primitive': fileURLToPath(new URL('../packages/react/src/primitive/index.ts', import.meta.url)),
       '@milkui/react/collapsible': fileURLToPath(
         new URL('../packages/react/src/collapsible/index.ts', import.meta.url),
       ),
-      '@milkui/react/button': fileURLToPath(
-        new URL('../packages/react/src/button/index.ts', import.meta.url),
-      ),
-      '@milkui/react/accordion': fileURLToPath(
-        new URL('../packages/react/src/accordion/index.ts', import.meta.url),
-      ),
+      '@milkui/react/button': fileURLToPath(new URL('../packages/react/src/button/index.ts', import.meta.url)),
+      '@milkui/react/accordion': fileURLToPath(new URL('../packages/react/src/accordion/index.ts', import.meta.url)),
       '@milkui/core': fileURLToPath(new URL('../packages/core/src/index.ts', import.meta.url)),
       '@milkui/react': fileURLToPath(new URL('../packages/react/src/index.ts', import.meta.url)),
     },

@@ -15,7 +15,8 @@ const packages = {
 const alias = Object.fromEntries(
   Object.entries(packages).flatMap(([name, path]) => [
     ...['accordion', 'button', 'collapsible', 'primitive'].map((part) => [
-      `${name}/${part}`, resolve(project, path, `src/${part}/index.ts`),
+      `${name}/${part}`,
+      resolve(project, path, `src/${part}/index.ts`),
     ]),
     [name, resolve(project, path, 'src/index.ts')],
   ]),
@@ -50,8 +51,7 @@ try {
           external: ['react', 'react-dom', 'react/jsx-runtime'],
           onwarn(warning, warn) {
             // This client bundle size check does not preserve RSC directives.
-            if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('use client'))
-              return;
+            if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('use client')) return;
             warn(warning);
           },
         },
@@ -62,9 +62,7 @@ try {
       .map((output) => output.code)
       .join('\n');
     const prefix = name.includes('accordion') ? 'mlk-accordion' : 'mlk-collapsible';
-    const parts = name.includes('accordion')
-      ? ['item', 'header', 'trigger', 'content']
-      : ['trigger', 'content'];
+    const parts = name.includes('accordion') ? ['item', 'header', 'trigger', 'content'] : ['trigger', 'content'];
     for (const part of parts) {
       assert.equal(
         code.includes(JSON.stringify(`${prefix}-${part}`)),
@@ -88,17 +86,8 @@ try {
       (dependency) => !dependency.startsWith('@milkui/'),
     );
     // dom-types appears only in declaration imports, never in runtime bundles.
-    const allowedDependencies =
-      name === '@milkui/react'
-        ? ['radix-ui']
-        : name === '@milkui/core'
-          ? ['dom-types']
-          : [];
-    assert.deepEqual(
-      externalDependencies,
-      allowedDependencies,
-      `${name} has unexpected runtime dependencies`,
-    );
+    const allowedDependencies = name === '@milkui/react' ? ['radix-ui'] : name === '@milkui/core' ? ['dom-types'] : [];
+    assert.deepEqual(externalDependencies, allowedDependencies, `${name} has unexpected runtime dependencies`);
   }
 } finally {
   await rm(temporaryDirectory, { recursive: true });

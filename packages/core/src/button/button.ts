@@ -1,9 +1,4 @@
-import {
-  Primitive,
-  createPrimitive,
-  definePrimitives,
-  type AttributesFor,
-} from '../primitive/index.js';
+import { Primitive, createPrimitive, definePrimitives, type AttributesFor } from '../primitive/index.js';
 
 /* -------------------------------------------------------------------------------------------------
  * ButtonPrimitive

@@ -414,17 +414,10 @@ function readAttributes(source: string) {
   return attributes;
 }
 
-function serializeMissingAttributes(
-  attributes: Attributes,
-  existingAttributes: readonly { name: string }[],
-) {
+function serializeMissingAttributes(attributes: Attributes, existingAttributes: readonly { name: string }[]) {
   let serialized = '';
   for (const [name, value] of Object.entries(attributes)) {
-    if (
-      value === undefined ||
-      value === false ||
-      existingAttributes.some((attribute) => attribute.name === name)
-    )
+    if (value === undefined || value === false || existingAttributes.some((attribute) => attribute.name === name))
       continue;
     serialized += value === true ? ` ${name}` : ` ${name}="${escapeAttribute(String(value))}"`;
   }

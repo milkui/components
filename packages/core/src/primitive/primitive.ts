@@ -13,10 +13,7 @@ type NativeAttributes<Tag extends keyof HTMLElementTagNameMap> = Omit<
 > & { hidden?: boolean | '' | 'hidden' | 'until-found' };
 
 type SerializableAttributes<T> = {
-  [Key in keyof T as Key extends `on${string}` ? never : Key]?: Extract<
-    T[Key],
-    string | number | boolean | undefined
-  >;
+  [Key in keyof T as Key extends `on${string}` ? never : Key]?: Extract<T[Key], string | number | boolean | undefined>;
 };
 
 export type PrimitiveOutput = {
@@ -73,9 +70,7 @@ export abstract class Primitive<Props extends object = object> {
   update(props: Partial<Props>) {
     if (
       this.#destroyed ||
-      Object.entries(props).every(([key, value]) =>
-        Object.is(this.props[key as keyof Props], value),
-      )
+      Object.entries(props).every(([key, value]) => Object.is(this.props[key as keyof Props], value))
     )
       return;
     this.props = { ...this.props, ...props };
@@ -99,8 +94,7 @@ export abstract class Primitive<Props extends object = object> {
     attached.set(element, primitives);
     this.#connectionCleanup = this.connected();
     this.refresh();
-    for (const context of this.scope.values.keys())
-      this.#notifyContext(context as PrimitiveContext<unknown>);
+    for (const context of this.scope.values.keys()) this.#notifyContext(context as PrimitiveContext<unknown>);
   }
 
   disconnect() {
@@ -112,8 +106,7 @@ export abstract class Primitive<Props extends object = object> {
     for (const context of this.#contexts) context.consumers.delete(this);
     if (this.element) attached.get(this.element)?.delete(this);
     this.element = null;
-    for (const context of this.scope.values.keys())
-      this.#notifyContext(context as PrimitiveContext<unknown>);
+    for (const context of this.scope.values.keys()) this.#notifyContext(context as PrimitiveContext<unknown>);
   }
 
   destroy() {
@@ -153,8 +146,7 @@ export abstract class Primitive<Props extends object = object> {
       for (const name of Object.keys(previous.style ?? {})) {
         if (!(name in (output.style ?? {}))) this.element.style.removeProperty(name);
       }
-      for (const [name, value] of Object.entries(output.style ?? {}))
-        this.element.style.setProperty(name, value);
+      for (const [name, value] of Object.entries(output.style ?? {})) this.element.style.setProperty(name, value);
       this.#syncEvents();
     }
     if (changed) for (const listener of [...this.#listeners]) listener();
@@ -224,8 +216,7 @@ export abstract class Primitive<Props extends object = object> {
 
 function sameValue(left: unknown, right: unknown): boolean {
   if (Object.is(left, right)) return true;
-  if (left && right && typeof left === 'object' && typeof right === 'object')
-    return sameRecord(left, right);
+  if (left && right && typeof left === 'object' && typeof right === 'object') return sameRecord(left, right);
   return false;
 }
 
@@ -238,11 +229,7 @@ function sameRecord(left: object | undefined, right: object | undefined): boolea
   );
 }
 
-export function applyAttributes(
-  element: HTMLElement,
-  attributes: Attributes,
-  previous: Attributes = {},
-) {
+export function applyAttributes(element: HTMLElement, attributes: Attributes, previous: Attributes = {}) {
   for (const name of new Set([...Object.keys(previous), ...Object.keys(attributes)])) {
     const value = attributes[name];
     if (value === undefined || value === false) element.removeAttribute(name);
@@ -287,10 +274,7 @@ export function createPrimitive<
 >(
   PrimitiveClass: PrimitiveConstructor<P, Tag, PrimitiveInstance> & {
     readonly defaultAttributes: Defaults &
-      (Record<
-        Exclude<keyof NonNullable<Defaults>, keyof AttributesFor<NoInfer<Tag>>>,
-        never
-      > | null);
+      (Record<Exclude<keyof NonNullable<Defaults>, keyof AttributesFor<NoInfer<Tag>>>, never> | null);
   },
 ): PrimitiveDefinition<P, Tag, PrimitiveInstance> {
   const instances = new WeakMap<Element, PrimitiveInstance>();

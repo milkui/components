@@ -262,12 +262,7 @@ describe('@milkui/react/collapsible', () => {
       reactRoot.render(
         <Root>
           <Trigger asChild className="from-trigger" style={{ color: 'red' }} onClick={triggerClick}>
-            <button
-              className="from-child"
-              ref={childRef}
-              style={{ backgroundColor: 'blue' }}
-              onClick={childClick}
-            >
+            <button className="from-child" ref={childRef} style={{ backgroundColor: 'blue' }} onClick={childClick}>
               Toggle
             </button>
           </Trigger>
@@ -286,9 +281,7 @@ describe('@milkui/react/collapsible', () => {
     expect(button.className).toContain('from-trigger');
     expect(button.style.backgroundColor).toBe('blue');
     expect(button.style.color).toBe('red');
-    expect(childClick.mock.invocationCallOrder[0]).toBeLessThan(
-      triggerClick.mock.invocationCallOrder[0]!,
-    );
+    expect(childClick.mock.invocationCallOrder[0]).toBeLessThan(triggerClick.mock.invocationCallOrder[0]!);
     expect(button.getAttribute('aria-expanded')).toBe('true');
   });
 

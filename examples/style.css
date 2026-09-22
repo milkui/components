@@ -449,11 +449,7 @@ td code {
   height: 390px;
 }
 
-.native-preview:is(
-    [data-example='accordion-hero'],
-    [data-example='collapsible-basic'],
-    [data-example='button-basic']
-  ) {
+.native-preview:is([data-example='accordion-hero'], [data-example='collapsible-basic'], [data-example='button-basic']) {
   display: grid;
   place-items: center;
   height: 320px;

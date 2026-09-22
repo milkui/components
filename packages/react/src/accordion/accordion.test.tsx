@@ -240,10 +240,7 @@ describe('@milkui/react/accordion', () => {
       reactRoot.render(
         <Root>
           <Item value="one">
-            <Trigger
-              onClick={(event) => event.preventDefault()}
-              onKeyDown={(event) => event.preventDefault()}
-            >
+            <Trigger onClick={(event) => event.preventDefault()} onKeyDown={(event) => event.preventDefault()}>
               One
             </Trigger>
             <Content>One panel</Content>
@@ -291,8 +288,7 @@ describe('@milkui/react/accordion', () => {
     });
 
     const [firstTrigger] = triggers();
-    const portalledTrigger =
-      portalHost.querySelector<HTMLButtonElement>('[mlk-accordion-trigger]')!;
+    const portalledTrigger = portalHost.querySelector<HTMLButtonElement>('[mlk-accordion-trigger]')!;
 
     await act(async () => {
       portalledTrigger.click();

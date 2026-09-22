@@ -1,15 +1,9 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "types": [
-      "vite/client"
-    ],
+    "types": ["vite/client"],
     "useDefineForClassFields": true,
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ES2022"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -23,43 +17,17 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@milkui/core/primitive": [
-        "../packages/core/src/primitive/index.ts"
-      ],
-      "@milkui/core/collapsible": [
-        "../packages/core/src/collapsible/index.ts"
-      ],
-      "@milkui/core/button": [
-        "../packages/core/src/button/index.ts"
-      ],
-      "@milkui/react/primitive": [
-        "../packages/react/src/primitive/index.ts"
-      ],
-      "@milkui/react/collapsible": [
-        "../packages/react/src/collapsible/index.ts"
-      ],
-      "@milkui/react/button": [
-        "../packages/react/src/button/index.ts"
-      ],
-      "@milkui/core/accordion": [
-        "../packages/core/src/accordion/index.ts"
-      ],
-      "@milkui/react/accordion": [
-        "../packages/react/src/accordion/index.ts"
-      ],
-      "@milkui/react": [
-        "../packages/react/src/index.ts"
-      ],
-      "@milkui/core": [
-        "../packages/core/src/index.ts"
-      ]
+      "@milkui/core/primitive": ["../packages/core/src/primitive/index.ts"],
+      "@milkui/core/collapsible": ["../packages/core/src/collapsible/index.ts"],
+      "@milkui/core/button": ["../packages/core/src/button/index.ts"],
+      "@milkui/react/primitive": ["../packages/react/src/primitive/index.ts"],
+      "@milkui/react/collapsible": ["../packages/react/src/collapsible/index.ts"],
+      "@milkui/react/button": ["../packages/react/src/button/index.ts"],
+      "@milkui/core/accordion": ["../packages/core/src/accordion/index.ts"],
+      "@milkui/react/accordion": ["../packages/react/src/accordion/index.ts"],
+      "@milkui/react": ["../packages/react/src/index.ts"],
+      "@milkui/core": ["../packages/core/src/index.ts"]
     }
   },
-  "include": [
-    "./entry-client.tsx",
-    "./entry-server.tsx",
-    "./main.tsx",
-    "./native.ts",
-    "./native-preview.ts"
-  ]
+  "include": ["./entry-client.tsx", "./entry-server.tsx", "./main.tsx", "./native.ts", "./native-preview.ts"]
 }

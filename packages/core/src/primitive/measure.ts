@@ -22,8 +22,7 @@ function borders(
   end: 'top' | 'right' | 'bottom' | 'left',
 ) {
   return (
-    pixels(style.getPropertyValue(`border-${start}-width`)) +
-    pixels(style.getPropertyValue(`border-${end}-width`))
+    pixels(style.getPropertyValue(`border-${start}-width`)) + pixels(style.getPropertyValue(`border-${end}-width`))
   );
 }
 

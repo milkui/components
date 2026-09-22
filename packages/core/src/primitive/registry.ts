@@ -1,10 +1,7 @@
 import type { PrimitiveDefinition } from './primitive.js';
 
 /** Opt-in DOM discovery; observes DOM insertion/removal, never attribute changes. */
-export function definePrimitives(
-  parts: readonly PrimitiveDefinition[],
-  root: Document | HTMLElement = document,
-) {
+export function definePrimitives(parts: readonly PrimitiveDefinition[], root: Document | HTMLElement = document) {
   const owned = new Map<HTMLElement, Set<PrimitiveDefinition>>();
   const view = (root.ownerDocument ?? (root as Document)).defaultView!;
   const contains = (element: HTMLElement) => root === element || root.contains(element);
