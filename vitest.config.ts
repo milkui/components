@@ -5,17 +5,17 @@ export default defineConfig({
   root: fileURLToPath(new URL('.', import.meta.url)),
   resolve: {
     alias: {
-      '@milkui/primitive': fileURLToPath(
-        new URL('./packages/core/primitive/src/index.ts', import.meta.url),
+      '@milkui/core/primitive': fileURLToPath(
+        new URL('./packages/core/src/primitive/index.ts', import.meta.url),
       ),
-      '@milkui/collapsible': fileURLToPath(
-        new URL('./packages/core/collapsible/src/index.ts', import.meta.url),
+      '@milkui/core/collapsible': fileURLToPath(
+        new URL('./packages/core/src/collapsible/index.ts', import.meta.url),
       ),
-      '@milkui/button': fileURLToPath(
-        new URL('./packages/core/button/src/index.ts', import.meta.url),
+      '@milkui/core/button': fileURLToPath(
+        new URL('./packages/core/src/button/index.ts', import.meta.url),
       ),
-      '@milkui/accordion': fileURLToPath(
-        new URL('./packages/core/accordion/src/index.ts', import.meta.url),
+      '@milkui/core/accordion': fileURLToPath(
+        new URL('./packages/core/src/accordion/index.ts', import.meta.url),
       ),
       '@milkui/react/primitive': fileURLToPath(
         new URL('./packages/react/src/primitive/index.ts', import.meta.url),
@@ -29,6 +29,7 @@ export default defineConfig({
       '@milkui/react/collapsible': fileURLToPath(
         new URL('./packages/react/src/collapsible/index.ts', import.meta.url),
       ),
+      '@milkui/core': fileURLToPath(new URL('./packages/core/src/index.ts', import.meta.url)),
       '@milkui/react': fileURLToPath(new URL('./packages/react/src/index.ts', import.meta.url)),
     },
   },

@@ -1,4 +1,4 @@
-import type { AttributesFor, Primitive, createPrimitive } from '../src/index.js';
+import type { AttributesFor, Primitive, createPrimitive } from '../src/primitive/index.js';
 
 type Expect<T extends true> = T;
 type Equal<Left, Right> =

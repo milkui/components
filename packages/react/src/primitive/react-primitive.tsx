@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Slot } from 'radix-ui';
-import type { Primitive, PrimitiveDefinition, PrimitiveScope } from '@milkui/primitive';
+import type { Primitive, PrimitiveDefinition, PrimitiveScope } from '@milkui/core/primitive';
 
 type NativeTag = keyof HTMLElementTagNameMap & keyof React.JSX.IntrinsicElements;
 type DOMProps = Record<string, unknown>;

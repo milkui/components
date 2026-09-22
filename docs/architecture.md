@@ -4,7 +4,7 @@ This is a proof of the approach in [A Future for Web Components Without Shadow D
 
 ## Where the original experiment had got to
 
-The original `@milkui/primitive` defines a custom-attribute base class using `@lume/custom-attributes`. Its proxy triggers a render when a property changes. `@milkui/button` attaches that behavior to a button, sets its disabled state, and logs clicks. The HTML Storybook demo waits one animation frame before sending props. There was no collapsible, React adapter, shared-state scope, or behavior test suite.
+The original `@milkui/core/primitive` defines a custom-attribute base class using `@lume/custom-attributes`. Its proxy triggers a render when a property changes. `@milkui/core/button` attaches that behavior to a button, sets its disabled state, and logs clicks. The HTML Storybook demo waits one animation frame before sending props. There was no collapsible, React adapter, shared-state scope, or behavior test suite.
 
 The button now uses the same small primitive base. The original proxy and external custom-attribute library have been removed.
 
@@ -106,7 +106,7 @@ Native DOM ancestry and React's transported primitive scope resolve the shared C
 
 ## Default attributes and progressive enhancement
 
-Default attributes use `AttributesFor<typeof MyPrimitive.tag>` from `@milkui/primitive` for native attribute names and tag-specific values. This uses type-only imports from `dom-types/native`, with no runtime dependency in the emitted JavaScript. `createPrimitive` also rejects attributes that do not belong to the declared tag, including extra keys on inferred objects. Event handlers and object values are excluded from these serializable defaults.
+Default attributes use `AttributesFor<typeof MyPrimitive.tag>` from `@milkui/core/primitive` for native attribute names and tag-specific values. This uses type-only imports from `dom-types/native`, with no runtime dependency in the emitted JavaScript. `createPrimitive` also rejects attributes that do not belong to the declared tag, including extra keys on inferred objects. Event handlers and object values are excluded from these serializable defaults.
 
 ```ts
 class ButtonPrimitive extends Primitive<ButtonProps> {

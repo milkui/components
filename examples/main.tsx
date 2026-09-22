@@ -44,7 +44,7 @@ export function Packages() {
           <span>React adapter</span>
         </div>
         <div className="package-row">
-          <span>@milkui/primitive</span>
+          <span>@milkui/core/primitive</span>
           <span>Shared lifecycle</span>
         </div>
       </Collapsible.Content>
@@ -53,13 +53,13 @@ export function Packages() {
 }`;
 
 const collapsibleHeroNativeCode = `<script type="module">
-  import { defineCollapsible } from '@milkui/collapsible';
+  import { defineCollapsible } from '@milkui/core/collapsible';
   defineCollapsible(document);
 </script>
 
 <div mlk-collapsible-root id="packages" class="package-list">
   <div class="package-row visible">
-    <span>@milkui/collapsible</span>
+    <span>@milkui/core/collapsible</span>
     <span>Native primitive</span>
   </div>
   <a mlk-collapsible-trigger href="#packages-content" class="demo-trigger">Show packages</a>
@@ -69,7 +69,7 @@ const collapsibleHeroNativeCode = `<script type="module">
       <span>React adapter</span>
     </div>
     <div class="package-row">
-      <span>@milkui/primitive</span>
+      <span>@milkui/core/primitive</span>
       <span>Shared lifecycle</span>
     </div>
   </div>
@@ -85,7 +85,7 @@ export function Packages() {
           <Accordion.Trigger className="demo-trigger">Native package</Accordion.Trigger>
         </Accordion.Header>
         <Accordion.Content className="demo-content">
-          <div className="demo-contentInner">@milkui/accordion</div>
+          <div className="demo-contentInner">@milkui/core/accordion</div>
         </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="react">
@@ -101,7 +101,7 @@ export function Packages() {
           <Accordion.Trigger className="demo-trigger">Shared primitive</Accordion.Trigger>
         </Accordion.Header>
         <Accordion.Content className="demo-content">
-          <div className="demo-contentInner">@milkui/primitive</div>
+          <div className="demo-contentInner">@milkui/core/primitive</div>
         </Accordion.Content>
       </Accordion.Item>
     </Accordion.Root>
@@ -109,7 +109,7 @@ export function Packages() {
 }`;
 
 const accordionHeroNativeCode = `<script type="module">
-  import { defineAccordion } from '@milkui/accordion';
+  import { defineAccordion } from '@milkui/core/accordion';
   defineAccordion(document);
 </script>
 
@@ -119,7 +119,7 @@ const accordionHeroNativeCode = `<script type="module">
       <a mlk-accordion-trigger href="#native-content" class="demo-trigger">Native package</a>
     </h3>
     <div mlk-accordion-content id="native-content" class="demo-content" data-open>
-      <div class="demo-contentInner">@milkui/accordion</div>
+      <div class="demo-contentInner">@milkui/core/accordion</div>
     </div>
   </div>
   <div mlk-accordion-item>
@@ -135,7 +135,7 @@ const accordionHeroNativeCode = `<script type="module">
       <a mlk-accordion-trigger href="#primitive-content" class="demo-trigger">Shared primitive</a>
     </h3>
     <div mlk-accordion-content id="primitive-content" class="demo-content">
-      <div class="demo-contentInner">@milkui/primitive</div>
+      <div class="demo-contentInner">@milkui/core/primitive</div>
     </div>
   </div>
 </div>`;
@@ -147,7 +147,7 @@ export function SaveButton() {
 }`;
 
 const buttonHeroNativeCode = `<script type="module">
-  import { defineButton } from '@milkui/button';
+  import { defineButton } from '@milkui/core/button';
   defineButton(document);
 </script>
 
@@ -158,7 +158,7 @@ const buttonDisabledReactCode = `<Button className="demo-button" disabled>
 </Button>`;
 
 const buttonDisabledNativeCode = `<script type="module">
-  import { defineButton } from '@milkui/button';
+  import { defineButton } from '@milkui/core/button';
   defineButton(document);
 </script>
 
@@ -181,7 +181,7 @@ const [acceptRequests, setAcceptRequests] = React.useState(true);
 </Collapsible.Root>`;
 
 const collapsibleControlledNativeCode = `<script type="module">
-  import { defineCollapsible, Root } from '@milkui/collapsible';
+  import { defineCollapsible, Root } from '@milkui/core/collapsible';
   defineCollapsible(document);
 
   let open = Root.get(document.getElementById('controlled-root')).open;
@@ -206,7 +206,7 @@ const collapsibleAnimationReactCode = `<Collapsible.Root id="animation-details">
 </Collapsible.Root>`;
 
 const collapsibleAnimationNativeCode = `<script type="module">
-  import { defineCollapsible } from '@milkui/collapsible';
+  import { defineCollapsible } from '@milkui/core/collapsible';
   defineCollapsible(document);
 </script>
 
@@ -260,7 +260,7 @@ const [acceptRequests, setAcceptRequests] = React.useState(true);
 </Accordion.Root>`;
 
 const accordionControlledNativeCode = `<script type="module">
-  import { defineAccordion, Root } from '@milkui/accordion';
+  import { defineAccordion, Root } from '@milkui/core/accordion';
   defineAccordion(document);
 
   let value = Root.get(document.getElementById('accordion-controlled')).values[0] ?? '';
@@ -284,7 +284,7 @@ const accordionMultipleReactCode = `<Accordion.Root type="multiple" defaultValue
       <Accordion.Trigger className="demo-trigger">Native package</Accordion.Trigger>
     </Accordion.Header>
     <Accordion.Content className="demo-content">
-      <div className="demo-contentInner">@milkui/accordion</div>
+      <div className="demo-contentInner">@milkui/core/accordion</div>
     </Accordion.Content>
   </Accordion.Item>
   <Accordion.Item value="react">
@@ -300,7 +300,7 @@ const accordionMultipleReactCode = `<Accordion.Root type="multiple" defaultValue
       <Accordion.Trigger className="demo-trigger">Shared primitive</Accordion.Trigger>
     </Accordion.Header>
     <Accordion.Content className="demo-content">
-      <div className="demo-contentInner">@milkui/primitive</div>
+      <div className="demo-contentInner">@milkui/core/primitive</div>
     </Accordion.Content>
   </Accordion.Item>
 </Accordion.Root>`;
@@ -311,7 +311,7 @@ const accordionMultipleNativeCode = `<div mlk-accordion-root data-type="multiple
       <a mlk-accordion-trigger href="#multiple-native-content" class="demo-trigger">Native package</a>
     </h3>
     <div mlk-accordion-content id="multiple-native-content" class="demo-content" data-open>
-      <div class="demo-contentInner">@milkui/accordion</div>
+      <div class="demo-contentInner">@milkui/core/accordion</div>
     </div>
   </div>
   <div mlk-accordion-item>
@@ -327,7 +327,7 @@ const accordionMultipleNativeCode = `<div mlk-accordion-root data-type="multiple
       <a mlk-accordion-trigger href="#multiple-primitive-content" class="demo-trigger">Shared primitive</a>
     </h3>
     <div mlk-accordion-content id="multiple-primitive-content" class="demo-content">
-      <div class="demo-contentInner">@milkui/primitive</div>
+      <div class="demo-contentInner">@milkui/core/primitive</div>
     </div>
   </div>
 </div>`;
@@ -390,7 +390,7 @@ const collapsibleReactAnatomy = `import * as Collapsible from '@milkui/react/col
 </Collapsible.Root>`;
 
 const collapsibleNativeAnatomy = `<script type="module">
-  import { defineCollapsible } from '@milkui/collapsible';
+  import { defineCollapsible } from '@milkui/core/collapsible';
   defineCollapsible(document);
 </script>
 
@@ -411,7 +411,7 @@ const accordionReactAnatomy = `import * as Accordion from '@milkui/react/accordi
 </Accordion.Root>`;
 
 const accordionNativeAnatomy = `<script type="module">
-  import { defineAccordion } from '@milkui/accordion';
+  import { defineAccordion } from '@milkui/core/accordion';
   defineAccordion(document);
 </script>
 
@@ -429,7 +429,7 @@ const buttonReactAnatomy = `import { Button } from '@milkui/react/button';
 <Button />`;
 
 const buttonNativeAnatomy = `<script type="module">
-  import { defineButton } from '@milkui/button';
+  import { defineButton } from '@milkui/core/button';
   defineButton(document);
 </script>
 
@@ -466,7 +466,7 @@ function CollapsibleHeroDemo() {
           <span>React adapter</span>
         </div>
         <div className="package-row">
-          <span>@milkui/primitive</span>
+          <span>@milkui/core/primitive</span>
           <span>Shared lifecycle</span>
         </div>
       </Collapsible.Content>
@@ -582,13 +582,13 @@ function AccordionHeroDemo() {
   return (
     <Accordion.Root type="single" defaultValue="native" collapsible>
       <AccordionItem value="native" title="Native package">
-        @milkui/accordion
+        @milkui/core/accordion
       </AccordionItem>
       <AccordionItem value="react" title="React adapter">
         @milkui/react/accordion
       </AccordionItem>
       <AccordionItem value="primitive" title="Shared primitive">
-        @milkui/primitive
+        @milkui/core/primitive
       </AccordionItem>
     </Accordion.Root>
   );
@@ -635,13 +635,13 @@ function AccordionMultipleDemo() {
     <ExampleDemo title="Multiple items">
       <Accordion.Root type="multiple" defaultValue={['native', 'react']}>
         <AccordionItem value="native" title="Native package">
-          @milkui/accordion
+          @milkui/core/accordion
         </AccordionItem>
         <AccordionItem value="react" title="React adapter">
           @milkui/react/accordion
         </AccordionItem>
         <AccordionItem value="primitive" title="Shared primitive">
-          @milkui/primitive
+          @milkui/core/primitive
         </AccordionItem>
       </Accordion.Root>
     </ExampleDemo>

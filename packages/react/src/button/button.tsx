@@ -1,4 +1,4 @@
-import { Button as NativeButton } from '@milkui/button';
+import { Button as NativeButton } from '@milkui/core/button';
 import { createReactComponent } from '../primitive/index.js';
 import type { ComponentProps } from 'react';
 

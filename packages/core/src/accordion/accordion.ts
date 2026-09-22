@@ -5,7 +5,7 @@ import {
   type CollapsibleContextValue,
   type CollapsibleContentProps,
   type CollapsibleTriggerProps,
-} from '@milkui/collapsible';
+} from '../collapsible/index.js';
 import {
   Primitive,
   createContext,
@@ -14,7 +14,7 @@ import {
   type Attributes,
   type AttributesFor,
   type PrimitiveOutput,
-} from '@milkui/primitive';
+} from '../primitive/index.js';
 
 type AccordionType = 'single' | 'multiple';
 type AccordionOrientation = 'vertical' | 'horizontal';

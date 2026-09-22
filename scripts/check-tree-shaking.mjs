@@ -9,35 +9,31 @@ import { build } from 'vite';
 const project = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const temporaryDirectory = await mkdtemp(`${tmpdir()}/milkui-tree-shaking-`);
 const packages = {
-  '@milkui/primitive': 'packages/core/primitive',
-  '@milkui/button': 'packages/core/button',
-  '@milkui/collapsible': 'packages/core/collapsible',
-  '@milkui/accordion': 'packages/core/accordion',
+  '@milkui/core': 'packages/core',
   '@milkui/react': 'packages/react',
 };
-const alias = {
-  ...Object.fromEntries(
-    ['accordion', 'button', 'collapsible', 'primitive'].map((name) => [
-      `@milkui/react/${name}`, resolve(project, `packages/react/src/${name}/index.ts`),
+const alias = Object.fromEntries(
+  Object.entries(packages).flatMap(([name, path]) => [
+    ...['accordion', 'button', 'collapsible', 'primitive'].map((part) => [
+      `${name}/${part}`, resolve(project, path, `src/${part}/index.ts`),
     ]),
-  ),
-  ...Object.fromEntries(
-    Object.entries(packages).map(([name, path]) => [name, resolve(project, path, 'src/index.ts')]),
-  ),
-};
+    [name, resolve(project, path, 'src/index.ts')],
+  ]),
+);
 
 try {
   for (const name of [
-    '@milkui/collapsible',
+    '@milkui/core/collapsible',
     '@milkui/react/collapsible',
-    '@milkui/accordion',
+    '@milkui/core/accordion',
     '@milkui/react/accordion',
     '@milkui/react',
+    '@milkui/core',
   ]) {
     const entry = resolve(temporaryDirectory, 'entry.ts');
     await writeFile(
       entry,
-      name === '@milkui/react'
+      name in packages
         ? `import { Collapsible } from '${name}'; export const Root = Collapsible.Root;\n`
         : `export { Root } from '${name}';\n`,
     );
@@ -76,7 +72,7 @@ try {
         `${name}: importing Root also retained ${part}`,
       );
     }
-    if (name === '@milkui/react') {
+    if (name in packages) {
       assert.equal(code.includes('mlk-accordion'), false, 'Root import retained Accordion');
       assert.equal(code.includes('mlk-button'), false, 'Root import retained Button');
     }
@@ -95,7 +91,7 @@ try {
     const allowedDependencies =
       name === '@milkui/react'
         ? ['radix-ui']
-        : name === '@milkui/primitive'
+        : name === '@milkui/core'
           ? ['dom-types']
           : [];
     assert.deepEqual(

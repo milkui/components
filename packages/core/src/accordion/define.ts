@@ -1,4 +1,4 @@
-import { definePrimitives } from '@milkui/primitive';
+import { definePrimitives } from '../primitive/index.js';
 import { Content, Header, Item, Root, Trigger } from './accordion.js';
 
 const roots = new WeakMap<Document | HTMLElement, () => void>();

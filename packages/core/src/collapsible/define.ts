@@ -1,4 +1,4 @@
-import { definePrimitives } from '@milkui/primitive';
+import { definePrimitives } from '../primitive/index.js';
 import { Content, Root, Trigger } from './collapsible.js';
 
 const roots = new WeakMap<Document | HTMLElement, () => void>();

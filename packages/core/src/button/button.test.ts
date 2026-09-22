@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { Button, defineButton } from './index.js';
 
-describe('@milkui/button native behavior', () => {
+describe('@milkui/core/button native behavior', () => {
   it('uses the mlk marker and preserves authored disabled state on discovery', () => {
     const host = document.createElement('div');
     host.innerHTML = `<button mlk-button disabled>Disabled</button>`;

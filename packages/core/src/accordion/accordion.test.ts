@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { Content, defineAccordion, Header, Item, Root, Trigger } from './index.js';
 
-describe('@milkui/accordion native behavior', () => {
+describe('@milkui/core/accordion native behavior', () => {
   it('coordinates a single accordion through accordion markers only', () => {
     const { root, items } = createAccordion(['one', 'two']);
     const changes = vi.fn();

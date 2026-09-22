@@ -60,36 +60,7 @@ importers:
         specifier: ^2.1.8
         version: 2.1.9(jsdom@25.0.1)
 
-  packages/core/accordion:
-    dependencies:
-      '@milkui/collapsible':
-        specifier: workspace:*
-        version: link:../collapsible
-      '@milkui/primitive':
-        specifier: workspace:*
-        version: link:../primitive
-    devDependencies:
-      vitest:
-        specifier: ^2.1.8
-        version: 2.1.9(jsdom@25.0.1)
-
-  packages/core/button:
-    dependencies:
-      '@milkui/primitive':
-        specifier: workspace:*
-        version: link:../primitive
-
-  packages/core/collapsible:
-    dependencies:
-      '@milkui/primitive':
-        specifier: workspace:*
-        version: link:../primitive
-    devDependencies:
-      vitest:
-        specifier: ^2.1.8
-        version: 2.1.9(jsdom@25.0.1)
-
-  packages/core/primitive:
+  packages/core:
     dependencies:
       dom-types:
         specifier: ^1.1.5
@@ -97,18 +68,9 @@ importers:
 
   packages/react:
     dependencies:
-      '@milkui/accordion':
+      '@milkui/core':
         specifier: workspace:*
-        version: link:../core/accordion
-      '@milkui/button':
-        specifier: workspace:*
-        version: link:../core/button
-      '@milkui/collapsible':
-        specifier: workspace:*
-        version: link:../core/collapsible
-      '@milkui/primitive':
-        specifier: workspace:*
-        version: link:../core/primitive
+        version: link:../core
       radix-ui:
         specifier: ^1.6.7
         version: 1.6.7(@types/react-dom@19.0.2)(@types/react@19.0.2)(react-dom@19.0.0)(react@19.0.0)

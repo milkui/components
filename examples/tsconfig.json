@@ -23,14 +23,14 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@milkui/primitive": [
-        "../packages/core/primitive/src/index.ts"
+      "@milkui/core/primitive": [
+        "../packages/core/src/primitive/index.ts"
       ],
-      "@milkui/collapsible": [
-        "../packages/core/collapsible/src/index.ts"
+      "@milkui/core/collapsible": [
+        "../packages/core/src/collapsible/index.ts"
       ],
-      "@milkui/button": [
-        "../packages/core/button/src/index.ts"
+      "@milkui/core/button": [
+        "../packages/core/src/button/index.ts"
       ],
       "@milkui/react/primitive": [
         "../packages/react/src/primitive/index.ts"
@@ -41,14 +41,17 @@
       "@milkui/react/button": [
         "../packages/react/src/button/index.ts"
       ],
-      "@milkui/accordion": [
-        "../packages/core/accordion/src/index.ts"
+      "@milkui/core/accordion": [
+        "../packages/core/src/accordion/index.ts"
       ],
       "@milkui/react/accordion": [
         "../packages/react/src/accordion/index.ts"
       ],
       "@milkui/react": [
         "../packages/react/src/index.ts"
+      ],
+      "@milkui/core": [
+        "../packages/core/src/index.ts"
       ]
     }
   },

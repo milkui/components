@@ -1,6 +1,6 @@
-import { defineAccordion, Root as AccordionRoot } from '@milkui/accordion';
-import { defineButton } from '@milkui/button';
-import { defineCollapsible, Root as CollapsibleRoot } from '@milkui/collapsible';
+import { defineAccordion, Root as AccordionRoot } from '@milkui/core/accordion';
+import { defineButton } from '@milkui/core/button';
+import { defineCollapsible, Root as CollapsibleRoot } from '@milkui/core/collapsible';
 
 import { resolveNativeExample, templates, type NativeExampleKey } from './native-preview';
 

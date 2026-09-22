@@ -4,14 +4,14 @@ import {
   Item as AccordionItem,
   Root as AccordionRoot,
   Trigger as AccordionTrigger,
-} from '../packages/core/accordion/src/index.js';
-import { Button } from '../packages/core/button/src/index.js';
+} from '../packages/core/src/accordion/index.js';
+import { Button } from '../packages/core/src/button/index.js';
 import {
   Content as CollapsibleContent,
   Root as CollapsibleRoot,
   Trigger as CollapsibleTrigger,
-} from '../packages/core/collapsible/src/index.js';
-import type { Attributes, PrimitiveDefinition } from '../packages/core/primitive/src/index.js';
+} from '../packages/core/src/collapsible/index.js';
+import type { Attributes, PrimitiveDefinition } from '../packages/core/src/primitive/index.js';
 
 export type NativeExampleKey =
   | 'collapsible-basic'
@@ -52,7 +52,7 @@ const rawTemplates: Record<NativeExampleKey, string> = {
   'collapsible-basic': `
     <div mlk-collapsible-root id="packages" class="package-list">
       <div class="package-row visible">
-        <span>@milkui/collapsible</span>
+        <span>@milkui/core/collapsible</span>
         <span>Native primitive</span>
       </div>
       <a mlk-collapsible-trigger href="#packages-content" class="demo-trigger">Show packages</a>
@@ -62,7 +62,7 @@ const rawTemplates: Record<NativeExampleKey, string> = {
           <span>React adapter</span>
         </div>
         <div class="package-row">
-          <span>@milkui/primitive</span>
+          <span>@milkui/core/primitive</span>
           <span>Shared lifecycle</span>
         </div>
       </div>
@@ -152,7 +152,7 @@ const rawTemplates: Record<NativeExampleKey, string> = {
           <a mlk-accordion-trigger href="#native-content" class="demo-trigger">Native package</a>
         </h3>
         <div mlk-accordion-content id="native-content" class="demo-content" data-open>
-          <div class="demo-contentInner">@milkui/accordion</div>
+          <div class="demo-contentInner">@milkui/core/accordion</div>
         </div>
       </div>
       <div mlk-accordion-item>
@@ -168,7 +168,7 @@ const rawTemplates: Record<NativeExampleKey, string> = {
           <a mlk-accordion-trigger href="#primitive-content" class="demo-trigger">Shared primitive</a>
         </h3>
         <div mlk-accordion-content id="primitive-content" class="demo-content">
-          <div class="demo-contentInner">@milkui/primitive</div>
+          <div class="demo-contentInner">@milkui/core/primitive</div>
         </div>
       </div>
     </div>
@@ -207,7 +207,7 @@ const rawTemplates: Record<NativeExampleKey, string> = {
             <a mlk-accordion-trigger href="#multiple-native-content" class="demo-trigger">Native package</a>
           </h3>
           <div mlk-accordion-content id="multiple-native-content" class="demo-content" data-open>
-            <div class="demo-contentInner">@milkui/accordion</div>
+            <div class="demo-contentInner">@milkui/core/accordion</div>
           </div>
         </div>
         <div mlk-accordion-item>
@@ -223,7 +223,7 @@ const rawTemplates: Record<NativeExampleKey, string> = {
             <a mlk-accordion-trigger href="#multiple-primitive-content" class="demo-trigger">Shared primitive</a>
           </h3>
           <div mlk-accordion-content id="multiple-primitive-content" class="demo-content">
-            <div class="demo-contentInner">@milkui/primitive</div>
+            <div class="demo-contentInner">@milkui/core/primitive</div>
           </div>
         </div>
       </div>

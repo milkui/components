@@ -4,7 +4,7 @@ import {
   Item as NativeItem,
   Root as NativeRoot,
   Trigger as NativeTrigger,
-} from '@milkui/accordion';
+} from '@milkui/core/accordion';
 import { createReactComponent } from '../primitive/index.js';
 import type { ComponentProps } from 'react';
 

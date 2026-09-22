@@ -3,7 +3,7 @@ import {
   createPrimitive,
   definePrimitives,
   type AttributesFor,
-} from '@milkui/primitive';
+} from '../primitive/index.js';
 
 /* -------------------------------------------------------------------------------------------------
  * ButtonPrimitive

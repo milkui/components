@@ -7,7 +7,7 @@ import {
   type Attributes,
   type AttributesFor,
   type PrimitiveOutput,
-} from '@milkui/primitive';
+} from '../primitive/index.js';
 
 /* -------------------------------------------------------------------------------------------------
  * Collapsible

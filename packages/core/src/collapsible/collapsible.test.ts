@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { Content, defineCollapsible, Root, Trigger } from './index.js';
 
-describe('@milkui/collapsible native behavior', () => {
+describe('@milkui/core/collapsible native behavior', () => {
   it('reads configuration once and observes only DOM insertion and removal', async () => {
     const host = document.createElement('div');
     host.innerHTML = `<div mlk-collapsible-root>

@@ -2,7 +2,7 @@ import {
   Content as NativeContent,
   Root as NativeRoot,
   Trigger as NativeTrigger,
-} from '@milkui/collapsible';
+} from '@milkui/core/collapsible';
 import { createReactComponent } from '../primitive/index.js';
 import type { ComponentProps } from 'react';
 

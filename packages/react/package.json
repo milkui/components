@@ -42,11 +42,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@milkui/primitive": "workspace:*",
-    "radix-ui": "^1.6.7",
-    "@milkui/accordion": "workspace:*",
-    "@milkui/button": "workspace:*",
-    "@milkui/collapsible": "workspace:*"
+    "@milkui/core": "workspace:*",
+    "radix-ui": "^1.6.7"
   },
   "peerDependencies": {
     "react": "^19.0.0"
