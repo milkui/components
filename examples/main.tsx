@@ -931,7 +931,7 @@ const accordionPage: DocsPage = {
 
 const buttonPage: DocsPage = {
   title: 'Button',
-  description: 'A native button primitive with default button semantics and disabled state.',
+  description: 'A button primitive with native semantics and disabled state.',
   HeroDemo: ButtonHeroDemo,
   heroNativeExample: 'button-basic',
   heroReactCode: buttonHeroReactCode,
@@ -942,7 +942,7 @@ const buttonPage: DocsPage = {
   examples: buttonExamples,
   features: [
     'Renders a real button element.',
-    'Adds type="button" by default while preserving explicit button types.',
+    'React defaults to type="button"; native markup must specify its own type.',
     'Supports disabled state in React props and native initial attributes.',
     'React asChild composition, or a native marker attribute.',
   ],
@@ -1351,10 +1351,9 @@ function ButtonApi(props: { framework: Framework }) {
     <section id="api-reference" className="section" aria-labelledby="api-title">
       <h2 id="api-title">API reference</h2>
       <p className="api-note">
-        Button defaults to <code>type="button"</code>; explicit type attributes win.{' '}
         {props.framework === 'native'
-          ? 'Authored disabled attributes seed the initial disabled prop; use instance.update() for later changes.'
-          : 'Use the disabled prop to disable it.'}
+          ? 'Set type="button" explicitly in native markup to prevent form submission. Authored disabled attributes seed the initial disabled prop; use instance.update() for later changes.'
+          : 'React defaults to type="button"; an explicit type prop overrides it. Use the disabled prop to disable it.'}
       </p>
       <ApiPart
         title="Button"
