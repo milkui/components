@@ -1,0 +1,110 @@
+.package-list {
+  width: min(100%, 520px);
+  margin: 0 auto;
+  padding: 18px;
+  border: 1px solid rgba(124, 58, 237, 0.16);
+  border-radius: var(--milk-radius, 14px);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.package-list__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 18px;
+  padding: 13px 2px;
+  border-top: 1px solid var(--milk-line, #e8e1f2);
+  color: var(--milk-muted, #6d647d);
+  font-size: 14px;
+}
+
+.package-list__row--featured {
+  border-top: 0;
+  color: var(--milk-text, #241d33);
+  font-weight: 650;
+}
+
+[mlk-collapsible-content] > .package-list__row:first-child {
+  border-top: 0;
+}
+
+.package-list__row span:last-child {
+  color: var(--milk-muted, #6d647d);
+  font-weight: 400;
+}
+
+[mlk-collapsible-trigger] {
+  text-decoration: none;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 8px;
+  padding: 12px 14px;
+  border: 1px solid #d8cef4;
+  border-radius: 10px;
+  color: var(--milk-text, #241d33);
+  background: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+[mlk-collapsible-trigger]:hover:not(:disabled) {
+  background: #faf7ff;
+  text-decoration: none;
+}
+
+[mlk-collapsible-trigger]::after {
+  content: '+';
+  color: var(--milk-violet, #7c3aed);
+  font-size: 20px;
+  line-height: 1;
+}
+
+[mlk-collapsible-trigger][data-open]::after {
+  content: '−';
+}
+
+[mlk-collapsible-trigger]:disabled,
+[mlk-collapsible-trigger][aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+[mlk-collapsible-content] > .demo__content-inner {
+  padding: 16px 2px 4px;
+  color: #564d66;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+[mlk-collapsible-content] {
+  height: 0;
+  overflow: hidden;
+  content-visibility: hidden;
+  interpolate-size: allow-keywords;
+  transition:
+    height 220ms ease-in-out,
+    content-visibility 220ms allow-discrete;
+}
+
+[mlk-collapsible-content][data-open] {
+  height: auto;
+  content-visibility: visible;
+}
+
+/* Enable transitions once the primitive is interactive. */
+:not([data-interactive]) > [mlk-collapsible-content] {
+  transition: none;
+}
+
+/* Before initialization, the browser reveals fragment targets by removing hidden. */
+:not([data-interactive]) > [mlk-collapsible-content]:not([hidden]) {
+  height: auto;
+  content-visibility: visible;
+}
+
+:not([data-interactive]) > [mlk-collapsible-trigger]:has(~ [mlk-collapsible-content]:not([hidden]))::after {
+  content: '−';
+}

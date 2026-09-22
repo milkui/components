@@ -1,0 +1,21 @@
+[mlk-button] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid #d8cef4;
+  border-radius: 10px;
+  color: white;
+  background: var(--milk-violet, #7c3aed);
+  cursor: pointer;
+}
+
+[mlk-button]:hover:not(:disabled) {
+  background: var(--milk-violet-dark, #5b21b6);
+}
+
+[mlk-button]:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}

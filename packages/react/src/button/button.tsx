@@ -1,0 +1,17 @@
+import { Button as NativeButton } from '@milkui/core/button';
+import { createReactComponent } from '../primitive/index.js';
+import type { ComponentProps } from 'react';
+
+/* -------------------------------------------------------------------------------------------------
+ * Button
+ * -----------------------------------------------------------------------------------------------*/
+
+const Button = /*#__PURE__*/ createReactComponent(NativeButton);
+const Root = Button;
+type ButtonProps = ComponentProps<typeof Button>;
+type RootProps = ButtonProps;
+
+/* ---------------------------------------------------------------------------------------------- */
+
+export { Button, Root };
+export type { ButtonProps, RootProps };

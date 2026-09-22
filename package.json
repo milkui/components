@@ -2,47 +2,46 @@
   "name": "milkui",
   "private": true,
   "license": "MIT",
-  "packageManager": "yarn@3.2.0",
-  "workspaces": [
-    "packages/**/*"
-  ],
+  "author": {
+    "name": "jjenzz",
+    "email": "175330+jjenzz@users.noreply.github.com"
+  },
+  "packageManager": "pnpm@8.15.8",
   "scripts": {
-    "start": "start-storybook -p 6006",
     "build": "turbo run build",
-    "clean": "rm -rf **/node_modules; rm -rf **/dist; rm -rf **/.turbo",
-    "postinstall": "patch-package"
+    "demo": "vite docs --host 127.0.0.1",
+    "dev": "vite docs --host 127.0.0.1",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test": "pnpm build && vitest run",
+    "typecheck": "turbo run typecheck",
+    "clean": "pnpm exec rm -rf node_modules .turbo && pnpm -r exec rm -rf node_modules .turbo dist",
+    "build:docs": "vite build docs && vite build docs --ssr entry-server.tsx --outDir dist/server && node docs/prerender.mjs",
+    "preview:docs": "vite preview docs --host 127.0.0.1",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
-    "@babel/core": "^7.17.10",
-    "@babel/plugin-transform-react-jsx": "^7.17.3",
-    "@changesets/cli": "^2.22.0",
-    "@storybook/addon-actions": "6.5.0-alpha.64",
-    "@storybook/addon-essentials": "6.5.0-alpha.64",
-    "@storybook/addon-links": "6.5.0-alpha.64",
-    "@storybook/builder-webpack5": "6.5.0-alpha.64",
-    "@storybook/client-api": "6.5.0-alpha.64",
-    "@storybook/html": "6.5.0-alpha.64",
-    "@storybook/manager-webpack5": "6.5.0-alpha.64",
-    "@storybook/testing-library": "^0.0.11",
-    "@types/react": "^18.0.8",
-    "@types/react-dom": "^18.0.3",
-    "babel-loader": "^8.2.5",
-    "babel-plugin-auto-import-react": "^4.0.0",
-    "patch-package": "^8.0.0",
-    "postinstall-postinstall": "^2.1.0",
-    "prettier": "^3.0.3",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "tsup": "^5.12.6",
-    "turbo": "^1.2.5",
-    "typescript": "^4.6.3",
-    "webpack": "^5.72.0"
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/html": "^8.4.7",
+    "@storybook/html-vite": "^8.4.7",
+    "@storybook/test": "^8.4.7",
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2",
+    "jsdom": "^25.0.1",
+    "prettier": "^3.4.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "storybook": "^8.4.7",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "vitest": "^2.1.8"
   },
   "prettier": {
-    "printWidth": 100,
+    "printWidth": 120,
     "singleQuote": true
-  },
-  "resolutions": {
-    "prettier": "^3.0.3"
   }
 }

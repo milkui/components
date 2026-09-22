@@ -1,22 +1,24 @@
 {
-  "include": ["packages/**/*"],
   "compilerOptions": {
-    "baseUrl": ".",
-    "moduleResolution": "Node",
-    "target": "ESNext",
-    "jsx": "react-jsx",
-    "allowJs": true,
+    "module": "NodeNext",
+    "lib": ["es2022", "dom", "dom.iterable"],
+    "target": "es2022",
+    "composite": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
-    "outDir": "",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "types": ["node"],
-    "paths": {
-      "~/*": ["./*"],
-      "@milkui/react-*": ["packages/react/*/src"],
-      "@milkui/use-*": ["packages/core/_utils/use-*/src"],
-      "@milkui/create-*": ["packages/core/_utils/create-*/src"],
-      "@milkui/*": ["packages/core/*/src"]
-    }
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "noUnusedLocals": false,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedParameters": false,
+    "verbatimModuleSyntax": true,
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true
   }
 }
