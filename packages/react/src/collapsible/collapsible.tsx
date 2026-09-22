@@ -3,7 +3,7 @@ import {
   Root as NativeRoot,
   Trigger as NativeTrigger,
 } from '@milkui/collapsible';
-import { createReactComponent } from '@milkui/react-primitive';
+import { createReactComponent } from '../primitive/index.js';
 import type { ComponentProps } from 'react';
 
 /* -------------------------------------------------------------------------------------------------

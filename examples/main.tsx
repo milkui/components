@@ -2,9 +2,9 @@ import heroStyles from './hero.css?raw';
 import animationStyles from './disclosure.css?raw';
 import * as React from 'react';
 import { componentHref, type DocsState, type ComponentName, type Framework } from './routes';
-import * as Accordion from '@milkui/react-accordion';
-import { Button } from '@milkui/react-button';
-import * as Collapsible from '@milkui/react-collapsible';
+import * as Accordion from '@milkui/react/accordion';
+import { Button } from '@milkui/react/button';
+import * as Collapsible from '@milkui/react/collapsible';
 import {
   allNativeExamples,
   nativePreviewFileName,
@@ -28,19 +28,19 @@ const components: { name: ComponentName; label: string }[] = [
   { name: 'collapsible', label: 'Collapsible' },
 ];
 
-const collapsibleHeroReactCode = `import * as Collapsible from '@milkui/react-collapsible';
+const collapsibleHeroReactCode = `import * as Collapsible from '@milkui/react/collapsible';
 
 export function Packages() {
   return (
     <Collapsible.Root id="packages" className="package-list">
       <div className="package-row visible">
-        <span>@milkui/react-collapsible</span>
+        <span>@milkui/react/collapsible</span>
         <span>React primitive</span>
       </div>
       <Collapsible.Trigger className="demo-trigger">Show packages</Collapsible.Trigger>
       <Collapsible.Content className="demo-content">
         <div className="package-row">
-          <span>@milkui/react-collapsible</span>
+          <span>@milkui/react/collapsible</span>
           <span>React adapter</span>
         </div>
         <div className="package-row">
@@ -65,7 +65,7 @@ const collapsibleHeroNativeCode = `<script type="module">
   <a mlk-collapsible-trigger href="#packages-content" class="demo-trigger">Show packages</a>
   <div mlk-collapsible-content id="packages-content" class="demo-content">
     <div class="package-row">
-      <span>@milkui/react-collapsible</span>
+      <span>@milkui/react/collapsible</span>
       <span>React adapter</span>
     </div>
     <div class="package-row">
@@ -75,7 +75,7 @@ const collapsibleHeroNativeCode = `<script type="module">
   </div>
 </div>`;
 
-const accordionHeroReactCode = `import * as Accordion from '@milkui/react-accordion';
+const accordionHeroReactCode = `import * as Accordion from '@milkui/react/accordion';
 
 export function Packages() {
   return (
@@ -93,7 +93,7 @@ export function Packages() {
           <Accordion.Trigger className="demo-trigger">React adapter</Accordion.Trigger>
         </Accordion.Header>
         <Accordion.Content className="demo-content">
-          <div className="demo-contentInner">@milkui/react-accordion</div>
+          <div className="demo-contentInner">@milkui/react/accordion</div>
         </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="primitive">
@@ -127,7 +127,7 @@ const accordionHeroNativeCode = `<script type="module">
       <a mlk-accordion-trigger href="#react-content" class="demo-trigger">React adapter</a>
     </h3>
     <div mlk-accordion-content id="react-content" class="demo-content">
-      <div class="demo-contentInner">@milkui/react-accordion</div>
+      <div class="demo-contentInner">@milkui/react/accordion</div>
     </div>
   </div>
   <div mlk-accordion-item>
@@ -140,7 +140,7 @@ const accordionHeroNativeCode = `<script type="module">
   </div>
 </div>`;
 
-const buttonHeroReactCode = `import { Button } from '@milkui/react-button';
+const buttonHeroReactCode = `import { Button } from '@milkui/react/button';
 
 export function SaveButton() {
   return <Button className="demo-button">Save changes</Button>;
@@ -292,7 +292,7 @@ const accordionMultipleReactCode = `<Accordion.Root type="multiple" defaultValue
       <Accordion.Trigger className="demo-trigger">React adapter</Accordion.Trigger>
     </Accordion.Header>
     <Accordion.Content className="demo-content">
-      <div className="demo-contentInner">@milkui/react-accordion</div>
+      <div className="demo-contentInner">@milkui/react/accordion</div>
     </Accordion.Content>
   </Accordion.Item>
   <Accordion.Item value="primitive">
@@ -319,7 +319,7 @@ const accordionMultipleNativeCode = `<div mlk-accordion-root data-type="multiple
       <a mlk-accordion-trigger href="#multiple-react-content" class="demo-trigger">React adapter</a>
     </h3>
     <div mlk-accordion-content id="multiple-react-content" class="demo-content" data-open>
-      <div class="demo-contentInner">@milkui/react-accordion</div>
+      <div class="demo-contentInner">@milkui/react/accordion</div>
     </div>
   </div>
   <div mlk-accordion-item>
@@ -382,7 +382,7 @@ const accordionHorizontalNativeCode = `<div
   </div>
 </div>`;
 
-const collapsibleReactAnatomy = `import * as Collapsible from '@milkui/react-collapsible';
+const collapsibleReactAnatomy = `import * as Collapsible from '@milkui/react/collapsible';
 
 <Collapsible.Root>
   <Collapsible.Trigger />
@@ -399,7 +399,7 @@ const collapsibleNativeAnatomy = `<script type="module">
   <div mlk-collapsible-content id="collapsible-content"></div>
 </div>`;
 
-const accordionReactAnatomy = `import * as Accordion from '@milkui/react-accordion';
+const accordionReactAnatomy = `import * as Accordion from '@milkui/react/accordion';
 
 <Accordion.Root type="single">
   <Accordion.Item value="item-1">
@@ -424,7 +424,7 @@ const accordionNativeAnatomy = `<script type="module">
   </div>
 </div>`;
 
-const buttonReactAnatomy = `import { Button } from '@milkui/react-button';
+const buttonReactAnatomy = `import { Button } from '@milkui/react/button';
 
 <Button />`;
 
@@ -456,13 +456,13 @@ function CollapsibleHeroDemo() {
   return (
     <Collapsible.Root id="packages" className="package-list">
       <div className="package-row visible">
-        <span>@milkui/react-collapsible</span>
+        <span>@milkui/react/collapsible</span>
         <span>React primitive</span>
       </div>
       <Collapsible.Trigger className="demo-trigger">Show packages</Collapsible.Trigger>
       <Collapsible.Content className="demo-content">
         <div className="package-row">
-          <span>@milkui/react-collapsible</span>
+          <span>@milkui/react/collapsible</span>
           <span>React adapter</span>
         </div>
         <div className="package-row">
@@ -585,7 +585,7 @@ function AccordionHeroDemo() {
         @milkui/accordion
       </AccordionItem>
       <AccordionItem value="react" title="React adapter">
-        @milkui/react-accordion
+        @milkui/react/accordion
       </AccordionItem>
       <AccordionItem value="primitive" title="Shared primitive">
         @milkui/primitive
@@ -638,7 +638,7 @@ function AccordionMultipleDemo() {
           @milkui/accordion
         </AccordionItem>
         <AccordionItem value="react" title="React adapter">
-          @milkui/react-accordion
+          @milkui/react/accordion
         </AccordionItem>
         <AccordionItem value="primitive" title="Shared primitive">
           @milkui/primitive

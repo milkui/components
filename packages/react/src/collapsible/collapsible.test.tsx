@@ -20,7 +20,7 @@ afterEach(async () => {
   });
 });
 
-describe('@milkui/react-collapsible', () => {
+describe('@milkui/react/collapsible', () => {
   it('renders SSR attributes for initial closed/open state and hydrates them unchanged', async () => {
     const closedHtml = renderToString(
       <Root disabled>

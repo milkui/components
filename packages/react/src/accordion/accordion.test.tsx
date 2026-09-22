@@ -21,7 +21,7 @@ afterEach(async () => {
   });
 });
 
-describe('@milkui/react-accordion', () => {
+describe('@milkui/react/accordion', () => {
   it('keeps repeated values independent with unique generated fragment IDs', async () => {
     const onValueChange = vi.fn();
     function Group() {

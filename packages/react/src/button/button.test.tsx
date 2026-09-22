@@ -20,7 +20,7 @@ afterEach(async () => {
   });
 });
 
-describe('@milkui/react-button', () => {
+describe('@milkui/react/button', () => {
   it('uses the native button primitive and allows enabled clicks', async () => {
     const click = vi.fn();
 

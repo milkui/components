@@ -58,7 +58,7 @@ const rawTemplates: Record<NativeExampleKey, string> = {
       <a mlk-collapsible-trigger href="#packages-content" class="demo-trigger">Show packages</a>
       <div mlk-collapsible-content id="packages-content" class="demo-content">
         <div class="package-row">
-          <span>@milkui/react-collapsible</span>
+          <span>@milkui/react/collapsible</span>
           <span>React adapter</span>
         </div>
         <div class="package-row">
@@ -160,7 +160,7 @@ const rawTemplates: Record<NativeExampleKey, string> = {
           <a mlk-accordion-trigger href="#react-content" class="demo-trigger">React adapter</a>
         </h3>
         <div mlk-accordion-content id="react-content" class="demo-content">
-          <div class="demo-contentInner">@milkui/react-accordion</div>
+          <div class="demo-contentInner">@milkui/react/accordion</div>
         </div>
       </div>
       <div mlk-accordion-item>
@@ -215,7 +215,7 @@ const rawTemplates: Record<NativeExampleKey, string> = {
             <a mlk-accordion-trigger href="#multiple-react-content" class="demo-trigger">React adapter</a>
           </h3>
           <div mlk-accordion-content id="multiple-react-content" class="demo-content" data-open>
-            <div class="demo-contentInner">@milkui/react-accordion</div>
+            <div class="demo-contentInner">@milkui/react/accordion</div>
           </div>
         </div>
         <div mlk-accordion-item>

@@ -187,18 +187,19 @@ export default defineConfig({
       '@milkui/accordion': fileURLToPath(
         new URL('../packages/core/accordion/src/index.ts', import.meta.url),
       ),
-      '@milkui/react-primitive': fileURLToPath(
-        new URL('../packages/react/primitive/src/index.ts', import.meta.url),
+      '@milkui/react/primitive': fileURLToPath(
+        new URL('../packages/react/src/primitive/index.ts', import.meta.url),
       ),
-      '@milkui/react-collapsible': fileURLToPath(
-        new URL('../packages/react/collapsible/src/index.ts', import.meta.url),
+      '@milkui/react/collapsible': fileURLToPath(
+        new URL('../packages/react/src/collapsible/index.ts', import.meta.url),
       ),
-      '@milkui/react-button': fileURLToPath(
-        new URL('../packages/react/button/src/index.ts', import.meta.url),
+      '@milkui/react/button': fileURLToPath(
+        new URL('../packages/react/src/button/index.ts', import.meta.url),
       ),
-      '@milkui/react-accordion': fileURLToPath(
-        new URL('../packages/react/accordion/src/index.ts', import.meta.url),
+      '@milkui/react/accordion': fileURLToPath(
+        new URL('../packages/react/src/accordion/index.ts', import.meta.url),
       ),
+      '@milkui/react': fileURLToPath(new URL('../packages/react/src/index.ts', import.meta.url)),
     },
   },
 });

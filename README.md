@@ -26,3 +26,15 @@ pnpm dev
 ```
 
 Vite server-renders the docs before React hydrates them so we can test that experience. Disable JavaScript to check the baseline behavior—for example, accordion links should still reveal their content—then enable it to check that enhancement preserves the initial appearance without flicker. The baseline does not need every enhanced feature, but the content and basic interactions should remain available even if JavaScript is slow or fails to load.
+
+## React imports
+
+Install `@milkui/react` and import only the component entry points you need:
+
+```tsx
+import * as Accordion from '@milkui/react/accordion';
+import * as Collapsible from '@milkui/react/collapsible';
+import { Button } from '@milkui/react/button';
+```
+
+The package root also exports `Accordion` and `Collapsible` namespaces and `Button`. All entry points share the same adapter and support tree-shaking.

@@ -1,9 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "types": ["vite/client"],
+    "types": [
+      "vite/client"
+    ],
     "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
+    ],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -17,14 +23,33 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@milkui/primitive": ["../packages/core/primitive/src/index.ts"],
-      "@milkui/collapsible": ["../packages/core/collapsible/src/index.ts"],
-      "@milkui/button": ["../packages/core/button/src/index.ts"],
-      "@milkui/react-primitive": ["../packages/react/primitive/src/index.ts"],
-      "@milkui/react-collapsible": ["../packages/react/collapsible/src/index.ts"],
-      "@milkui/react-button": ["../packages/react/button/src/index.ts"],
-      "@milkui/accordion": ["../packages/core/accordion/src/index.ts"],
-      "@milkui/react-accordion": ["../packages/react/accordion/src/index.ts"]
+      "@milkui/primitive": [
+        "../packages/core/primitive/src/index.ts"
+      ],
+      "@milkui/collapsible": [
+        "../packages/core/collapsible/src/index.ts"
+      ],
+      "@milkui/button": [
+        "../packages/core/button/src/index.ts"
+      ],
+      "@milkui/react/primitive": [
+        "../packages/react/src/primitive/index.ts"
+      ],
+      "@milkui/react/collapsible": [
+        "../packages/react/src/collapsible/index.ts"
+      ],
+      "@milkui/react/button": [
+        "../packages/react/src/button/index.ts"
+      ],
+      "@milkui/accordion": [
+        "../packages/core/accordion/src/index.ts"
+      ],
+      "@milkui/react/accordion": [
+        "../packages/react/src/accordion/index.ts"
+      ],
+      "@milkui/react": [
+        "../packages/react/src/index.ts"
+      ]
     }
   },
   "include": [

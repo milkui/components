@@ -10,25 +10,37 @@ const project = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const temporaryDirectory = await mkdtemp(`${tmpdir()}/milkui-tree-shaking-`);
 const packages = {
   '@milkui/primitive': 'packages/core/primitive',
+  '@milkui/button': 'packages/core/button',
   '@milkui/collapsible': 'packages/core/collapsible',
   '@milkui/accordion': 'packages/core/accordion',
-  '@milkui/react-primitive': 'packages/react/primitive',
-  '@milkui/react-collapsible': 'packages/react/collapsible',
-  '@milkui/react-accordion': 'packages/react/accordion',
+  '@milkui/react': 'packages/react',
 };
-const alias = Object.fromEntries(
-  Object.entries(packages).map(([name, path]) => [name, resolve(project, path, 'src/index.ts')]),
-);
+const alias = {
+  ...Object.fromEntries(
+    ['accordion', 'button', 'collapsible', 'primitive'].map((name) => [
+      `@milkui/react/${name}`, resolve(project, `packages/react/src/${name}/index.ts`),
+    ]),
+  ),
+  ...Object.fromEntries(
+    Object.entries(packages).map(([name, path]) => [name, resolve(project, path, 'src/index.ts')]),
+  ),
+};
 
 try {
   for (const name of [
     '@milkui/collapsible',
-    '@milkui/react-collapsible',
+    '@milkui/react/collapsible',
     '@milkui/accordion',
-    '@milkui/react-accordion',
+    '@milkui/react/accordion',
+    '@milkui/react',
   ]) {
     const entry = resolve(temporaryDirectory, 'entry.ts');
-    await writeFile(entry, `export { Root } from '${name}';\n`);
+    await writeFile(
+      entry,
+      name === '@milkui/react'
+        ? `import { Collapsible } from '${name}'; export const Root = Collapsible.Root;\n`
+        : `export { Root } from '${name}';\n`,
+    );
     const result = await build({
       configFile: false,
       root: project,
@@ -64,6 +76,10 @@ try {
         `${name}: importing Root also retained ${part}`,
       );
     }
+    if (name === '@milkui/react') {
+      assert.equal(code.includes('mlk-accordion'), false, 'Root import retained Accordion');
+      assert.equal(code.includes('mlk-button'), false, 'Root import retained Button');
+    }
     assert.equal(code.includes('dom-types'), false, `${name}: retained a type-only dependency`);
     assert.equal(code.includes('MutationObserver'), false, `${name}: Root retained DOM discovery`);
     console.log(
@@ -77,7 +93,7 @@ try {
     );
     // dom-types appears only in declaration imports, never in runtime bundles.
     const allowedDependencies =
-      name === '@milkui/react-primitive'
+      name === '@milkui/react'
         ? ['radix-ui']
         : name === '@milkui/primitive'
           ? ['dom-types']
