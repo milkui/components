@@ -27,6 +27,6 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
-      - run: pnpm exec tsc -p examples/tsconfig.json --noEmit
+      - run: pnpm exec tsc -p docs/tsconfig.json --noEmit
       - run: pnpm test
       - run: pnpm build:docs

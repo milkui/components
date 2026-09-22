@@ -38,9 +38,7 @@ type CollapsibleRootProps = {
   onOpenChange?(open: boolean): void;
 };
 
-class CollapsibleRootPrimitive<
-  Props extends CollapsibleRootProps = CollapsibleRootProps,
-> extends Primitive<Props> {
+class CollapsibleRootPrimitive<Props extends CollapsibleRootProps = CollapsibleRootProps> extends Primitive<Props> {
   static tag = 'div' as const;
   static attribute: string = 'mlk-collapsible-root';
   static defaultAttributes: AttributesFor<typeof CollapsibleRootPrimitive.tag> | null = null;
@@ -143,9 +141,7 @@ class CollapsibleRootPrimitive<
 
   protected onOpenChange(open: boolean) {
     this.props.onOpenChange?.(open);
-    this.element?.dispatchEvent(
-      new CustomEvent('mlk-collapsible:open-change', { bubbles: true, detail: { open } }),
-    );
+    this.element?.dispatchEvent(new CustomEvent('mlk-collapsible:open-change', { bubbles: true, detail: { open } }));
   }
 
   protected override render() {
@@ -171,9 +167,7 @@ class CollapsibleTriggerPrimitive extends Primitive<CollapsibleTriggerProps> {
   static defaultAttributes: AttributesFor<typeof CollapsibleTriggerPrimitive.tag> = {
     draggable: 'false',
   };
-  static props: readonly string[] = [
-    'disabled',
-  ] satisfies readonly (keyof CollapsibleTriggerProps)[];
+  static props: readonly string[] = ['disabled'] satisfies readonly (keyof CollapsibleTriggerProps)[];
 
   static initialProps(element: HTMLElement): Partial<CollapsibleTriggerProps> {
     return {
@@ -183,8 +177,7 @@ class CollapsibleTriggerPrimitive extends Primitive<CollapsibleTriggerProps> {
 
   protected handleClick = (event: Event) => {
     const mouse = event as MouseEvent;
-    if (mouse.metaKey || mouse.ctrlKey || mouse.shiftKey || mouse.altKey || mouse.button > 0)
-      return;
+    if (mouse.metaKey || mouse.ctrlKey || mouse.shiftKey || mouse.altKey || mouse.button > 0) return;
     const target = this.element?.getAttribute('target');
     if ((target && target !== '_self') || this.element?.hasAttribute('download')) return;
     const root = this.disclosureContext;
@@ -328,9 +321,4 @@ export {
   CollapsibleContentPrimitive,
   CollapsibleContext,
 };
-export type {
-  CollapsibleContextValue,
-  CollapsibleRootProps,
-  CollapsibleTriggerProps,
-  CollapsibleContentProps,
-};
+export type { CollapsibleContextValue, CollapsibleRootProps, CollapsibleTriggerProps, CollapsibleContentProps };
