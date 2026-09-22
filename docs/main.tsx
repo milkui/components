@@ -33,7 +33,7 @@ const collapsibleHeroReactCode = `import * as Collapsible from '@milkui/react/co
 
 export function Packages() {
   return (
-    <Collapsible.Root id="packages" className="package-list">
+    <Collapsible.Root className="package-list">
       <div className="package-list__row package-list__row--featured">
         <span>@milkui/react/collapsible</span>
         <span>React primitive</span>
@@ -58,7 +58,7 @@ const collapsibleHeroNativeCode = `<script type="module">
   defineCollapsible(document);
 </script>
 
-<div mlk-collapsible-root id="packages" class="package-list">
+<div mlk-collapsible-root class="package-list">
   <div class="package-list__row package-list__row--featured">
     <span>@milkui/core/collapsible</span>
     <span>Native primitive</span>
@@ -395,7 +395,7 @@ const collapsibleNativeAnatomy = `<script type="module">
   defineCollapsible(document);
 </script>
 
-<div mlk-collapsible-root id="collapsible">
+<div mlk-collapsible-root>
   <a mlk-collapsible-trigger href="#collapsible-content"></a>
   <div mlk-collapsible-content id="collapsible-content"></div>
 </div>`;
@@ -456,7 +456,7 @@ type DocsPage = {
 
 function CollapsibleHeroDemo() {
   return (
-    <Collapsible.Root id="packages" className="package-list">
+    <Collapsible.Root className="package-list">
       <div className="package-list__row package-list__row--featured">
         <span>@milkui/react/collapsible</span>
         <span>React primitive</span>

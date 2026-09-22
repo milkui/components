@@ -50,7 +50,7 @@ const aliases: Record<ExampleAlias, NativeExampleKey> = {
 
 const rawTemplates: Record<NativeExampleKey, string> = {
   'collapsible-basic': `
-    <div mlk-collapsible-root id="packages" class="package-list">
+    <div mlk-collapsible-root class="package-list">
       <div class="package-list__row package-list__row--featured">
         <span>@milkui/core/collapsible</span>
         <span>Native primitive</span>

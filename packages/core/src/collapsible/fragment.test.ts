@@ -98,3 +98,21 @@ it('opens on beforematch without observing attributes', () => {
   expect(root.hasAttribute('data-open')).toBe(true);
   expect(content.hasAttribute('hidden')).toBe(false);
 });
+
+it('preserves an authored content ID and trigger link without a root ID', () => {
+  document.body.innerHTML = `<div mlk-collapsible-root>
+    <a mlk-collapsible-trigger href="#packages-content">Packages</a>
+    <div mlk-collapsible-content id="packages-content" hidden="until-found">Content</div>
+  </div>`;
+  const root = document.querySelector('[mlk-collapsible-root]')!;
+  const content = document.getElementById('packages-content')!;
+  const trigger = root.querySelector('a')!;
+  cleanup = defineCollapsible(document);
+  expect(content.id).toBe('packages-content');
+  expect(trigger.getAttribute('href')).toBe('#packages-content');
+  expect(trigger.getAttribute('aria-controls')).toBe('packages-content');
+  expect(content.hasAttribute('hidden')).toBe(true);
+  trigger.click();
+  expect(content.hasAttribute('hidden')).toBe(false);
+  expect(content.id).toBe('packages-content');
+});

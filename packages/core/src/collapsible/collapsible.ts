@@ -59,6 +59,7 @@ class CollapsibleRootPrimitive<Props extends CollapsibleRootProps = CollapsibleR
   #open = this.props.defaultOpen ?? false;
   #enhanced = false;
   #adopted = false;
+  #nativeContentId: string | undefined;
 
   protected override connected() {
     if (!this.#adopted) {
@@ -84,7 +85,11 @@ class CollapsibleRootPrimitive<Props extends CollapsibleRootProps = CollapsibleR
   }
 
   protected adoptFragment() {
-    const content = this.element!.querySelector('[mlk-collapsible-content]');
+    const content = [...this.element!.querySelectorAll('[mlk-collapsible-content]')].find((element) => {
+      const root = element.closest('[mlk-collapsible-root]');
+      return !root || root === this.element;
+    });
+    if (!this.scope.parent) this.#nativeContentId = content?.id || undefined;
     if (
       this.props.open === undefined &&
       (containsFragment(this.element!) || (content?.id && !content.hasAttribute('hidden')))
@@ -116,7 +121,7 @@ class CollapsibleRootPrimitive<Props extends CollapsibleRootProps = CollapsibleR
   };
 
   protected get contentId() {
-    return `${this.id}-content`;
+    return this.#nativeContentId ?? `${this.id}-content`;
   }
 
   protected get contextValue(): CollapsibleContextValue {
