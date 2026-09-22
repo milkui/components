@@ -45,6 +45,7 @@
 }
 
 [mlk-accordion-content] {
+  scroll-margin-top: 4rem;
   height: 0;
   overflow: hidden;
   content-visibility: hidden;
