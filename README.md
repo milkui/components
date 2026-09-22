@@ -16,7 +16,7 @@ The native implementation uses platform APIs with no runtime dependencies. Attri
 
 ## Goal
 
-Components should be usable from the first render, before JavaScript loads. Their HTML and CSS provide the initial appearance and basic browser interactions; JavaScript progressively enhances them with richer behavior. The goal is to avoid both a [flash of unstyled content (FOUC)](https://webkit.org/blog/66/the-fouc-problem/) and the ["uncanny valley" where a component looks ready but cannot respond to input](https://web.dev/articles/rendering-on-the-web#rehydration_combines_server-side_and_client-side_rendering) until its JavaScript finishes loading.
+Components should be usable from the first render, before JavaScript loads. Their HTML and CSS provide the initial appearance and basic browser interactions; JavaScript progressively enhances them with richer behavior. The goal is to avoid both a [flash of unstyled content (FOUC)](https://webkit.org/blog/66/the-fouc-problem/) and the ["uncanny valley" where a component looks ready but cannot respond to input](https://web.dev/articles/rendering-on-the-web#rehydration) until its JavaScript finishes loading.
 
 ## Run the docs
 
