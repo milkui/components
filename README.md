@@ -1,7 +1,5 @@
 <div align="center">
 
----
-
 <a href="https://www.flaticon.com/free-icons/milk-box" title="milk components">
   <img src="https://user-images.githubusercontent.com/175330/164994717-0d161476-e471-4861-9099-97e9e33f8a9a.png" height="100" />
 </a>
@@ -9,6 +7,8 @@
 <br/>
 
 # Headless components for all
+
+</div>
 
 Native primitives with thin framework adapters, exploring [web component behavior without shadow DOM](https://jjenzz.com/future-for-web-components-without-shadow-dom/).
 
