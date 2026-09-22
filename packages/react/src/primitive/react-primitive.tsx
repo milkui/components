@@ -3,7 +3,7 @@ import { Slot } from 'radix-ui';
 import type { Primitive, PrimitiveDefinition, PrimitiveScope } from '@milkui/core/primitive';
 
 type NativeTag = keyof HTMLElementTagNameMap & keyof React.JSX.IntrinsicElements;
-type DOMProps = Record<string, unknown>;
+type DOMProps = Record<string, unknown> & { children?: React.ReactNode };
 const ScopeContext = React.createContext<PrimitiveScope | undefined>(undefined);
 const useLayoutEffect = typeof document === 'undefined' ? React.useEffect : React.useLayoutEffect;
 
@@ -77,11 +77,8 @@ export function createReactComponent<P extends object, Tag extends NativeTag, Pr
       };
     }
 
-    const node = asChild ? (
-      <Slot.Root {...elementProps}>{children as React.ReactNode}</Slot.Root>
-    ) : (
-      React.createElement(part.tag, elementProps, children as React.ReactNode)
-    );
+    const Comp: React.ElementType = asChild ? Slot.Root : part.tag;
+    const node = <Comp {...elementProps}>{children}</Comp>;
     return primitive.scope.values.size > 0 ? (
       <ScopeContext.Provider value={primitive.scope}>{node}</ScopeContext.Provider>
     ) : (
