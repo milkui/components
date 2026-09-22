@@ -1256,7 +1256,7 @@ function AccordionApi(props: { framework: Framework }) {
       <h2 id="api-title">API reference</h2>
       {props.framework === 'native' && (
         <p className="api-note">
-          Closed content uses hidden="until-found"; omit hidden for initially open content. Use
+          Closed content uses hidden="until-found"; initially open content uses data-open without hidden. Use
           instance.update() for later state changes.
         </p>
       )}

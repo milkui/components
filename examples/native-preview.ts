@@ -335,15 +335,13 @@ function addDefaultAttributes(markup: string, part: PrimitiveDefinition): string
       index = tag.end + 1;
       continue;
     }
-    // Consume the template's open-state hint; native HTML only needs hidden on closed panels.
+    // Open panels retain their styling hook and skip the closed-state default.
     const open =
       part.defaultAttributes.hidden === 'until-found'
         ? tag.attributes.find((attribute) => attribute.name === 'data-open')
         : undefined;
     if (open) {
-      result +=
-        markup.slice(tagStart, tag.attributesOffset + open.start).trimEnd() +
-        markup.slice(tag.attributesOffset + open.end, tag.end + 1);
+      result += markup.slice(tagStart, tag.end + 1);
       index = tag.end + 1;
       continue;
     }

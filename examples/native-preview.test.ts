@@ -19,7 +19,7 @@ describe('native preview default attributes', () => {
       '<div mlk-accordion-content hidden="until-found"></div>',
     );
     expect(withDefaultAttributes('<div mlk-accordion-content data-open></div>')).toBe(
-      '<div mlk-accordion-content></div>',
+      '<div mlk-accordion-content data-open></div>',
     );
   });
 
@@ -48,7 +48,8 @@ describe('native preview default attributes', () => {
     );
     expect(document.querySelectorAll('[mlk-accordion-root]')).toHaveLength(2);
     expect(document.querySelectorAll('[hidden="until-found"]')).toHaveLength(2);
-    expect(document.querySelectorAll('[data-open]')).toHaveLength(0);
+    expect(document.querySelectorAll('[data-open]')).toHaveLength(2);
+    expect(document.querySelectorAll('[data-open][hidden]')).toHaveLength(0);
     for (const trigger of document.querySelectorAll('[mlk-accordion-trigger]')) {
       const target = document.getElementById(trigger.getAttribute('href')!.slice(1));
       expect(target?.hasAttribute('mlk-accordion-content')).toBe(true);
