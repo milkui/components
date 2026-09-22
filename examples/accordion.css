@@ -48,7 +48,10 @@
   height: 0;
   overflow: hidden;
   content-visibility: hidden;
-  transition: content-visibility 220ms allow-discrete;
+  interpolate-size: allow-keywords;
+  transition:
+    height 220ms ease-in-out,
+    content-visibility 220ms allow-discrete;
 }
 
 [mlk-accordion-header] {
@@ -58,43 +61,11 @@
 [mlk-accordion-content][data-open] {
   height: auto;
   content-visibility: visible;
-  animation: milk-accordion-expand 220ms ease-in-out;
 }
 
-[mlk-accordion-content]:not([data-open]) {
-  animation: milk-accordion-collapse 220ms ease-in-out;
-}
-
-[mlk-accordion-content].transition-content {
-  animation: none;
-  interpolate-size: allow-keywords;
-  transition:
-    height 220ms ease-in-out,
-    content-visibility 220ms allow-discrete;
-}
-
-@keyframes milk-accordion-expand {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--mlk-accordion-content-height);
-  }
-}
-
-@keyframes milk-accordion-collapse {
-  from {
-    height: var(--mlk-accordion-content-height);
-  }
-  to {
-    height: 0;
-  }
-}
-
-/* Initial rendering and fragment reveals should not animate. */
-:not([data-motion]) > [mlk-accordion-content] {
+/* Enable transitions once the primitive is interactive. */
+:not([data-interactive]) > [mlk-accordion-content] {
   transition: none;
-  animation: none;
 }
 
 /* Before initialization, the browser reveals fragment targets by removing hidden. */

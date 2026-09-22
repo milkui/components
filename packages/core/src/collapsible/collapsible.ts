@@ -60,7 +60,6 @@ class CollapsibleRootPrimitive<
 
   #open = this.props.defaultOpen ?? false;
   #enhanced = false;
-  #motion = false;
   #adopted = false;
 
   protected override connected() {
@@ -108,17 +107,8 @@ class CollapsibleRootPrimitive<
     return this.props.disabled ?? false;
   }
 
-  protected get motion() {
-    return this.#motion;
-  }
-
-  protected markInteraction() {
-    this.#motion = true;
-  }
-
   toggle = () => {
     if (this.disabled) return;
-    this.markInteraction();
     const next = !this.open;
     if (this.props.open === undefined) {
       this.#open = next;
@@ -146,7 +136,6 @@ class CollapsibleRootPrimitive<
     return {
       id: this.id,
       'data-interactive': this.enhanced ? '' : undefined,
-      'data-motion': this.motion ? '' : undefined,
       'data-open': this.open ? '' : undefined,
       'data-disabled': this.disabled ? '' : undefined,
     };

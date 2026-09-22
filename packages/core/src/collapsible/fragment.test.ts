@@ -29,7 +29,6 @@ describe('fragment enhancement', () => {
     expect(root.id).toBe('section');
     expect(root.hasAttribute('data-open')).toBe(true);
     expect(root.hasAttribute('data-interactive')).toBe(true);
-    expect(root.hasAttribute('data-motion')).toBe(false);
     expect(trigger.getAttribute('href')).toBe('#section-content');
     expect(trigger.getAttribute('aria-expanded')).toBe('true');
     const click = new MouseEvent('click', { bubbles: true, cancelable: true });

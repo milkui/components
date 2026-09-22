@@ -511,27 +511,14 @@ function CollapsibleControlledDemo() {
 }
 
 function CollapsibleAnimationDemo() {
-  const [useTransitions, setUseTransitions] = React.useState(false);
   return (
-    <ExampleDemo title="Animation and transition">
+    <ExampleDemo title="CSS transitions">
       <Collapsible.Root id="animation-details">
         <Collapsible.Trigger>Animation details</Collapsible.Trigger>
-        <Collapsible.Content
-          className={useTransitions ? 'transition-content' : undefined}
-        >
+        <Collapsible.Content>
           <div className="demo-contentInner">Animated content</div>
         </Collapsible.Content>
       </Collapsible.Root>
-      <DemoControls>
-        <label>
-          <input
-            type="checkbox"
-            checked={useTransitions}
-            onChange={(event) => setUseTransitions(event.target.checked)}
-          />
-          Use CSS transitions
-        </label>
-      </DemoControls>
     </ExampleDemo>
   );
 }
@@ -738,7 +725,7 @@ const collapsibleExamples: Example[] = [
   },
   {
     key: 'collapsible-animation',
-    label: 'Animation and transition',
+    label: 'CSS transitions',
     summary: 'Content stays mounted; CSS controls opening and closing motion.',
     ReactDemo: CollapsibleAnimationDemo,
     reactCode: collapsibleAnimationReactCode,
@@ -917,7 +904,7 @@ const collapsiblePage: DocsPage = {
     'Semantic elements with no shadow DOM.',
     'React asChild composition, or native marker attributes.',
     'ARIA, data attributes, and keyboard behavior from shared primitive logic.',
-    'CSS animations and transitions.',
+    'CSS transitions.',
   ],
 };
 
@@ -1455,7 +1442,7 @@ function ExamplesSection(props: { framework: Framework; examples: Example[] }) {
             />
             {example.key === 'collapsible-animation' && (
               <CodeBlock
-                title="Animation and transition styles"
+                title="Transition styles"
                 code={collapsibleStyles}
                 language="css"
               />

@@ -92,7 +92,6 @@ describe('@milkui/react/accordion', () => {
       });
       expect(container.querySelector('#hydrate-one')!.hasAttribute('data-open')).toBe(false);
       expect(container.querySelector('#hydrate-two')!.hasAttribute('data-open')).toBe(true);
-      expect(container.querySelector('[data-motion]')).toBeNull();
       expect(error).not.toHaveBeenCalled();
     } finally {
       error.mockRestore();

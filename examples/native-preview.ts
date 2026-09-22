@@ -83,15 +83,12 @@ const rawTemplates: Record<NativeExampleKey, string> = {
     </section>
   `,
   'collapsible-animation': `
-    <section class="demo-card" aria-label="Animation and transition">
+    <section class="demo-card" aria-label="CSS transitions">
       <div mlk-collapsible-root id="animation-root">
         <a mlk-collapsible-trigger href="#animation-root-content">Animation details</a>
         <div mlk-collapsible-content id="animation-root-content">
           <div class="demo-contentInner">Animated content</div>
         </div>
-      </div>
-      <div class="demo-controls">
-        <label><input id="animation-transition" type="checkbox" /> Use CSS transitions</label>
       </div>
     </section>
   `,

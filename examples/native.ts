@@ -51,16 +51,6 @@ function connectCollapsibleControlled() {
 }
 
 function connectCollapsibleAnimation() {
-  const content = element<HTMLElement>('animation-root').querySelector<HTMLElement>(
-    '[mlk-collapsible-content]',
-  )!;
-  element<HTMLInputElement>('animation-transition').addEventListener('change', (event) => {
-    content.classList.toggle(
-      'transition-content',
-      (event.currentTarget as HTMLInputElement).checked,
-    );
-    postSize();
-  });
   CollapsibleRoot.mount(element<HTMLElement>('animation-root'), {
     onOpenChange() {
       postSize();

@@ -37,14 +37,14 @@ describe('@milkui/core/accordion native behavior', () => {
     expect(items[0]!.trigger.getAttribute('aria-expanded')).toBe('true');
   });
 
-  it('enables motion for both panels when switching away from the initial item', () => {
+  it('makes both items interactive before switching the initial item', () => {
     const { root, items } = createAccordion(['one', 'two']);
     Root.mount(root, { defaultValue: 'one' });
     mountItems(items);
-    expect(items.every(({ item }) => !item.hasAttribute('data-motion'))).toBe(true);
+    expect(items.every(({ item }) => item.hasAttribute('data-interactive'))).toBe(true);
     items[1]!.trigger.click();
-    expect(items[0]!.item.hasAttribute('data-motion')).toBe(true);
-    expect(items[1]!.item.hasAttribute('data-motion')).toBe(true);
+    expect(items[0]!.item.hasAttribute('data-interactive')).toBe(true);
+    expect(items[1]!.item.hasAttribute('data-interactive')).toBe(true);
     expect(items[0]!.item.hasAttribute('data-open')).toBe(false);
     expect(items[1]!.item.hasAttribute('data-open')).toBe(true);
   });

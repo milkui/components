@@ -23,7 +23,6 @@ type AccordionDir = 'ltr' | 'rtl';
 type AccordionContextValue = {
   type: AccordionType;
   values: readonly string[];
-  motion: boolean;
   disabled: boolean;
   collapsible: boolean;
   orientation: AccordionOrientation;
@@ -45,7 +44,6 @@ type AccordionItemContextValue = {
 const AccordionContext = /*#__PURE__*/ createContext<AccordionContextValue>({
   type: 'single',
   values: [],
-  motion: false,
   disabled: false,
   collapsible: false,
   orientation: 'vertical',
@@ -124,7 +122,6 @@ class AccordionRootPrimitive extends Primitive<AccordionRootProps> {
   #multipleValue = Array.isArray(this.props.defaultValue) ? this.props.defaultValue : [];
   #triggers = new Set<HTMLElement>();
   #adopted = false;
-  #motion = false;
 
   protected override connected() {
     const adopt = () => {
@@ -182,7 +179,6 @@ class AccordionRootPrimitive extends Primitive<AccordionRootProps> {
 
   setItemOpen = (itemValue: string, open: boolean) => {
     if (this.disabled) return;
-    this.#motion = true;
     const current = this.values;
     if (this.type === 'multiple') {
       const next = open
@@ -226,7 +222,6 @@ class AccordionRootPrimitive extends Primitive<AccordionRootProps> {
     this.provide(AccordionContext, {
       type: this.type,
       values: this.values,
-      motion: this.#motion,
       disabled: this.disabled,
       collapsible: this.collapsible,
       orientation: this.props.orientation ?? 'vertical',
@@ -291,10 +286,6 @@ class AccordionItemPrimitive extends CollapsibleRootPrimitive<AccordionItemProps
     if (item.disabled || item.lockedOpen) return;
     root.setItemOpen(item.value, !item.open);
   };
-
-  protected override get motion() {
-    return this.accordionContext.motion;
-  }
 
   protected get accordionContext() {
     return this.consume(AccordionContext);
