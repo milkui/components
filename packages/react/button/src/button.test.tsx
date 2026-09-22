@@ -57,6 +57,30 @@ describe('@milkui/react-button', () => {
   it('renders default and explicit button types during SSR', () => {
     expect(renderToString(<Button>Save</Button>)).toContain('type="button"');
     expect(renderToString(<Button type="submit">Save</Button>)).toContain('type="submit"');
+    expect(renderToString(<Button type={undefined}>Save</Button>)).toContain('type="button"');
+  });
+
+  it('cleans forwarded callback refs on replacement and unmount', async () => {
+    const firstCleanup = vi.fn();
+    const secondCleanup = vi.fn();
+    const firstRef = vi.fn(() => firstCleanup);
+    const secondRef = vi.fn(() => secondCleanup);
+    await act(async () => {
+      reactRoot.render(<Button ref={firstRef}>Save</Button>);
+    });
+    const button = container.querySelector('button');
+    await act(async () => {
+      reactRoot.render(<Button ref={secondRef}>Save</Button>);
+    });
+    expect(container.querySelector('button')).toBe(button);
+    expect(firstCleanup).toHaveBeenCalledTimes(1);
+    expect(firstRef).toHaveBeenCalledTimes(1);
+    expect(secondRef).toHaveBeenCalledWith(button);
+    await act(async () => {
+      reactRoot.render(null);
+    });
+    expect(secondCleanup).toHaveBeenCalledTimes(1);
+    expect(secondRef).toHaveBeenCalledTimes(1);
   });
 
   it('renders asChild button defaults during SSR without overriding explicit types', () => {

@@ -4,7 +4,6 @@ import type { Primitive, PrimitiveDefinition, PrimitiveScope } from '@milkui/pri
 
 type NativeTag = keyof HTMLElementTagNameMap & keyof React.JSX.IntrinsicElements;
 type DOMProps = Record<string, unknown>;
-type AnyRef = React.Ref<HTMLElement> | undefined;
 const ScopeContext = React.createContext<PrimitiveScope | undefined>(undefined);
 const useLayoutEffect = typeof document === 'undefined' ? React.useEffect : React.useLayoutEffect;
 
@@ -16,10 +15,14 @@ export function createReactComponent<
 >(part: PrimitiveDefinition<P, Tag, PrimitiveInstance>) {
   type Props = Omit<React.ComponentPropsWithoutRef<Tag>, keyof P> & P & { asChild?: boolean };
   const Component = React.forwardRef<HTMLElementTagNameMap[Tag], Props>((props, forwardedRef) => {
-    const { asChild, children } = props as Props & { children?: React.ReactNode };
-    const primitiveProps = Object.fromEntries(
-      part.props.map((key) => [key, (props as DOMProps)[key as string]]),
-    ) as P;
+    const { asChild, children, ...elementProps } = props as DOMProps;
+    delete elementProps.ref;
+    const primitiveProps = {} as P;
+    for (const key of part.props) {
+      // Include undefined so removing a prop also clears it on the primitive.
+      primitiveProps[key] = (props as P)[key];
+      delete elementProps[key as string];
+    }
     const parent = React.useContext(ScopeContext);
     const id = React.useId();
     const [primitive] = React.useState(() =>
@@ -33,62 +36,40 @@ export function createReactComponent<
       primitive.getSnapshot,
       primitive.getSnapshot,
     );
-    const element = React.useRef<HTMLElement | null>(null);
-    const connect = React.useCallback(
-      (node: HTMLElement | null) => {
-        if (element.current === node) return;
-        primitive.disconnect();
-        element.current = node;
-        if (node) primitive.connect(node, true);
-      },
-      [primitive],
-    );
     const composedRef = React.useCallback(
-      (node: HTMLElement | null) => {
-        connect(node);
-        const cleanup = assignRef(forwardedRef as AnyRef, node);
+      (node: HTMLElementTagNameMap[Tag] | null) => {
+        if (node) primitive.connect(node, true);
+        else primitive.disconnect();
+        const ref = forwardedRef as React.Ref<HTMLElementTagNameMap[Tag]>;
+        const cleanup = typeof ref === 'function' ? ref(node) : undefined;
+        if (ref && typeof ref !== 'function') ref.current = node;
         return () => {
-          cleanup();
-          connect(null);
+          primitive.disconnect();
+          if (typeof cleanup === 'function') cleanup();
+          else if (typeof ref === 'function') ref(null);
+          else if (ref) ref.current = null;
         };
       },
-      [connect, forwardedRef],
+      [primitive, forwardedRef],
     );
 
     useLayoutEffect(() => {
       primitive.setParent(parent);
-      // All declared keys are forwarded, including undefined when a prop was removed.
       primitive.update(primitiveProps);
+      // A changed snapshot needs another React commit before measuring its DOM.
       if (primitive.getSnapshot() === snapshot) primitive.commit();
     });
-    useLayoutEffect(
-      () => () => {
-        primitive.disconnect();
-      },
-      [primitive],
-    );
 
-    const elementProps: DOMProps = {};
-    assignDefinedProps(elementProps, props as DOMProps);
-
-    delete elementProps.asChild;
-    delete elementProps.children;
-    delete elementProps.ref;
-
-    for (const key of part.props) delete elementProps[key as string];
     // Defaults fill missing values; behavior output owns its attributes, including removals.
-    const attributes: DOMProps = {};
     for (const [name, value] of Object.entries(part.defaultAttributes ?? {})) {
-      const explicit = elementProps[name];
-      attributes[name] = explicit === undefined ? value : explicit;
+      if (elementProps[name] === undefined) elementProps[name] = value;
     }
-    Object.assign(attributes, snapshot.attributes, { [part.attribute]: '' });
+    Object.assign(elementProps, snapshot.attributes, { [part.attribute]: '' });
     // React treats lowercase hidden as boolean; uppercase preserves the HTML enum value.
     if (part.defaultAttributes?.hidden === 'until-found') {
-      attributes.HIDDEN = attributes.hidden;
-      delete attributes.hidden;
+      elementProps.HIDDEN = elementProps.hidden;
+      delete elementProps.hidden;
     }
-    Object.assign(elementProps, attributes);
     elementProps.style = { ...snapshot.style, ...(elementProps.style as object) };
     elementProps.ref = composedRef;
 
@@ -103,34 +84,16 @@ export function createReactComponent<
     }
 
     const node = asChild ? (
-      <Slot.Root {...elementProps}>{children}</Slot.Root>
+      <Slot.Root {...elementProps}>{children as React.ReactNode}</Slot.Root>
     ) : (
-      React.createElement(part.tag, elementProps, children)
+      React.createElement(part.tag, elementProps, children as React.ReactNode)
     );
     return primitive.scope.values.size > 0 ? (
       <ScopeContext.Provider value={primitive.scope}>{node}</ScopeContext.Provider>
-    ) : node;
+    ) : (
+      node
+    );
   });
   Component.displayName = part.attribute;
   return Component;
-}
-
-function assignRef(ref: AnyRef, node: HTMLElement | null): () => void {
-  if (typeof ref === 'function') {
-    const cleanup = ref(node);
-    return typeof cleanup === 'function' ? cleanup : () => ref(null);
-  }
-  if (ref) {
-    ref.current = node;
-    return () => {
-      ref.current = null;
-    };
-  }
-  return () => {};
-}
-
-function assignDefinedProps(target: DOMProps, props: DOMProps) {
-  for (const [name, value] of Object.entries(props)) {
-    if (value !== undefined) target[name] = value;
-  }
 }
