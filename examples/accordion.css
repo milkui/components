@@ -1,0 +1,110 @@
+[mlk-accordion-trigger] {
+  text-decoration: none;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 8px;
+  padding: 12px 14px;
+  border: 1px solid #d8cef4;
+  border-radius: 10px;
+  color: var(--milk-text, #241d33);
+  background: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+[mlk-accordion-trigger]:hover:not(:disabled) {
+  background: #faf7ff;
+  text-decoration: none;
+}
+
+[mlk-accordion-trigger]::after {
+  content: '+';
+  color: var(--milk-violet, #7c3aed);
+  font-size: 20px;
+  line-height: 1;
+}
+
+[mlk-accordion-trigger][data-open]::after {
+  content: '−';
+}
+
+[mlk-accordion-trigger]:disabled,
+[mlk-accordion-trigger][aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+[mlk-accordion-content] > .demo-contentInner {
+  padding: 16px 2px 4px;
+  color: #564d66;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+[mlk-accordion-content] {
+  height: 0;
+  overflow: hidden;
+  content-visibility: hidden;
+  transition: content-visibility 220ms allow-discrete;
+}
+
+[mlk-accordion-header] {
+  margin: 0;
+}
+
+[mlk-accordion-content][data-open] {
+  height: auto;
+  content-visibility: visible;
+  animation: milk-accordion-expand 220ms ease-in-out;
+}
+
+[mlk-accordion-content]:not([data-open]) {
+  animation: milk-accordion-collapse 220ms ease-in-out;
+}
+
+[mlk-accordion-content].transition-content {
+  animation: none;
+  interpolate-size: allow-keywords;
+  transition:
+    height 220ms ease-in-out,
+    content-visibility 220ms allow-discrete;
+}
+
+@keyframes milk-accordion-expand {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--mlk-accordion-content-height);
+  }
+}
+
+@keyframes milk-accordion-collapse {
+  from {
+    height: var(--mlk-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* Initial rendering and fragment reveals should not animate. */
+:not([data-motion]) > [mlk-accordion-content] {
+  transition: none;
+  animation: none;
+}
+
+/* Before initialization, the browser reveals fragment targets by removing hidden. */
+:not([data-interactive]) > [mlk-accordion-content]:not([hidden]) {
+  height: auto;
+  content-visibility: visible;
+}
+
+:not([data-interactive])
+  > [mlk-accordion-header]:has(~ [mlk-accordion-content]:not([hidden]))
+  > [mlk-accordion-trigger]::after {
+  content: '−';
+}

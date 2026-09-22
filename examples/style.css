@@ -1,5 +1,15 @@
-@import './disclosure.css';
-@import './hero.css';
+@import './accordion.css';
+@import './button.css';
+@import './collapsible.css';
+
+.demo-card {
+  width: min(100%, 520px);
+  margin: 0 auto;
+  padding: 18px;
+  border: 1px solid rgba(124, 58, 237, 0.16);
+  border-radius: var(--milk-radius, 14px);
+  background: rgba(255, 255, 255, 0.92);
+}
 
 :root {
   color: #241d33;

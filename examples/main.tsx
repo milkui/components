@@ -1,5 +1,6 @@
-import heroStyles from './hero.css?raw';
-import animationStyles from './disclosure.css?raw';
+import accordionStyles from './accordion.css?raw';
+import buttonStyles from './button.css?raw';
+import collapsibleStyles from './collapsible.css?raw';
 import * as React from 'react';
 import { componentHref, type DocsState, type ComponentName, type Framework } from './routes';
 import * as Accordion from '@milkui/react/accordion';
@@ -442,6 +443,7 @@ type DocsPage = {
   heroNativeExample: NativeExampleKey;
   heroReactCode: string;
   heroNativeCode: string;
+  styles: string;
   reactAnatomy: string;
   nativeAnatomy: string;
   examples: Example[];
@@ -876,7 +878,7 @@ export function App({ state }: { state: DocsState }) {
               )}
             </div>
             <CodeBlock
-              css={state.component === 'button' ? heroStyles : `${heroStyles}\n${animationStyles}`}
+              css={page.styles}
               title={state.framework === 'react' ? 'React source' : 'Native source'}
               code={
                 state.framework === 'react'
@@ -905,6 +907,7 @@ const collapsiblePage: DocsPage = {
   heroNativeExample: 'collapsible-basic',
   heroReactCode: collapsibleHeroReactCode,
   heroNativeCode: collapsibleHeroNativeCode,
+  styles: collapsibleStyles,
   reactAnatomy: collapsibleReactAnatomy,
   nativeAnatomy: collapsibleNativeAnatomy,
   examples: collapsibleExamples,
@@ -925,6 +928,7 @@ const accordionPage: DocsPage = {
   heroNativeExample: 'accordion-hero',
   heroReactCode: accordionHeroReactCode,
   heroNativeCode: accordionHeroNativeCode,
+  styles: accordionStyles,
   reactAnatomy: accordionReactAnatomy,
   nativeAnatomy: accordionNativeAnatomy,
   examples: accordionExamples,
@@ -945,6 +949,7 @@ const buttonPage: DocsPage = {
   heroNativeExample: 'button-basic',
   heroReactCode: buttonHeroReactCode,
   heroNativeCode: buttonHeroNativeCode,
+  styles: buttonStyles,
   reactAnatomy: buttonReactAnatomy,
   nativeAnatomy: buttonNativeAnatomy,
   examples: buttonExamples,
@@ -1090,7 +1095,7 @@ function AnatomySection(props: { framework: Framework; page: DocsPage }) {
       {props.page.title !== 'Button' && (
         <details>
           <summary>Disclosure styles used by these demos</summary>
-          <CodeBlock title="Disclosure styles" code={animationStyles} />
+          <CodeBlock title="Disclosure styles" code={props.page.styles} />
         </details>
       )}
     </section>
@@ -1451,7 +1456,7 @@ function ExamplesSection(props: { framework: Framework; examples: Example[] }) {
             {example.key === 'collapsible-animation' && (
               <CodeBlock
                 title="Animation and transition styles"
-                code={animationStyles}
+                code={collapsibleStyles}
                 language="css"
               />
             )}
