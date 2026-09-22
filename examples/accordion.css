@@ -37,7 +37,7 @@
   opacity: 0.55;
 }
 
-[mlk-accordion-content] > .demo-contentInner {
+[mlk-accordion-content] > .demo__content-inner {
   padding: 16px 2px 4px;
   color: #564d66;
   font-size: 14px;

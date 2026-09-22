@@ -2,7 +2,7 @@
 @import './button.css';
 @import './collapsible.css';
 
-.demo-card {
+.demo__card {
   width: min(100%, 520px);
   margin: 0 auto;
   padding: 18px;
@@ -226,7 +226,7 @@ h3 {
   padding: 20px;
 }
 
-.demo-controls {
+.demo__controls {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -236,13 +236,13 @@ h3 {
   font-size: 13px;
 }
 
-.demo-controls label {
+.demo__controls label {
   display: inline-flex;
   align-items: center;
   gap: 7px;
 }
 
-.demo-controls button {
+.demo__controls button {
   padding: 7px 11px;
   border: 1px solid #d8cef4;
   border-radius: 999px;
@@ -266,7 +266,7 @@ h3 {
   min-height: 56px;
 }
 
-.accordion-horizontal .demo-contentInner {
+.accordion-horizontal .demo__content-inner {
   padding-top: 12px;
 }
 
