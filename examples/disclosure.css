@@ -1,4 +1,4 @@
-.demo-content {
+:is([mlk-collapsible-content], [mlk-accordion-content]) {
   --milk-demo-content-height: var(--mlk-collapsible-content-height);
   height: 0;
   overflow: hidden;
@@ -6,7 +6,7 @@
   transition: content-visibility 220ms allow-discrete;
 }
 
-[mlk-accordion-content].demo-content {
+[mlk-accordion-content] {
   --milk-demo-content-height: var(--mlk-accordion-content-height);
 }
 
@@ -14,17 +14,17 @@
   margin: 0;
 }
 
-.demo-content[data-open] {
+:is([mlk-collapsible-content], [mlk-accordion-content])[data-open] {
   height: auto;
   content-visibility: visible;
   animation: milk-expand 220ms ease-in-out;
 }
 
-.demo-content:not([data-open]) {
+:is([mlk-collapsible-content], [mlk-accordion-content]):not([data-open]) {
   animation: milk-collapse 220ms ease-in-out;
 }
 
-.demo-content.transition-content {
+:is([mlk-collapsible-content], [mlk-accordion-content]).transition-content {
   animation: none;
   interpolate-size: allow-keywords;
   transition:
@@ -51,18 +51,25 @@
 }
 
 /* Initial rendering and fragment reveals should not animate. */
-:not([data-motion]) > .demo-content {
+:not([data-motion]) > :is([mlk-collapsible-content], [mlk-accordion-content]) {
   transition: none;
   animation: none;
 }
 
 /* Before initialization, the browser reveals fragment targets by removing hidden. */
-:not([data-interactive]) > .demo-content:not([hidden]) {
+:not([data-interactive]) > :is([mlk-collapsible-content], [mlk-accordion-content]):not([hidden]) {
   height: auto;
   content-visibility: visible;
 }
 
-:not([data-interactive]) > .demo-trigger:has(~ .demo-content:not([hidden]))::after,
-:not([data-interactive]) > [mlk-accordion-header]:has(~ .demo-content:not([hidden])) > .demo-trigger::after {
+:not([data-interactive])
+  > :is([mlk-collapsible-trigger], [mlk-accordion-trigger]):has(
+    ~ :is([mlk-collapsible-content], [mlk-accordion-content]):not([hidden])
+  )::after,
+:not([data-interactive])
+  > [mlk-accordion-header]:has(
+    ~ :is([mlk-collapsible-content], [mlk-accordion-content]):not([hidden])
+  )
+  > :is([mlk-collapsible-trigger], [mlk-accordion-trigger])::after {
   content: '−';
 }

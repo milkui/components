@@ -55,8 +55,8 @@ const rawTemplates: Record<NativeExampleKey, string> = {
         <span>@milkui/core/collapsible</span>
         <span>Native primitive</span>
       </div>
-      <a mlk-collapsible-trigger href="#packages-content" class="demo-trigger">Show packages</a>
-      <div mlk-collapsible-content id="packages-content" class="demo-content">
+      <a mlk-collapsible-trigger href="#packages-content">Show packages</a>
+      <div mlk-collapsible-content id="packages-content">
         <div class="package-row">
           <span>@milkui/react/collapsible</span>
           <span>React adapter</span>
@@ -71,8 +71,8 @@ const rawTemplates: Record<NativeExampleKey, string> = {
   'collapsible-controlled': `
     <section class="demo-card" aria-label="Controlled">
       <div mlk-collapsible-root id="controlled-root">
-        <a mlk-collapsible-trigger href="#controlled-root-content" class="demo-trigger">Release notes</a>
-        <div mlk-collapsible-content id="controlled-root-content" class="demo-content">
+        <a mlk-collapsible-trigger href="#controlled-root-content">Release notes</a>
+        <div mlk-collapsible-content id="controlled-root-content">
           <div class="demo-contentInner">Controlled content</div>
         </div>
       </div>
@@ -85,8 +85,8 @@ const rawTemplates: Record<NativeExampleKey, string> = {
   'collapsible-animation': `
     <section class="demo-card" aria-label="Animation and transition">
       <div mlk-collapsible-root id="animation-root">
-        <a mlk-collapsible-trigger href="#animation-root-content" class="demo-trigger">Animation details</a>
-        <div mlk-collapsible-content id="animation-root-content" class="demo-content">
+        <a mlk-collapsible-trigger href="#animation-root-content">Animation details</a>
+        <div mlk-collapsible-content id="animation-root-content">
           <div class="demo-contentInner">Animated content</div>
         </div>
       </div>
@@ -98,12 +98,12 @@ const rawTemplates: Record<NativeExampleKey, string> = {
   'collapsible-nested': `
     <section class="demo-card" aria-label="Nested composition">
       <div mlk-collapsible-root id="outer-details">
-        <a mlk-collapsible-trigger href="#outer-details-content" id="nested-outer-trigger" class="demo-trigger">Outer details</a>
-        <div mlk-collapsible-content id="outer-details-content" class="demo-content">
+        <a mlk-collapsible-trigger href="#outer-details-content" id="nested-outer-trigger">Outer details</a>
+        <div mlk-collapsible-content id="outer-details-content">
           <div class="demo-contentInner">
             <div mlk-collapsible-root id="inner-details">
-              <a mlk-collapsible-trigger href="#inner-details-content" class="demo-trigger">Inner details</a>
-              <div mlk-collapsible-content id="inner-details-content" class="demo-content nested-content">
+              <a mlk-collapsible-trigger href="#inner-details-content">Inner details</a>
+              <div mlk-collapsible-content id="inner-details-content" class="nested-content">
                 <div class="demo-contentInner">Inner state is isolated.</div>
               </div>
             </div>
@@ -121,12 +121,12 @@ const rawTemplates: Record<NativeExampleKey, string> = {
     <h3>Delivery</h3>
     <div mlk-accordion-root data-type="single" data-collapsible>
       <div mlk-accordion-item>
-        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#delivery-shipping-content" class="demo-trigger">Shipping</a></h3>
-        <div mlk-accordion-content id="delivery-shipping-content" class="demo-content" data-open><div class="demo-contentInner">Shipping information.</div></div>
+        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#delivery-shipping-content">Shipping</a></h3>
+        <div mlk-accordion-content id="delivery-shipping-content" data-open><div class="demo-contentInner">Shipping information.</div></div>
       </div>
       <div mlk-accordion-item>
-        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#delivery-returns-content" class="demo-trigger">Returns</a></h3>
-        <div mlk-accordion-content id="delivery-returns-content" class="demo-content"><div class="demo-contentInner">Returns information.</div></div>
+        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#delivery-returns-content">Returns</a></h3>
+        <div mlk-accordion-content id="delivery-returns-content"><div class="demo-contentInner">Returns information.</div></div>
       </div>
     </div>
   </section>
@@ -134,12 +134,12 @@ const rawTemplates: Record<NativeExampleKey, string> = {
     <h3>Account</h3>
     <div mlk-accordion-root data-type="single" data-collapsible>
       <div mlk-accordion-item>
-        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#account-billing-content" class="demo-trigger">Billing</a></h3>
-        <div mlk-accordion-content id="account-billing-content" class="demo-content" data-open><div class="demo-contentInner">Billing information.</div></div>
+        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#account-billing-content">Billing</a></h3>
+        <div mlk-accordion-content id="account-billing-content" data-open><div class="demo-contentInner">Billing information.</div></div>
       </div>
       <div mlk-accordion-item>
-        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#account-privacy-content" class="demo-trigger">Privacy</a></h3>
-        <div mlk-accordion-content id="account-privacy-content" class="demo-content"><div class="demo-contentInner">Privacy information.</div></div>
+        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#account-privacy-content">Privacy</a></h3>
+        <div mlk-accordion-content id="account-privacy-content"><div class="demo-contentInner">Privacy information.</div></div>
       </div>
     </div>
   </section>
@@ -149,25 +149,25 @@ const rawTemplates: Record<NativeExampleKey, string> = {
     <div mlk-accordion-root data-type="single" data-collapsible>
       <div mlk-accordion-item>
         <h3 mlk-accordion-header>
-          <a mlk-accordion-trigger href="#native-content" class="demo-trigger">Native package</a>
+          <a mlk-accordion-trigger href="#native-content">Native package</a>
         </h3>
-        <div mlk-accordion-content id="native-content" class="demo-content" data-open>
+        <div mlk-accordion-content id="native-content" data-open>
           <div class="demo-contentInner">@milkui/core/accordion</div>
         </div>
       </div>
       <div mlk-accordion-item>
         <h3 mlk-accordion-header>
-          <a mlk-accordion-trigger href="#react-content" class="demo-trigger">React adapter</a>
+          <a mlk-accordion-trigger href="#react-content">React adapter</a>
         </h3>
-        <div mlk-accordion-content id="react-content" class="demo-content">
+        <div mlk-accordion-content id="react-content">
           <div class="demo-contentInner">@milkui/react/accordion</div>
         </div>
       </div>
       <div mlk-accordion-item>
         <h3 mlk-accordion-header>
-          <a mlk-accordion-trigger href="#primitive-content" class="demo-trigger">Shared primitive</a>
+          <a mlk-accordion-trigger href="#primitive-content">Shared primitive</a>
         </h3>
-        <div mlk-accordion-content id="primitive-content" class="demo-content">
+        <div mlk-accordion-content id="primitive-content">
           <div class="demo-contentInner">@milkui/core/primitive</div>
         </div>
       </div>
@@ -178,17 +178,17 @@ const rawTemplates: Record<NativeExampleKey, string> = {
       <div mlk-accordion-root id="accordion-controlled" data-type="single">
         <div mlk-accordion-item>
           <h3 mlk-accordion-header>
-            <a mlk-accordion-trigger href="#usage-content" class="demo-trigger">Usage</a>
+            <a mlk-accordion-trigger href="#usage-content">Usage</a>
           </h3>
-          <div mlk-accordion-content id="usage-content" class="demo-content" data-open>
+          <div mlk-accordion-content id="usage-content" data-open>
             <div class="demo-contentInner">Controlled accordion content</div>
           </div>
         </div>
         <div mlk-accordion-item>
           <h3 mlk-accordion-header>
-            <a mlk-accordion-trigger href="#api-content" class="demo-trigger">API</a>
+            <a mlk-accordion-trigger href="#api-content">API</a>
           </h3>
-          <div mlk-accordion-content id="api-content" class="demo-content">
+          <div mlk-accordion-content id="api-content">
             <div class="demo-contentInner">The consumer owns the active value.</div>
           </div>
         </div>
@@ -204,25 +204,25 @@ const rawTemplates: Record<NativeExampleKey, string> = {
       <div mlk-accordion-root data-type="multiple">
         <div mlk-accordion-item>
           <h3 mlk-accordion-header>
-            <a mlk-accordion-trigger href="#multiple-native-content" class="demo-trigger">Native package</a>
+            <a mlk-accordion-trigger href="#multiple-native-content">Native package</a>
           </h3>
-          <div mlk-accordion-content id="multiple-native-content" class="demo-content" data-open>
+          <div mlk-accordion-content id="multiple-native-content" data-open>
             <div class="demo-contentInner">@milkui/core/accordion</div>
           </div>
         </div>
         <div mlk-accordion-item>
           <h3 mlk-accordion-header>
-            <a mlk-accordion-trigger href="#multiple-react-content" class="demo-trigger">React adapter</a>
+            <a mlk-accordion-trigger href="#multiple-react-content">React adapter</a>
           </h3>
-          <div mlk-accordion-content id="multiple-react-content" class="demo-content" data-open>
+          <div mlk-accordion-content id="multiple-react-content" data-open>
             <div class="demo-contentInner">@milkui/react/accordion</div>
           </div>
         </div>
         <div mlk-accordion-item>
           <h3 mlk-accordion-header>
-            <a mlk-accordion-trigger href="#multiple-primitive-content" class="demo-trigger">Shared primitive</a>
+            <a mlk-accordion-trigger href="#multiple-primitive-content">Shared primitive</a>
           </h3>
-          <div mlk-accordion-content id="multiple-primitive-content" class="demo-content">
+          <div mlk-accordion-content id="multiple-primitive-content">
             <div class="demo-contentInner">@milkui/core/primitive</div>
           </div>
         </div>
@@ -234,17 +234,17 @@ const rawTemplates: Record<NativeExampleKey, string> = {
       <div mlk-accordion-root class="accordion-horizontal" data-type="single" data-orientation="horizontal" dir="ltr">
         <div mlk-accordion-item>
           <h3 mlk-accordion-header>
-            <a mlk-accordion-trigger href="#horizontal-one-content" class="demo-trigger">One</a>
+            <a mlk-accordion-trigger href="#horizontal-one-content">One</a>
           </h3>
-          <div mlk-accordion-content id="horizontal-one-content" class="demo-content" data-open>
+          <div mlk-accordion-content id="horizontal-one-content" data-open>
             <div class="demo-contentInner">Horizontal item one.</div>
           </div>
         </div>
         <div mlk-accordion-item>
           <h3 mlk-accordion-header>
-            <a mlk-accordion-trigger href="#horizontal-two-content" class="demo-trigger">Two</a>
+            <a mlk-accordion-trigger href="#horizontal-two-content">Two</a>
           </h3>
-          <div mlk-accordion-content id="horizontal-two-content" class="demo-content">
+          <div mlk-accordion-content id="horizontal-two-content">
             <div class="demo-contentInner">Horizontal item two.</div>
           </div>
         </div>
@@ -252,10 +252,10 @@ const rawTemplates: Record<NativeExampleKey, string> = {
     </section>
   `,
   'button-basic': `
-    <button mlk-button class="demo-button">Save changes</button>
+    <button mlk-button>Save changes</button>
   `,
   'button-disabled': `
-    <button mlk-button class="demo-button" disabled>Save changes</button>
+    <button mlk-button disabled>Save changes</button>
   `,
 };
 

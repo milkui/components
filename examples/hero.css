@@ -25,7 +25,7 @@
   font-weight: 650;
 }
 
-.demo-content > .package-row:first-child {
+:is([mlk-collapsible-content], [mlk-accordion-content]) > .package-row:first-child {
   border-top: 0;
 }
 
@@ -34,7 +34,7 @@
   font-weight: 400;
 }
 
-.demo-trigger {
+:is([mlk-collapsible-trigger], [mlk-accordion-trigger]) {
   text-decoration: none;
   display: flex;
   width: 100%;
@@ -51,29 +51,29 @@
   cursor: pointer;
 }
 
-.demo-trigger:hover:not(:disabled) {
+:is([mlk-collapsible-trigger], [mlk-accordion-trigger]):hover:not(:disabled) {
   background: #faf7ff;
   text-decoration: none;
 }
 
-.demo-trigger::after {
+:is([mlk-collapsible-trigger], [mlk-accordion-trigger])::after {
   content: '+';
   color: var(--milk-violet, #7c3aed);
   font-size: 20px;
   line-height: 1;
 }
 
-.demo-trigger[data-open]::after {
+:is([mlk-collapsible-trigger], [mlk-accordion-trigger])[data-open]::after {
   content: '−';
 }
 
-.demo-trigger:disabled,
-.demo-trigger[aria-disabled='true'] {
+:is([mlk-collapsible-trigger], [mlk-accordion-trigger]):disabled,
+:is([mlk-collapsible-trigger], [mlk-accordion-trigger])[aria-disabled='true'] {
   cursor: not-allowed;
   opacity: 0.55;
 }
 
-.demo-button {
+[mlk-button] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -86,11 +86,11 @@
   cursor: pointer;
 }
 
-.demo-button:hover:not(:disabled) {
+[mlk-button]:hover:not(:disabled) {
   background: var(--milk-violet-dark, #5b21b6);
 }
 
-.demo-button:disabled {
+[mlk-button]:disabled {
   cursor: not-allowed;
   opacity: 0.55;
 }

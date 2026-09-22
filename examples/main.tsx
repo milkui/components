@@ -37,8 +37,8 @@ export function Packages() {
         <span>@milkui/react/collapsible</span>
         <span>React primitive</span>
       </div>
-      <Collapsible.Trigger className="demo-trigger">Show packages</Collapsible.Trigger>
-      <Collapsible.Content className="demo-content">
+      <Collapsible.Trigger>Show packages</Collapsible.Trigger>
+      <Collapsible.Content>
         <div className="package-row">
           <span>@milkui/react/collapsible</span>
           <span>React adapter</span>
@@ -62,8 +62,8 @@ const collapsibleHeroNativeCode = `<script type="module">
     <span>@milkui/core/collapsible</span>
     <span>Native primitive</span>
   </div>
-  <a mlk-collapsible-trigger href="#packages-content" class="demo-trigger">Show packages</a>
-  <div mlk-collapsible-content id="packages-content" class="demo-content">
+  <a mlk-collapsible-trigger href="#packages-content">Show packages</a>
+  <div mlk-collapsible-content id="packages-content">
     <div class="package-row">
       <span>@milkui/react/collapsible</span>
       <span>React adapter</span>
@@ -82,25 +82,25 @@ export function Packages() {
     <Accordion.Root type="single" defaultValue="native" collapsible>
       <Accordion.Item value="native">
         <Accordion.Header>
-          <Accordion.Trigger className="demo-trigger">Native package</Accordion.Trigger>
+          <Accordion.Trigger>Native package</Accordion.Trigger>
         </Accordion.Header>
-        <Accordion.Content className="demo-content">
+        <Accordion.Content>
           <div className="demo-contentInner">@milkui/core/accordion</div>
         </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="react">
         <Accordion.Header>
-          <Accordion.Trigger className="demo-trigger">React adapter</Accordion.Trigger>
+          <Accordion.Trigger>React adapter</Accordion.Trigger>
         </Accordion.Header>
-        <Accordion.Content className="demo-content">
+        <Accordion.Content>
           <div className="demo-contentInner">@milkui/react/accordion</div>
         </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="primitive">
         <Accordion.Header>
-          <Accordion.Trigger className="demo-trigger">Shared primitive</Accordion.Trigger>
+          <Accordion.Trigger>Shared primitive</Accordion.Trigger>
         </Accordion.Header>
-        <Accordion.Content className="demo-content">
+        <Accordion.Content>
           <div className="demo-contentInner">@milkui/core/primitive</div>
         </Accordion.Content>
       </Accordion.Item>
@@ -116,25 +116,25 @@ const accordionHeroNativeCode = `<script type="module">
 <div mlk-accordion-root data-type="single" data-collapsible>
   <div mlk-accordion-item>
     <h3 mlk-accordion-header>
-      <a mlk-accordion-trigger href="#native-content" class="demo-trigger">Native package</a>
+      <a mlk-accordion-trigger href="#native-content">Native package</a>
     </h3>
-    <div mlk-accordion-content id="native-content" class="demo-content" data-open>
+    <div mlk-accordion-content id="native-content" data-open>
       <div class="demo-contentInner">@milkui/core/accordion</div>
     </div>
   </div>
   <div mlk-accordion-item>
     <h3 mlk-accordion-header>
-      <a mlk-accordion-trigger href="#react-content" class="demo-trigger">React adapter</a>
+      <a mlk-accordion-trigger href="#react-content">React adapter</a>
     </h3>
-    <div mlk-accordion-content id="react-content" class="demo-content">
+    <div mlk-accordion-content id="react-content">
       <div class="demo-contentInner">@milkui/react/accordion</div>
     </div>
   </div>
   <div mlk-accordion-item>
     <h3 mlk-accordion-header>
-      <a mlk-accordion-trigger href="#primitive-content" class="demo-trigger">Shared primitive</a>
+      <a mlk-accordion-trigger href="#primitive-content">Shared primitive</a>
     </h3>
-    <div mlk-accordion-content id="primitive-content" class="demo-content">
+    <div mlk-accordion-content id="primitive-content">
       <div class="demo-contentInner">@milkui/core/primitive</div>
     </div>
   </div>
@@ -143,7 +143,7 @@ const accordionHeroNativeCode = `<script type="module">
 const buttonHeroReactCode = `import { Button } from '@milkui/react/button';
 
 export function SaveButton() {
-  return <Button className="demo-button">Save changes</Button>;
+  return <Button>Save changes</Button>;
 }`;
 
 const buttonHeroNativeCode = `<script type="module">
@@ -151,9 +151,9 @@ const buttonHeroNativeCode = `<script type="module">
   defineButton(document);
 </script>
 
-<button mlk-button class="demo-button">Save changes</button>`;
+<button mlk-button>Save changes</button>`;
 
-const buttonDisabledReactCode = `<Button className="demo-button" disabled>
+const buttonDisabledReactCode = `<Button disabled>
   Save changes
 </Button>`;
 
@@ -162,7 +162,7 @@ const buttonDisabledNativeCode = `<script type="module">
   defineButton(document);
 </script>
 
-<button mlk-button class="demo-button" disabled>Save changes</button>`;
+<button mlk-button disabled>Save changes</button>`;
 
 const collapsibleControlledReactCode = `const [open, setOpen] = React.useState(false);
 const [acceptRequests, setAcceptRequests] = React.useState(true);
@@ -174,8 +174,8 @@ const [acceptRequests, setAcceptRequests] = React.useState(true);
     if (acceptRequests) setOpen(nextOpen);
   }}
 >
-  <Collapsible.Trigger className="demo-trigger">Release notes</Collapsible.Trigger>
-  <Collapsible.Content className="demo-content">
+  <Collapsible.Trigger>Release notes</Collapsible.Trigger>
+  <Collapsible.Content>
     <div className="demo-contentInner">Controlled content</div>
   </Collapsible.Content>
 </Collapsible.Root>`;
@@ -199,8 +199,8 @@ const collapsibleControlledNativeCode = `<script type="module">
 </script>`;
 
 const collapsibleAnimationReactCode = `<Collapsible.Root id="animation-details">
-  <Collapsible.Trigger className="demo-trigger">Animation details</Collapsible.Trigger>
-  <Collapsible.Content className="demo-content">
+  <Collapsible.Trigger>Animation details</Collapsible.Trigger>
+  <Collapsible.Content>
     <div className="demo-contentInner">Animated content</div>
   </Collapsible.Content>
 </Collapsible.Root>`;
@@ -211,19 +211,19 @@ const collapsibleAnimationNativeCode = `<script type="module">
 </script>
 
 <div mlk-collapsible-root id="animation-details">
-  <a mlk-collapsible-trigger href="#animation-details-content" class="demo-trigger">Animation details</a>
-  <div mlk-collapsible-content id="animation-details-content" class="demo-content">
+  <a mlk-collapsible-trigger href="#animation-details-content">Animation details</a>
+  <div mlk-collapsible-content id="animation-details-content">
     <div class="demo-contentInner">Animated content</div>
   </div>
 </div>`;
 
 const collapsibleNestedReactCode = `<Collapsible.Root id="outer-details">
   <Collapsible.Trigger asChild>
-    <a className="demo-trigger">Outer details</a>
+    <a>Outer details</a>
   </Collapsible.Trigger>
-  <Collapsible.Content className="demo-content">
+  <Collapsible.Content>
     <Collapsible.Root id="inner-details">
-      <Collapsible.Trigger className="demo-trigger">Inner details</Collapsible.Trigger>
+      <Collapsible.Trigger>Inner details</Collapsible.Trigger>
       <Collapsible.Content>Inner state is isolated.</Collapsible.Content>
     </Collapsible.Root>
   </Collapsible.Content>
@@ -251,9 +251,9 @@ const [acceptRequests, setAcceptRequests] = React.useState(true);
 >
   <Accordion.Item value="usage">
     <Accordion.Header>
-      <Accordion.Trigger className="demo-trigger">Usage</Accordion.Trigger>
+      <Accordion.Trigger>Usage</Accordion.Trigger>
     </Accordion.Header>
-    <Accordion.Content className="demo-content">
+    <Accordion.Content>
       <div className="demo-contentInner">Controlled accordion content</div>
     </Accordion.Content>
   </Accordion.Item>
@@ -281,25 +281,25 @@ const accordionControlledNativeCode = `<script type="module">
 const accordionMultipleReactCode = `<Accordion.Root type="multiple" defaultValue={['native', 'react']}>
   <Accordion.Item value="native">
     <Accordion.Header>
-      <Accordion.Trigger className="demo-trigger">Native package</Accordion.Trigger>
+      <Accordion.Trigger>Native package</Accordion.Trigger>
     </Accordion.Header>
-    <Accordion.Content className="demo-content">
+    <Accordion.Content>
       <div className="demo-contentInner">@milkui/core/accordion</div>
     </Accordion.Content>
   </Accordion.Item>
   <Accordion.Item value="react">
     <Accordion.Header>
-      <Accordion.Trigger className="demo-trigger">React adapter</Accordion.Trigger>
+      <Accordion.Trigger>React adapter</Accordion.Trigger>
     </Accordion.Header>
-    <Accordion.Content className="demo-content">
+    <Accordion.Content>
       <div className="demo-contentInner">@milkui/react/accordion</div>
     </Accordion.Content>
   </Accordion.Item>
   <Accordion.Item value="primitive">
     <Accordion.Header>
-      <Accordion.Trigger className="demo-trigger">Shared primitive</Accordion.Trigger>
+      <Accordion.Trigger>Shared primitive</Accordion.Trigger>
     </Accordion.Header>
-    <Accordion.Content className="demo-content">
+    <Accordion.Content>
       <div className="demo-contentInner">@milkui/core/primitive</div>
     </Accordion.Content>
   </Accordion.Item>
@@ -308,25 +308,25 @@ const accordionMultipleReactCode = `<Accordion.Root type="multiple" defaultValue
 const accordionMultipleNativeCode = `<div mlk-accordion-root data-type="multiple">
   <div mlk-accordion-item>
     <h3 mlk-accordion-header>
-      <a mlk-accordion-trigger href="#multiple-native-content" class="demo-trigger">Native package</a>
+      <a mlk-accordion-trigger href="#multiple-native-content">Native package</a>
     </h3>
-    <div mlk-accordion-content id="multiple-native-content" class="demo-content" data-open>
+    <div mlk-accordion-content id="multiple-native-content" data-open>
       <div class="demo-contentInner">@milkui/core/accordion</div>
     </div>
   </div>
   <div mlk-accordion-item>
     <h3 mlk-accordion-header>
-      <a mlk-accordion-trigger href="#multiple-react-content" class="demo-trigger">React adapter</a>
+      <a mlk-accordion-trigger href="#multiple-react-content">React adapter</a>
     </h3>
-    <div mlk-accordion-content id="multiple-react-content" class="demo-content" data-open>
+    <div mlk-accordion-content id="multiple-react-content" data-open>
       <div class="demo-contentInner">@milkui/react/accordion</div>
     </div>
   </div>
   <div mlk-accordion-item>
     <h3 mlk-accordion-header>
-      <a mlk-accordion-trigger href="#multiple-primitive-content" class="demo-trigger">Shared primitive</a>
+      <a mlk-accordion-trigger href="#multiple-primitive-content">Shared primitive</a>
     </h3>
-    <div mlk-accordion-content id="multiple-primitive-content" class="demo-content">
+    <div mlk-accordion-content id="multiple-primitive-content">
       <div class="demo-contentInner">@milkui/core/primitive</div>
     </div>
   </div>
@@ -340,17 +340,17 @@ const accordionHorizontalReactCode = `<Accordion.Root
 >
   <Accordion.Item value="one">
     <Accordion.Header>
-      <Accordion.Trigger className="demo-trigger">One</Accordion.Trigger>
+      <Accordion.Trigger>One</Accordion.Trigger>
     </Accordion.Header>
-    <Accordion.Content className="demo-content">
+    <Accordion.Content>
       <div className="demo-contentInner">Horizontal item one.</div>
     </Accordion.Content>
   </Accordion.Item>
   <Accordion.Item value="two">
     <Accordion.Header>
-      <Accordion.Trigger className="demo-trigger">Two</Accordion.Trigger>
+      <Accordion.Trigger>Two</Accordion.Trigger>
     </Accordion.Header>
-    <Accordion.Content className="demo-content">
+    <Accordion.Content>
       <div className="demo-contentInner">Horizontal item two.</div>
     </Accordion.Content>
   </Accordion.Item>
@@ -366,17 +366,17 @@ const accordionHorizontalNativeCode = `<div
 >
   <div mlk-accordion-item>
     <h3 mlk-accordion-header>
-      <a mlk-accordion-trigger href="#horizontal-one-content" class="demo-trigger">One</a>
+      <a mlk-accordion-trigger href="#horizontal-one-content">One</a>
     </h3>
-    <div mlk-accordion-content id="horizontal-one-content" class="demo-content" data-open>
+    <div mlk-accordion-content id="horizontal-one-content" data-open>
       <div class="demo-contentInner">Horizontal item one.</div>
     </div>
   </div>
   <div mlk-accordion-item>
     <h3 mlk-accordion-header>
-      <a mlk-accordion-trigger href="#horizontal-two-content" class="demo-trigger">Two</a>
+      <a mlk-accordion-trigger href="#horizontal-two-content">Two</a>
     </h3>
-    <div mlk-accordion-content id="horizontal-two-content" class="demo-content">
+    <div mlk-accordion-content id="horizontal-two-content">
       <div class="demo-contentInner">Horizontal item two.</div>
     </div>
   </div>
@@ -459,8 +459,8 @@ function CollapsibleHeroDemo() {
         <span>@milkui/react/collapsible</span>
         <span>React primitive</span>
       </div>
-      <Collapsible.Trigger className="demo-trigger">Show packages</Collapsible.Trigger>
-      <Collapsible.Content className="demo-content">
+      <Collapsible.Trigger>Show packages</Collapsible.Trigger>
+      <Collapsible.Content>
         <div className="package-row">
           <span>@milkui/react/collapsible</span>
           <span>React adapter</span>
@@ -486,8 +486,8 @@ function CollapsibleControlledDemo() {
           if (acceptRequests) setOpen(nextOpen);
         }}
       >
-        <Collapsible.Trigger className="demo-trigger">Release notes</Collapsible.Trigger>
-        <Collapsible.Content className="demo-content">
+        <Collapsible.Trigger>Release notes</Collapsible.Trigger>
+        <Collapsible.Content>
           <div className="demo-contentInner">Controlled content</div>
         </Collapsible.Content>
       </Collapsible.Root>
@@ -513,9 +513,9 @@ function CollapsibleAnimationDemo() {
   return (
     <ExampleDemo title="Animation and transition">
       <Collapsible.Root id="animation-details">
-        <Collapsible.Trigger className="demo-trigger">Animation details</Collapsible.Trigger>
+        <Collapsible.Trigger>Animation details</Collapsible.Trigger>
         <Collapsible.Content
-          className={useTransitions ? 'demo-content transition-content' : 'demo-content'}
+          className={useTransitions ? 'transition-content' : undefined}
         >
           <div className="demo-contentInner">Animated content</div>
         </Collapsible.Content>
@@ -541,7 +541,6 @@ function CollapsibleNestedDemo() {
       <Collapsible.Root id="outer-details">
         <Collapsible.Trigger asChild>
           <a
-            className="demo-trigger"
             onClick={(event) => {
               if (preventToggle) event.preventDefault();
             }}
@@ -549,11 +548,11 @@ function CollapsibleNestedDemo() {
             Outer details
           </a>
         </Collapsible.Trigger>
-        <Collapsible.Content className="demo-content">
+        <Collapsible.Content>
           <div className="demo-contentInner">
             <Collapsible.Root id="inner-details">
-              <Collapsible.Trigger className="demo-trigger">Inner details</Collapsible.Trigger>
-              <Collapsible.Content className="demo-content nested-content">
+              <Collapsible.Trigger>Inner details</Collapsible.Trigger>
+              <Collapsible.Content className="nested-content">
                 <div className="demo-contentInner">Inner state is isolated.</div>
               </Collapsible.Content>
             </Collapsible.Root>
@@ -701,9 +700,9 @@ function AccordionItem(props: { value: string; title: string; children: React.Re
   return (
     <Accordion.Item value={props.value}>
       <Accordion.Header>
-        <Accordion.Trigger className="demo-trigger">{props.title}</Accordion.Trigger>
+        <Accordion.Trigger>{props.title}</Accordion.Trigger>
       </Accordion.Header>
-      <Accordion.Content className="demo-content">
+      <Accordion.Content>
         <div className="demo-contentInner">{props.children}</div>
       </Accordion.Content>
     </Accordion.Item>
@@ -715,12 +714,12 @@ function AccordionItem(props: { value: string; title: string; children: React.Re
  * -----------------------------------------------------------------------------------------------*/
 
 function ButtonHeroDemo() {
-  return <Button className="demo-button">Save changes</Button>;
+  return <Button>Save changes</Button>;
 }
 
 function ButtonDisabledDemo() {
   return (
-    <Button className="demo-button" disabled>
+    <Button disabled>
       Save changes
     </Button>
   );
@@ -773,12 +772,12 @@ const accordionExamples: Example[] = [
     <h3>Delivery</h3>
     <div mlk-accordion-root data-type="single" data-collapsible>
       <div mlk-accordion-item>
-        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#delivery-shipping-content" class="demo-trigger">Shipping</a></h3>
-        <div mlk-accordion-content id="delivery-shipping-content" class="demo-content" data-open><div class="demo-contentInner">Shipping information.</div></div>
+        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#delivery-shipping-content">Shipping</a></h3>
+        <div mlk-accordion-content id="delivery-shipping-content" data-open><div class="demo-contentInner">Shipping information.</div></div>
       </div>
       <div mlk-accordion-item>
-        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#delivery-returns-content" class="demo-trigger">Returns</a></h3>
-        <div mlk-accordion-content id="delivery-returns-content" class="demo-content"><div class="demo-contentInner">Returns information.</div></div>
+        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#delivery-returns-content">Returns</a></h3>
+        <div mlk-accordion-content id="delivery-returns-content"><div class="demo-contentInner">Returns information.</div></div>
       </div>
     </div>
   </section>
@@ -786,12 +785,12 @@ const accordionExamples: Example[] = [
     <h3>Account</h3>
     <div mlk-accordion-root data-type="single" data-collapsible>
       <div mlk-accordion-item>
-        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#account-billing-content" class="demo-trigger">Billing</a></h3>
-        <div mlk-accordion-content id="account-billing-content" class="demo-content" data-open><div class="demo-contentInner">Billing information.</div></div>
+        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#account-billing-content">Billing</a></h3>
+        <div mlk-accordion-content id="account-billing-content" data-open><div class="demo-contentInner">Billing information.</div></div>
       </div>
       <div mlk-accordion-item>
-        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#account-privacy-content" class="demo-trigger">Privacy</a></h3>
-        <div mlk-accordion-content id="account-privacy-content" class="demo-content"><div class="demo-contentInner">Privacy information.</div></div>
+        <h3 mlk-accordion-header><a mlk-accordion-trigger href="#account-privacy-content">Privacy</a></h3>
+        <div mlk-accordion-content id="account-privacy-content"><div class="demo-contentInner">Privacy information.</div></div>
       </div>
     </div>
   </section>

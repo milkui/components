@@ -252,7 +252,7 @@ h3 {
   gap: 10px;
 }
 
-.accordion-horizontal .demo-trigger {
+.accordion-horizontal :is([mlk-collapsible-trigger], [mlk-accordion-trigger]) {
   min-height: 56px;
 }
 
@@ -440,10 +440,10 @@ td code {
 }
 
 .native-preview:is(
-  [data-example='accordion-hero'],
-  [data-example='collapsible-basic'],
-  [data-example='button-basic']
-) {
+    [data-example='accordion-hero'],
+    [data-example='collapsible-basic'],
+    [data-example='button-basic']
+  ) {
   display: grid;
   place-items: center;
   height: 320px;
@@ -459,7 +459,7 @@ td code {
     scroll-behavior: auto;
   }
 
-  .demo-content,
+  :is([mlk-collapsible-content], [mlk-accordion-content]),
   .native-frame {
     animation: none !important;
     transition: none !important;
