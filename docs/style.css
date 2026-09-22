@@ -358,6 +358,7 @@ h3 {
 }
 
 .example-item p,
+#anatomy > p,
 .api-note,
 #accessibility p {
   color: var(--milk-muted);
@@ -560,4 +561,8 @@ td code {
 .independent-accordions {
   display: grid;
   gap: 24px;
+}
+
+#anatomy > p {
+  margin: 0 0 24px;
 }

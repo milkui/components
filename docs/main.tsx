@@ -1047,14 +1047,9 @@ function AnatomySection(props: { framework: Framework; page: DocsPage }) {
       )}
       <CodeBlock
         title={props.framework === 'react' ? 'React anatomy' : 'Native anatomy'}
+        css={props.page.styles}
         code={props.framework === 'react' ? props.page.reactAnatomy : withDefaultAttributes(props.page.nativeAnatomy)}
       />
-      {props.page.title !== 'Button' && (
-        <details>
-          <summary>Disclosure styles used by these demos</summary>
-          <CodeBlock title="Disclosure styles" code={props.page.styles} />
-        </details>
-      )}
     </section>
   );
 }
