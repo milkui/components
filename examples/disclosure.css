@@ -14,13 +14,13 @@
   margin: 0;
 }
 
-.demo-content:not([hidden]) {
+.demo-content[data-open] {
   height: auto;
   content-visibility: visible;
   animation: milk-expand 220ms ease-in-out;
 }
 
-.demo-content[hidden] {
+.demo-content:not([data-open]) {
   animation: milk-collapse 220ms ease-in-out;
 }
 
@@ -54,4 +54,15 @@
 :not([data-motion]) > .demo-content {
   transition: none;
   animation: none;
+}
+
+/* Before initialization, the browser reveals fragment targets by removing hidden. */
+:not([data-interactive]) > .demo-content:not([hidden]) {
+  height: auto;
+  content-visibility: visible;
+}
+
+:not([data-interactive]) > .demo-trigger:has(~ .demo-content:not([hidden]))::after,
+:not([data-interactive]) > [mlk-accordion-header]:has(~ .demo-content:not([hidden])) > .demo-trigger::after {
+  content: '−';
 }

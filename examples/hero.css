@@ -63,8 +63,7 @@
   line-height: 1;
 }
 
-.demo-trigger:has(~ .demo-content:not([hidden]))::after,
-[mlk-accordion-header]:has(~ .demo-content:not([hidden])) > .demo-trigger::after {
+.demo-trigger[data-open]::after {
   content: '−';
 }
 
