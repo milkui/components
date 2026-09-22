@@ -23,6 +23,14 @@ describe('native preview default attributes', () => {
     );
   });
 
+  it('makes both disclosure triggers non-draggable in native markup', () => {
+    for (const component of ['collapsible', 'accordion']) {
+      expect(withDefaultAttributes(`<a mlk-${component}-trigger href="#content">Toggle</a>`)).toBe(
+        `<a mlk-${component}-trigger draggable="false" href="#content">Toggle</a>`,
+      );
+    }
+  });
+
   it('handles marker values and quoted attributes when inserting defaults', () => {
     expect(withDefaultAttributes('<button mlk-button="" class="demo-button">Save</button>')).toBe(
       '<button mlk-button="" type="button" class="demo-button">Save</button>',

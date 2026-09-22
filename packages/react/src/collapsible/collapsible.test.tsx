@@ -380,7 +380,7 @@ describe('@milkui/react/collapsible', () => {
       </Root>,
     );
 
-    expect(defaultHtml).toContain('<a href="#');
+    expect(defaultHtml).toContain('<a draggable="false" href="#');
     expect(submitHtml).toContain('type="submit"');
     expect(asChildHtml).toContain('type="submit"');
     expect(asChildHtml).not.toContain('type="button"');

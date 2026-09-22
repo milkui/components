@@ -168,7 +168,9 @@ type CollapsibleTriggerProps = { disabled?: boolean };
 class CollapsibleTriggerPrimitive extends Primitive<CollapsibleTriggerProps> {
   static tag = 'a' as const;
   static attribute: string = 'mlk-collapsible-trigger';
-  static defaultAttributes: AttributesFor<typeof CollapsibleTriggerPrimitive.tag> | null = null;
+  static defaultAttributes: AttributesFor<typeof CollapsibleTriggerPrimitive.tag> = {
+    draggable: 'false',
+  };
   static props: readonly string[] = [
     'disabled',
   ] satisfies readonly (keyof CollapsibleTriggerProps)[];
