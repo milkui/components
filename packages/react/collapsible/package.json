@@ -1,26 +1,38 @@
 {
   "name": "@milkui/react-collapsible",
   "version": "0.0.0",
-  "sideEffects": true,
-  "main": "src/index.ts",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "repository": "https://github.com/milkui/components",
+  "sideEffects": false,
   "publishConfig": {
-    "main": "dist/index.js",
-    "module": "dist/index.mjs",
-    "typings": "dist/index.d.ts",
     "access": "public"
   },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "files": [
-    "dist",
-    "README.md"
+    "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --splitting"
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@milkui/create-react-component": "workspace:*",
-    "@milkui/hello-world": "workspace:*"
+    "@milkui/collapsible": "workspace:*",
+    "@milkui/react-primitive": "workspace:*"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.8"
   },
   "peerDependencies": {
-    "react": "^16.8 || ^17.0 || ^18.0"
+    "react": "^19.0.0"
   }
 }

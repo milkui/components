@@ -1,5 +1,5 @@
 {
-  "name": "@milkui/collapsible",
+  "name": "@milkui/react-primitive",
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",
@@ -26,9 +26,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@milkui/primitive": "workspace:*"
+    "@milkui/primitive": "workspace:*",
+    "radix-ui": "^1.6.7"
   },
-  "devDependencies": {
-    "vitest": "^2.1.8"
+  "peerDependencies": {
+    "react": "^19.0.0"
   }
 }

@@ -8,10 +8,21 @@
 
 <br/>
 
-### Headless components for all the browser frameworks
+# Headless components for all
 
-A hobby project for [@jjenzz](https://github.com/jjenzz) to explore building a native JavaScript component library using [hooked-elements](https://github.com/WebReflection/hooked-elements), with working framework wrappers (e.g. React).
+Native primitives with thin framework adapters, exploring [web component behavior without shadow DOM](https://jjenzz.com/future-for-web-components-without-shadow-dom/).
 
----
+The native implementation uses platform APIs with no runtime dependencies. Attributes attach behavior to semantic HTML; JavaScript properties carry reactive configuration. No `observedAttributes` or shadow DOM.
 
-</div>
+## Goal
+
+Components should be usable from the first render, before JavaScript loads. Their HTML and CSS provide the initial appearance and basic browser interactions; JavaScript progressively enhances them with richer behavior. The goal is to avoid both a [flash of unstyled content (FOUC)](https://webkit.org/blog/66/the-fouc-problem/) and the ["uncanny valley" where a component looks ready but cannot respond to input](https://web.dev/articles/rendering-on-the-web#rehydration_combines_server-side_and_client-side_rendering) until its JavaScript finishes loading.
+
+## Run the examples
+
+```sh
+pnpm install
+pnpm dev
+```
+
+Vite server-renders the docs before React hydrates them so we can test that experience. Disable JavaScript to check the baseline behavior—for example, accordion links should still reveal their content—then enable it to check that enhancement preserves the initial appearance without flicker. The baseline does not need every enhanced feature, but the content and basic interactions should remain available even if JavaScript is slow or fails to load.

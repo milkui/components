@@ -1,5 +1,5 @@
 {
-  "name": "@milkui/collapsible",
+  "name": "@milkui/button",
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",
@@ -27,8 +27,5 @@
   },
   "dependencies": {
     "@milkui/primitive": "workspace:*"
-  },
-  "devDependencies": {
-    "vitest": "^2.1.8"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@milkui/collapsible",
+  "name": "@milkui/accordion",
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",
@@ -26,6 +26,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@milkui/collapsible": "workspace:*",
     "@milkui/primitive": "workspace:*"
   },
   "devDependencies": {

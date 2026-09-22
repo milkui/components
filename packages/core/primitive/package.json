@@ -1,5 +1,5 @@
 {
-  "name": "@milkui/collapsible",
+  "name": "@milkui/primitive",
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",
@@ -23,12 +23,9 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.type-tests.json"
   },
   "dependencies": {
-    "@milkui/primitive": "workspace:*"
-  },
-  "devDependencies": {
-    "vitest": "^2.1.8"
+    "dom-types": "^1.1.5"
   }
 }

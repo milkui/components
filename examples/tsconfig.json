@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "types": ["vite/client"],
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@milkui/primitive": ["../packages/core/primitive/src/index.ts"],
+      "@milkui/collapsible": ["../packages/core/collapsible/src/index.ts"],
+      "@milkui/button": ["../packages/core/button/src/index.ts"],
+      "@milkui/react-primitive": ["../packages/react/primitive/src/index.ts"],
+      "@milkui/react-collapsible": ["../packages/react/collapsible/src/index.ts"],
+      "@milkui/react-button": ["../packages/react/button/src/index.ts"],
+      "@milkui/accordion": ["../packages/core/accordion/src/index.ts"],
+      "@milkui/react-accordion": ["../packages/react/accordion/src/index.ts"]
+    }
+  },
+  "include": [
+    "./entry-client.tsx",
+    "./entry-server.tsx",
+    "./main.tsx",
+    "./native.ts",
+    "./native-preview.ts"
+  ]
+}
