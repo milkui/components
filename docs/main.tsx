@@ -824,7 +824,7 @@ export function App({ state }: { state: DocsState }) {
   return (
     <>
       <header className="site-header">
-        <a className="brand" href={componentHref(state, 'collapsible')} aria-label="Milk UI home">
+        <a className="brand" href={componentHref(state, 'accordion')} aria-label="Milk UI home">
           <span className="brand-mark">μ</span>
           <span>Milk UI</span>
         </a>

@@ -3,7 +3,7 @@ export type ComponentName = 'accordion' | 'button' | 'collapsible';
 export type DocsState = { component: ComponentName; framework: Framework };
 
 export function readRoute(path: string): DocsState | undefined {
-  if (path === '/') return { component: 'collapsible', framework: 'react' };
+  if (path === '/') return { component: 'accordion', framework: 'react' };
   const match = path.match(/^\/component\/(accordion|button|collapsible)(\/native)?\/?$/);
   if (!match) return undefined;
   return { component: match[1] as ComponentName, framework: match[2] ? 'native' : 'react' };
