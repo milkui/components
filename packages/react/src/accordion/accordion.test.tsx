@@ -79,7 +79,7 @@ describe('@milkui/react/accordion', () => {
     );
     const html = renderToString(ui);
     expect(html).toContain('href="#hydrate-two-content"');
-    expect(html).not.toContain('data-enhanced');
+    expect(html).not.toContain('data-interactive');
     await act(async () => {
       reactRoot.unmount();
     });

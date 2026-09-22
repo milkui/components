@@ -28,7 +28,7 @@ describe('fragment enhancement', () => {
     cleanup = defineCollapsible(document);
     expect(root.id).toBe('section');
     expect(root.hasAttribute('data-open')).toBe(true);
-    expect(root.hasAttribute('data-enhanced')).toBe(true);
+    expect(root.hasAttribute('data-interactive')).toBe(true);
     expect(root.hasAttribute('data-motion')).toBe(false);
     expect(trigger.getAttribute('href')).toBe('#section-content');
     expect(trigger.getAttribute('aria-expanded')).toBe('true');
@@ -78,7 +78,7 @@ describe('fragment enhancement', () => {
     expect(root.hasAttribute('data-open')).toBe(true);
     cleanup();
     cleanup = undefined;
-    expect(root.hasAttribute('data-enhanced')).toBe(false);
+    expect(root.hasAttribute('data-interactive')).toBe(false);
   });
 });
 

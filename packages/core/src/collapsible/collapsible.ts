@@ -75,7 +75,7 @@ class CollapsibleRootPrimitive<
     return () => {
       view.removeEventListener('hashchange', onHashChange);
       this.#enhanced = false;
-      this.element?.removeAttribute('data-enhanced');
+      this.element?.removeAttribute('data-interactive');
     };
   }
 
@@ -145,7 +145,7 @@ class CollapsibleRootPrimitive<
   protected get attributes(): Attributes {
     return {
       id: this.id,
-      'data-enhanced': this.enhanced ? '' : undefined,
+      'data-interactive': this.enhanced ? '' : undefined,
       'data-motion': this.motion ? '' : undefined,
       'data-open': this.open ? '' : undefined,
       'data-disabled': this.disabled ? '' : undefined,
