@@ -14,31 +14,22 @@
   margin: 0;
 }
 
-:is([mlk-collapsible-root], [mlk-accordion-item])[data-enhanced] > .demo-content[data-open] {
+.demo-content:not([hidden]) {
   height: auto;
   content-visibility: visible;
-}
-
-.demo-content[data-open] {
   animation: milk-expand 220ms ease-in-out;
 }
 
-.demo-content:not([data-open]) {
+.demo-content[hidden] {
   animation: milk-collapse 220ms ease-in-out;
 }
 
 .demo-content.transition-content {
   animation: none;
   interpolate-size: allow-keywords;
-  height: 0;
-  overflow: hidden;
   transition:
     height 220ms ease-in-out,
     content-visibility 220ms allow-discrete;
-}
-
-.transition-content[data-open] {
-  height: auto;
 }
 
 @keyframes milk-expand {
@@ -58,26 +49,9 @@
     height: 0;
   }
 }
-/* Revealing a fragment removes hidden permanently, independently of other panels. */
-:is([mlk-collapsible-root], [mlk-accordion-item]):not([data-enhanced])
-  > .demo-content:not([hidden]) {
-  height: auto;
-  content-visibility: visible;
-}
 
-/* Suppress motion until interaction; individual motion styles need no readiness selector. */
-:is([mlk-collapsible-root], [mlk-accordion-item]):not([data-motion]) > .demo-content {
+/* Initial rendering and fragment reveals should not animate. */
+:not([data-motion]) > .demo-content {
   transition: none;
   animation: none;
-}
-
-/* Reflect revealed content before JavaScript adds disclosure semantics. */
-:is([mlk-collapsible-root], [mlk-accordion-item]):not([data-enhanced]):has(
-    > .demo-content:not([hidden])
-  )
-  > .demo-trigger::after,
-[mlk-accordion-item]:not([data-enhanced]):has(> .demo-content:not([hidden]))
-  > [mlk-accordion-header]
-  > .demo-trigger::after {
-  content: '−';
 }
