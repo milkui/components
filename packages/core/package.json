@@ -37,7 +37,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --build --force",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.type-tests.json"
   },
