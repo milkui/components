@@ -409,14 +409,7 @@ const collapsibleReactAnatomy = `import * as Collapsible from '@milkui/react/col
 const collapsibleNativeAnatomy = `<div mlk-collapsible-root>
   <a mlk-collapsible-trigger href="#collapsible-content"></a>
   <div mlk-collapsible-content id="collapsible-content"></div>
-</div>
-
-<script type="module">
-  import { Root, Trigger, Content } from '@milkui/core/collapsible';
-  Root.define(document);
-  Trigger.define(document);
-  Content.define(document);
-</script>`;
+</div>`;
 
 const accordionReactAnatomy = `import * as Accordion from '@milkui/react/accordion';
 
@@ -436,27 +429,13 @@ const accordionNativeAnatomy = `<div mlk-accordion-root data-type="single">
     </h3>
     <div mlk-accordion-content id="item-1-content"></div>
   </div>
-</div>
-
-<script type="module">
-  import { Root, Item, Header, Trigger, Content } from '@milkui/core/accordion';
-  Root.define(document);
-  Item.define(document);
-  Header.define(document);
-  Trigger.define(document);
-  Content.define(document);
-</script>`;
+</div>`;
 
 const buttonReactAnatomy = `import { Button } from '@milkui/react/button';
 
 <Button />`;
 
-const buttonNativeAnatomy = `<button mlk-button></button>
-
-<script type="module">
-  import { Button } from '@milkui/core/button';
-  Button.define(document);
-</script>`;
+const buttonNativeAnatomy = `<button mlk-button></button>`;
 
 type DocsPage = {
   title: string;
@@ -1070,7 +1049,7 @@ function AnatomySection(props: { framework: Framework; page: DocsPage }) {
       <CodeBlock
         title={props.framework === 'react' ? 'React anatomy' : 'Native anatomy'}
         css={props.page.styles}
-        code={props.framework === 'react' ? props.page.reactAnatomy : withDefaultAttributes(props.page.nativeAnatomy)}
+        code={props.framework === 'react' ? props.page.reactAnatomy : props.page.nativeAnatomy}
       />
     </section>
   );
