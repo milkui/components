@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { Content, defineCollapsible, Root, Trigger } from './index.js';
+import { Root, Trigger, Content } from './index.js';
 
 describe('@milkui/core/collapsible native behavior', () => {
   it('reads configuration once and observes only DOM insertion and removal', async () => {
@@ -8,7 +8,7 @@ describe('@milkui/core/collapsible native behavior', () => {
       <button mlk-collapsible-trigger type="submit">Toggle</button>
       <div mlk-collapsible-content></div>
     </div>`;
-    const stop = defineCollapsible(host);
+    const stop = await defineCollapsible(host);
     const root = host.firstElementChild as HTMLElement;
     const trigger = root.querySelector('button')!;
     const instance = Root.get(root);
@@ -37,7 +37,7 @@ describe('@milkui/core/collapsible native behavior', () => {
     stop();
   });
 
-  it('toggles semantic DOM through the same native controllers', () => {
+  it('toggles semantic DOM through the same native controllers', async () => {
     const root = document.createElement('div');
     const trigger = document.createElement('button');
     const content = document.createElement('section');
@@ -69,7 +69,7 @@ describe('@milkui/core/collapsible native behavior', () => {
     expect(content.style.getPropertyValue('--mlk-collapsible-content-height')).toBe('0px');
   });
 
-  it('measures natural border-box size when an opening transition compresses the rect', () => {
+  it('measures natural border-box size when an opening transition compresses the rect', async () => {
     const root = document.createElement('div');
     const content = document.createElement('section');
     root.append(content);
@@ -100,7 +100,7 @@ describe('@milkui/core/collapsible native behavior', () => {
     getComputedStyle.mockRestore();
   });
 
-  it('preserves fractional border-box rects when they exceed natural scroll extent', () => {
+  it('preserves fractional border-box rects when they exceed natural scroll extent', async () => {
     const root = document.createElement('div');
     const content = document.createElement('section');
     root.append(content);
@@ -124,7 +124,7 @@ describe('@milkui/core/collapsible native behavior', () => {
     getComputedStyle.mockRestore();
   });
 
-  it('keeps nested roots isolated', () => {
+  it('keeps nested roots isolated', async () => {
     const outerRoot = document.createElement('div');
     const outerTrigger = document.createElement('button');
     const innerRoot = document.createElement('div');
@@ -147,7 +147,7 @@ describe('@milkui/core/collapsible native behavior', () => {
     expect(innerTrigger.getAttribute('aria-expanded')).toBe('true');
   });
 
-  it('supports controlled updates and disabled roots without attribute reactivity', () => {
+  it('supports controlled updates and disabled roots without attribute reactivity', async () => {
     const root = document.createElement('div');
     const trigger = document.createElement('button');
     const changes: boolean[] = [];
@@ -175,7 +175,7 @@ describe('@milkui/core/collapsible native behavior', () => {
     expect(trigger.getAttribute('aria-expanded')).toBe('true');
   });
 
-  it('removes explicit native registration and can register the same root again', () => {
+  it('removes explicit native registration and can register the same root again', async () => {
     const host = document.createElement('div');
     host.innerHTML = `
       <div mlk-collapsible-root id="packages">
@@ -185,7 +185,7 @@ describe('@milkui/core/collapsible native behavior', () => {
     `;
     document.body.append(host);
 
-    const cleanup = defineCollapsible(host);
+    const cleanup = await defineCollapsible(host);
     const root = host.querySelector<HTMLElement>('[mlk-collapsible-root]')!;
     const trigger = host.querySelector<HTMLButtonElement>('[mlk-collapsible-trigger]')!;
     const changes = vi.fn();
@@ -201,7 +201,7 @@ describe('@milkui/core/collapsible native behavior', () => {
     expect(root.getAttribute('data-open')).toBe('');
     expect(changes).toHaveBeenCalledTimes(1);
 
-    defineCollapsible(host);
+    await defineCollapsible(host);
     expect(root.hasAttribute('data-open')).toBe(true);
 
     trigger.click();
@@ -209,15 +209,19 @@ describe('@milkui/core/collapsible native behavior', () => {
     expect(changes).toHaveBeenCalledTimes(2);
   });
 
-  it('connects parts that mounted before their provider becomes available', () => {
+  it('rejects missing providers and allows mounting after the provider exists', async () => {
     const root = document.createElement('div');
     const trigger = document.createElement('button');
     const content = document.createElement('div');
     root.append(trigger, content);
 
+    expect(() => Trigger.mount(trigger)).toThrow('Collapsible.Root provider ancestor');
+    expect(() => Content.mount(content)).toThrow('Collapsible.Root provider ancestor');
+    expect(Trigger.get(trigger)).toBeUndefined();
+    expect(Content.get(content)).toBeUndefined();
+    Root.mount(root, { defaultOpen: false });
     Trigger.mount(trigger);
     Content.mount(content);
-    Root.mount(root, { defaultOpen: false });
 
     trigger.click();
 
@@ -226,7 +230,7 @@ describe('@milkui/core/collapsible native behavior', () => {
     expect(content.hasAttribute('hidden')).toBe(false);
   });
 
-  it('re-resolves nearest provider when a registered part is reparented', () => {
+  it('re-resolves nearest provider when a registered part is reparented', async () => {
     const host = document.createElement('div');
     host.innerHTML = `
       <div id="outer" mlk-collapsible-root>
@@ -236,7 +240,7 @@ describe('@milkui/core/collapsible native behavior', () => {
       </div>
     `;
     document.body.append(host);
-    defineCollapsible(host);
+    await defineCollapsible(host);
 
     const outer = host.querySelector<HTMLElement>('#outer')!;
     const inner = host.querySelector<HTMLElement>('#inner')!;
@@ -250,7 +254,7 @@ describe('@milkui/core/collapsible native behavior', () => {
     expect(trigger.getAttribute('aria-expanded')).toBe('true');
   });
 
-  it('uses changed callbacks and drops removed callbacks on native controller updates', () => {
+  it('uses changed callbacks and drops removed callbacks on native controller updates', async () => {
     const root = document.createElement('div');
     const trigger = document.createElement('button');
     const first = vi.fn();
@@ -272,7 +276,7 @@ describe('@milkui/core/collapsible native behavior', () => {
     expect(second).toHaveBeenCalledTimes(1);
   });
 
-  it('prevents activation when only the trigger is disabled on a non-button element', () => {
+  it('prevents activation when only the trigger is disabled on a non-button element', async () => {
     const root = document.createElement('div');
     const trigger = document.createElement('div');
 
@@ -286,3 +290,9 @@ describe('@milkui/core/collapsible native behavior', () => {
     expect(trigger.getAttribute('data-disabled')).toBe('');
   });
 });
+
+async function defineCollapsible(root: Document | HTMLElement) {
+  const cleanups = [Root.define(root), Trigger.define(root), Content.define(root)];
+  await Promise.resolve();
+  return () => cleanups.forEach((cleanup) => cleanup());
+}

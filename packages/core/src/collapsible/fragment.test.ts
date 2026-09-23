@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { defineCollapsible, Root } from './index.js';
+import { Root, Trigger, Content } from './index.js';
 
 let cleanup: (() => void) | undefined;
 afterEach(() => {
@@ -21,11 +21,11 @@ function setup() {
 }
 
 describe('fragment enhancement', () => {
-  it('adopts a pre-existing deep link and keeps the authored root ID', () => {
+  it('adopts a pre-existing deep link and keeps the authored root ID', async () => {
     const { root, trigger } = setup();
     history.replaceState(null, '', '#deep');
     expect(trigger.getAttribute('role')).toBeNull();
-    cleanup = defineCollapsible(document);
+    cleanup = await defineCollapsible(document);
     expect(root.id).toBe('section');
     expect(root.hasAttribute('data-open')).toBe(true);
     expect(root.hasAttribute('data-interactive')).toBe(true);
@@ -38,9 +38,9 @@ describe('fragment enhancement', () => {
     expect(location.hash).toBe('#deep');
   });
 
-  it('preserves modified navigation and handles Space as a button after enhancement', () => {
+  it('preserves modified navigation and handles Space as a button after enhancement', async () => {
     const { root, trigger } = setup();
-    cleanup = defineCollapsible(document);
+    cleanup = await defineCollapsible(document);
     const modified = new MouseEvent('click', { bubbles: true, cancelable: true, ctrlKey: true });
     // Cancel browser navigation after recording what the primitive did.
     let preventedByPrimitive = false;
@@ -61,7 +61,7 @@ describe('fragment enhancement', () => {
     expect(root.hasAttribute('data-open')).toBe(true);
   });
 
-  it('does not override explicitly controlled state with a fragment', () => {
+  it('does not override explicitly controlled state with a fragment', async () => {
     const { root } = setup();
     history.replaceState(null, '', '#section');
     Root.mount(root, { open: false });
@@ -69,9 +69,9 @@ describe('fragment enhancement', () => {
     Root.unmount(root);
   });
 
-  it('follows later fragment navigation without observing attributes', () => {
+  it('follows later fragment navigation without observing attributes', async () => {
     const { root } = setup();
-    cleanup = defineCollapsible(document);
+    cleanup = await defineCollapsible(document);
     history.replaceState(null, '', '#deep');
     window.dispatchEvent(new HashChangeEvent('hashchange'));
     expect(root.hasAttribute('data-open')).toBe(true);
@@ -81,17 +81,17 @@ describe('fragment enhancement', () => {
   });
 });
 
-it('adopts previously revealed content without needing the current URL fragment', () => {
+it('adopts previously revealed content without needing the current URL fragment', async () => {
   const { root } = setup();
   const content = root.querySelector('[mlk-collapsible-content]')!;
   content.id = 'section-content';
-  cleanup = defineCollapsible(document);
+  cleanup = await defineCollapsible(document);
   expect(root.hasAttribute('data-open')).toBe(true);
 });
 
-it('opens on beforematch without observing attributes', () => {
+it('opens on beforematch without observing attributes', async () => {
   const { root } = setup();
-  cleanup = defineCollapsible(document);
+  cleanup = await defineCollapsible(document);
   const content = root.querySelector('[mlk-collapsible-content]')!;
   expect(content.getAttribute('hidden')).toBe('until-found');
   content.dispatchEvent(new Event('beforematch', { bubbles: true }));
@@ -99,7 +99,7 @@ it('opens on beforematch without observing attributes', () => {
   expect(content.hasAttribute('hidden')).toBe(false);
 });
 
-it('preserves an authored content ID and trigger link without a root ID', () => {
+it('preserves an authored content ID and trigger link without a root ID', async () => {
   document.body.innerHTML = `<div mlk-collapsible-root>
     <a mlk-collapsible-trigger href="#packages-content">Packages</a>
     <div mlk-collapsible-content id="packages-content" hidden="until-found">Content</div>
@@ -107,7 +107,7 @@ it('preserves an authored content ID and trigger link without a root ID', () => 
   const root = document.querySelector('[mlk-collapsible-root]')!;
   const content = document.getElementById('packages-content')!;
   const trigger = root.querySelector('a')!;
-  cleanup = defineCollapsible(document);
+  cleanup = await defineCollapsible(document);
   expect(content.id).toBe('packages-content');
   expect(trigger.getAttribute('href')).toBe('#packages-content');
   expect(trigger.getAttribute('aria-controls')).toBe('packages-content');
@@ -116,3 +116,9 @@ it('preserves an authored content ID and trigger link without a root ID', () => 
   expect(content.hasAttribute('hidden')).toBe(false);
   expect(content.id).toBe('packages-content');
 });
+
+async function defineCollapsible(root: Document | HTMLElement) {
+  const cleanups = [Root.define(root), Trigger.define(root), Content.define(root)];
+  await Promise.resolve();
+  return () => cleanups.forEach((cleanup) => cleanup());
+}

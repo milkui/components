@@ -53,12 +53,7 @@ export function Packages() {
   );
 }`;
 
-const collapsibleHeroNativeCode = `<script type="module">
-  import { defineCollapsible } from '@milkui/core/collapsible';
-  defineCollapsible(document);
-</script>
-
-<div mlk-collapsible-root class="package-list">
+const collapsibleHeroNativeCode = `<div mlk-collapsible-root class="package-list">
   <div class="package-list__row package-list__row--featured">
     <span>@milkui/core/collapsible</span>
     <span>Native primitive</span>
@@ -74,7 +69,14 @@ const collapsibleHeroNativeCode = `<script type="module">
       <span>Shared lifecycle</span>
     </div>
   </div>
-</div>`;
+</div>
+
+<script type="module">
+  import { Root, Trigger, Content } from '@milkui/core/collapsible';
+  Root.define(document);
+  Trigger.define(document);
+  Content.define(document);
+</script>`;
 
 const accordionHeroReactCode = `import * as Accordion from '@milkui/react/accordion';
 
@@ -109,12 +111,7 @@ export function Packages() {
   );
 }`;
 
-const accordionHeroNativeCode = `<script type="module">
-  import { defineAccordion } from '@milkui/core/accordion';
-  defineAccordion(document);
-</script>
-
-<div mlk-accordion-root data-type="single" data-collapsible>
+const accordionHeroNativeCode = `<div mlk-accordion-root data-type="single" data-collapsible>
   <div mlk-accordion-item>
     <h3 mlk-accordion-header>
       <a mlk-accordion-trigger href="#native-content">Native package</a>
@@ -139,7 +136,16 @@ const accordionHeroNativeCode = `<script type="module">
       <div class="demo__content-inner">@milkui/core/primitive</div>
     </div>
   </div>
-</div>`;
+</div>
+
+<script type="module">
+  import { Root, Item, Header, Trigger, Content } from '@milkui/core/accordion';
+  Root.define(document);
+  Item.define(document);
+  Header.define(document);
+  Trigger.define(document);
+  Content.define(document);
+</script>`;
 
 const buttonHeroReactCode = `import { Button } from '@milkui/react/button';
 
@@ -147,23 +153,23 @@ export function SaveButton() {
   return <Button>Save changes</Button>;
 }`;
 
-const buttonHeroNativeCode = `<script type="module">
-  import { defineButton } from '@milkui/core/button';
-  defineButton(document);
-</script>
+const buttonHeroNativeCode = `<button mlk-button>Save changes</button>
 
-<button mlk-button>Save changes</button>`;
+<script type="module">
+  import { Button } from '@milkui/core/button';
+  Button.define(document);
+</script>`;
 
 const buttonDisabledReactCode = `<Button disabled>
   Save changes
 </Button>`;
 
-const buttonDisabledNativeCode = `<script type="module">
-  import { defineButton } from '@milkui/core/button';
-  defineButton(document);
-</script>
+const buttonDisabledNativeCode = `<button mlk-button disabled>Save changes</button>
 
-<button mlk-button disabled>Save changes</button>`;
+<script type="module">
+  import { Button } from '@milkui/core/button';
+  Button.define(document);
+</script>`;
 
 const collapsibleControlledReactCode = `const [open, setOpen] = React.useState(false);
 const [acceptRequests, setAcceptRequests] = React.useState(true);
@@ -182,9 +188,12 @@ const [acceptRequests, setAcceptRequests] = React.useState(true);
 </Collapsible.Root>`;
 
 const collapsibleControlledNativeCode = `<script type="module">
-  import { defineCollapsible, Root } from '@milkui/core/collapsible';
-  defineCollapsible(document);
+  import { Root, Trigger, Content } from '@milkui/core/collapsible';
+  Root.define(document);
+  Trigger.define(document);
+  Content.define(document);
 
+  await Promise.resolve();
   let open = Root.get(document.getElementById('controlled-root')).open;
   const root = Root.mount(document.getElementById('controlled-root'), {
     open,
@@ -206,17 +215,19 @@ const collapsibleAnimationReactCode = `<Collapsible.Root id="animation-details">
   </Collapsible.Content>
 </Collapsible.Root>`;
 
-const collapsibleAnimationNativeCode = `<script type="module">
-  import { defineCollapsible } from '@milkui/core/collapsible';
-  defineCollapsible(document);
-</script>
-
-<div mlk-collapsible-root id="animation-details">
+const collapsibleAnimationNativeCode = `<div mlk-collapsible-root id="animation-details">
   <a mlk-collapsible-trigger href="#animation-details-content">Animation details</a>
   <div mlk-collapsible-content id="animation-details-content">
     <div class="demo__content-inner">Animated content</div>
   </div>
-</div>`;
+</div>
+
+<script type="module">
+  import { Root, Trigger, Content } from '@milkui/core/collapsible';
+  Root.define(document);
+  Trigger.define(document);
+  Content.define(document);
+</script>`;
 
 const collapsibleNestedReactCode = `<Collapsible.Root id="outer-details">
   <Collapsible.Trigger asChild>
@@ -261,9 +272,14 @@ const [acceptRequests, setAcceptRequests] = React.useState(true);
 </Accordion.Root>`;
 
 const accordionControlledNativeCode = `<script type="module">
-  import { defineAccordion, Root } from '@milkui/core/accordion';
-  defineAccordion(document);
+  import { Root, Item, Header, Trigger, Content } from '@milkui/core/accordion';
+  Root.define(document);
+  Item.define(document);
+  Header.define(document);
+  Trigger.define(document);
+  Content.define(document);
 
+  await Promise.resolve();
   let value = Root.get(document.getElementById('accordion-controlled')).values[0] ?? '';
   const root = Root.mount(document.getElementById('accordion-controlled'), {
     type: 'single',
@@ -390,15 +406,17 @@ const collapsibleReactAnatomy = `import * as Collapsible from '@milkui/react/col
   <Collapsible.Content />
 </Collapsible.Root>`;
 
-const collapsibleNativeAnatomy = `<script type="module">
-  import { defineCollapsible } from '@milkui/core/collapsible';
-  defineCollapsible(document);
-</script>
-
-<div mlk-collapsible-root>
+const collapsibleNativeAnatomy = `<div mlk-collapsible-root>
   <a mlk-collapsible-trigger href="#collapsible-content"></a>
   <div mlk-collapsible-content id="collapsible-content"></div>
-</div>`;
+</div>
+
+<script type="module">
+  import { Root, Trigger, Content } from '@milkui/core/collapsible';
+  Root.define(document);
+  Trigger.define(document);
+  Content.define(document);
+</script>`;
 
 const accordionReactAnatomy = `import * as Accordion from '@milkui/react/accordion';
 
@@ -411,30 +429,34 @@ const accordionReactAnatomy = `import * as Accordion from '@milkui/react/accordi
   </Accordion.Item>
 </Accordion.Root>`;
 
-const accordionNativeAnatomy = `<script type="module">
-  import { defineAccordion } from '@milkui/core/accordion';
-  defineAccordion(document);
-</script>
-
-<div mlk-accordion-root data-type="single">
+const accordionNativeAnatomy = `<div mlk-accordion-root data-type="single">
   <div mlk-accordion-item>
     <h3 mlk-accordion-header>
       <a mlk-accordion-trigger href="#item-1-content"></a>
     </h3>
     <div mlk-accordion-content id="item-1-content"></div>
   </div>
-</div>`;
+</div>
+
+<script type="module">
+  import { Root, Item, Header, Trigger, Content } from '@milkui/core/accordion';
+  Root.define(document);
+  Item.define(document);
+  Header.define(document);
+  Trigger.define(document);
+  Content.define(document);
+</script>`;
 
 const buttonReactAnatomy = `import { Button } from '@milkui/react/button';
 
 <Button />`;
 
-const buttonNativeAnatomy = `<script type="module">
-  import { defineButton } from '@milkui/core/button';
-  defineButton(document);
-</script>
+const buttonNativeAnatomy = `<button mlk-button></button>
 
-<button mlk-button></button>`;
+<script type="module">
+  import { Button } from '@milkui/core/button';
+  Button.define(document);
+</script>`;
 
 type DocsPage = {
   title: string;

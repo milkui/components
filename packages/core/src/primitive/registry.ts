@@ -1,41 +1,70 @@
 import type { PrimitiveDefinition } from './primitive.js';
 
-/** Opt-in DOM discovery; observes DOM insertion/removal, never attribute changes. */
-export function definePrimitives(parts: readonly PrimitiveDefinition[], root: Document | HTMLElement = document) {
-  const owned = new Map<HTMLElement, Set<PrimitiveDefinition>>();
-  const view = (root.ownerDocument ?? (root as Document)).defaultView!;
-  const contains = (element: HTMLElement) => root === element || root.contains(element);
-  const scan = () => {
-    for (const [element, mounted] of owned) {
-      for (const part of mounted) {
-        if (!contains(element)) {
-          part.unmount(element);
-          mounted.delete(part);
+type Registration = { owned: Set<HTMLElement>; cleanup: () => void };
+type Registry = {
+  registrations: Map<PrimitiveDefinition, Registration>;
+  schedule: () => void;
+  observer: MutationObserver;
+};
+const roots = new WeakMap<Document | HTMLElement, Registry>();
+
+/** Discover registered parts in DOM order; observe structure, never attributes. */
+export function definePrimitive(part: PrimitiveDefinition, root: Document | HTMLElement = document) {
+  let registry = roots.get(root);
+  if (!registry) {
+    const current = new Map<PrimitiveDefinition, Registration>();
+    const scan = () => {
+      for (const [definition, { owned }] of current) {
+        for (const element of owned) {
+          if (root !== element && !root.contains(element)) {
+            definition.unmount(element);
+            owned.delete(element);
+          }
         }
       }
-      if (!mounted.size) owned.delete(element);
-    }
-    for (const part of parts) {
-      const matches = [...root.querySelectorAll<HTMLElement>(`[${part.attribute}]`)];
-      if (root.nodeType === 1 && (root as HTMLElement).hasAttribute(part.attribute))
-        matches.unshift(root as HTMLElement);
-      for (const element of matches) {
-        const mounted = owned.get(element) ?? new Set();
-        part.mount(element);
-        mounted.add(part);
-        owned.set(element, mounted);
+      if (!current.size) return;
+      const selector = [...current.keys()].map((definition) => `[${definition.attribute}]`).join(',');
+      const elements = [...root.querySelectorAll<HTMLElement>(selector)];
+      if (root.nodeType === 1 && (root as HTMLElement).matches(selector)) elements.unshift(root as HTMLElement);
+      for (const element of elements) {
+        for (const [definition, { owned }] of current) {
+          if (!element.hasAttribute(definition.attribute)) continue;
+          definition.mount(element);
+          owned.add(element);
+        }
       }
+    };
+    const view = (root.ownerDocument ?? (root as Document)).defaultView!;
+    const observer = new view.MutationObserver(scan);
+    observer.observe(root, { childList: true, subtree: true });
+    // Registrations made in the same turn are mounted together, parents first.
+    let scheduled = false;
+    const schedule = () => {
+      if (scheduled) return;
+      scheduled = true;
+      queueMicrotask(() => {
+        scheduled = false;
+        scan();
+      });
+    };
+    registry = { registrations: current, schedule, observer };
+    roots.set(root, registry);
+  }
+  const { registrations, schedule, observer } = registry;
+  const existing = registrations.get(part);
+  if (existing) return existing.cleanup;
+  const owned = new Set<HTMLElement>();
+  const cleanup = () => {
+    if (registrations.get(part)?.cleanup !== cleanup) return;
+    registrations.delete(part);
+    for (const element of owned) part.unmount(element);
+    owned.clear();
+    if (!registrations.size) {
+      observer.disconnect();
+      roots.delete(root);
     }
   };
-  scan();
-  const observer = new view.MutationObserver(scan);
-  observer.observe(root, {
-    childList: true,
-    subtree: true,
-  });
-  return () => {
-    observer.disconnect();
-    for (const [element, mounted] of owned) for (const part of mounted) part.unmount(element);
-    owned.clear();
-  };
+  registrations.set(part, { owned, cleanup });
+  schedule();
+  return cleanup;
 }

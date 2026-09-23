@@ -1,6 +1,6 @@
-import { defineAccordion, Root as AccordionRoot } from '@milkui/core/accordion';
-import { defineButton } from '@milkui/core/button';
-import { defineCollapsible, Root as CollapsibleRoot } from '@milkui/core/collapsible';
+import * as Accordion from '@milkui/core/accordion';
+import { Button } from '@milkui/core/button';
+import * as Collapsible from '@milkui/core/collapsible';
 
 import { resolveNativeExample, templates, type NativeExampleKey } from './native-preview';
 
@@ -13,10 +13,20 @@ if (app.dataset.example !== example) {
   app.dataset.example = example;
 }
 document.title = `Milk UI Native · ${example}`;
-if (example.startsWith('accordion-')) defineAccordion(document);
-else if (example.startsWith('button-')) defineButton(document);
-else defineCollapsible(document);
-connectExample(example);
+if (example.startsWith('accordion-')) {
+  Accordion.Root.define(document);
+  Accordion.Item.define(document);
+  Accordion.Header.define(document);
+  Accordion.Trigger.define(document);
+  Accordion.Content.define(document);
+} else if (example.startsWith('button-')) {
+  Button.define(document);
+} else {
+  Collapsible.Root.define(document);
+  Collapsible.Trigger.define(document);
+  Collapsible.Content.define(document);
+}
+queueMicrotask(() => connectExample(example));
 connectResizeMessages();
 
 function connectExample(key: NativeExampleKey) {
@@ -28,11 +38,11 @@ function connectExample(key: NativeExampleKey) {
 
 function connectCollapsibleControlled() {
   const rootElement = element<HTMLElement>('controlled-root');
-  let open = CollapsibleRoot.get(rootElement)?.open ?? false;
+  let open = Collapsible.Root.get(rootElement)?.open ?? false;
   let acceptRequests = true;
   const accept = element<HTMLInputElement>('controlled-accept');
   const external = element<HTMLButtonElement>('controlled-external');
-  const root = CollapsibleRoot.mount(rootElement, {
+  const root = Collapsible.Root.mount(rootElement, {
     open,
     onOpenChange(nextOpen: boolean) {
       if (acceptRequests) setOpen(nextOpen);
@@ -51,7 +61,7 @@ function connectCollapsibleControlled() {
 }
 
 function connectCollapsibleAnimation() {
-  CollapsibleRoot.mount(element<HTMLElement>('animation-root'), {
+  Collapsible.Root.mount(element<HTMLElement>('animation-root'), {
     onOpenChange() {
       postSize();
     },
@@ -71,11 +81,11 @@ function connectCollapsibleNested() {
 
 function connectAccordionControlled() {
   const rootElement = element<HTMLElement>('accordion-controlled');
-  let value = AccordionRoot.get(rootElement)?.values[0] ?? '';
+  let value = Accordion.Root.get(rootElement)?.values[0] ?? '';
   let acceptRequests = true;
   const accept = element<HTMLInputElement>('accordion-controlled-accept');
   const external = element<HTMLButtonElement>('accordion-controlled-external');
-  const root = AccordionRoot.mount(rootElement, {
+  const root = Accordion.Root.mount(rootElement, {
     type: 'single',
     value,
     onValueChange(nextValue) {

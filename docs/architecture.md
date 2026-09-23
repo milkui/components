@@ -100,7 +100,7 @@ Accordion's Item extends `CollapsibleRootPrimitive`, inheriting its disclosure c
 
 Trigger and Content extend their corresponding Collapsible primitive classes, reusing button activation, ARIA expansion, and size measurement. Accordion adds heading/content relationships and keyboard navigation.
 
-Each subclass is registered as its own primitive definition with an `mlk-accordion-*` marker. It is a single primitive instance on the element, so consumers need neither Collapsible attributes nor `defineCollapsible()`. The existing primitive lifecycle owns connection, disconnection, subscriptions, and event binding.
+Each subclass is registered as its own primitive definition with an `mlk-accordion-*` marker. It is a single primitive instance on the element, so consumers need neither Collapsible attributes nor registration of Collapsible parts. The existing primitive lifecycle owns connection, disconnection, subscriptions, and event binding.
 
 Native DOM ancestry and React's transported primitive scope resolve the shared Collapsible context. React Accordion parts use the shared adapter factory and contain no accordion state or keyboard logic.
 

@@ -22,14 +22,7 @@ type CollapsibleContextValue = {
   toggle(): void;
 };
 
-const CollapsibleContext = /*#__PURE__*/ createContext<CollapsibleContextValue>({
-  open: false,
-  disabled: false,
-  contentId: '',
-  rootId: '',
-  enhanced: false,
-  toggle() {},
-});
+const CollapsibleContext = /*#__PURE__*/ createContext<CollapsibleContextValue>('Collapsible.Root');
 
 type CollapsibleRootProps = {
   open?: boolean;

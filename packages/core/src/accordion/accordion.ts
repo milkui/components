@@ -41,28 +41,9 @@ type AccordionItemContextValue = {
   contentId: string;
 };
 
-const AccordionContext = /*#__PURE__*/ createContext<AccordionContextValue>({
-  type: 'single',
-  values: [],
-  disabled: false,
-  collapsible: false,
-  orientation: 'vertical',
-  dir: 'ltr',
-  triggers: new Set(),
-  registerTrigger() {
-    return () => {};
-  },
-  setItemOpen() {},
-});
+const AccordionContext = /*#__PURE__*/ createContext<AccordionContextValue>('Accordion.Root');
 
-const AccordionItemContext = /*#__PURE__*/ createContext<AccordionItemContextValue>({
-  value: '',
-  open: false,
-  disabled: false,
-  lockedOpen: false,
-  triggerId: '',
-  contentId: '',
-});
+const AccordionItemContext = /*#__PURE__*/ createContext<AccordionItemContextValue>('Accordion.Item');
 
 type AccordionSingleRootProps = {
   type?: 'single';

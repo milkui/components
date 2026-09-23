@@ -1,5 +1,5 @@
 import { afterEach, expect, it } from 'vitest';
-import { defineAccordion } from './index.js';
+import { Root, Item, Header, Trigger, Content } from './index.js';
 let cleanup: (() => void) | undefined;
 afterEach(() => {
   cleanup?.();
@@ -8,7 +8,7 @@ afterEach(() => {
   history.replaceState(null, '', '/');
 });
 
-it('reveals targeted items while retaining other open items in multiple mode', () => {
+it('reveals targeted items while retaining other open items in multiple mode', async () => {
   document.body.innerHTML = `<div mlk-accordion-root data-type="multiple">
     <div mlk-accordion-item id="one"><a mlk-accordion-trigger href="#one">One</a><div mlk-accordion-content id="one-content">One</div></div>
     <div mlk-accordion-item id="two"><a mlk-accordion-trigger href="#two">Two</a><div mlk-accordion-content>
@@ -16,7 +16,7 @@ it('reveals targeted items while retaining other open items in multiple mode', (
     </div></div>
   </div>`;
   history.replaceState(null, '', '#nested');
-  cleanup = defineAccordion(document);
+  cleanup = await defineAccordion(document);
   expect(document.getElementById('one')!.hasAttribute('data-open')).toBe(true);
   expect(document.getElementById('two')!.hasAttribute('data-open')).toBe(true);
   expect(document.getElementById('nested')!.hasAttribute('data-open')).toBe(true);
@@ -26,14 +26,14 @@ it('reveals targeted items while retaining other open items in multiple mode', (
   expect(document.getElementById('two')!.hasAttribute('data-open')).toBe(true);
 });
 
-it('uses authored content IDs without changing initial visibility or requiring item IDs', () => {
+it('uses authored content IDs without changing initial visibility or requiring item IDs', async () => {
   document.body.innerHTML = `<div mlk-accordion-root data-collapsible>
     <div mlk-accordion-item><a mlk-accordion-trigger href="#shipping">Shipping</a><div mlk-accordion-content id="shipping">Shipping details</div></div>
     <div mlk-accordion-item><a mlk-accordion-trigger href="#returns">Returns</a><div mlk-accordion-content id="returns" hidden="until-found">Returns details</div></div>
   </div>`;
   const shipping = document.getElementById('shipping')!;
   const returns = document.getElementById('returns')!;
-  cleanup = defineAccordion(document);
+  cleanup = await defineAccordion(document);
   expect(shipping.hasAttribute('hidden')).toBe(false);
   expect(returns.getAttribute('hidden')).toBe('until-found');
   expect(document.querySelector('[mlk-accordion-item][id]')).toBeNull();
@@ -44,3 +44,15 @@ it('uses authored content IDs without changing initial visibility or requiring i
   expect(trigger.getAttribute('aria-controls')).toBe('returns');
   expect(document.getElementById('returns')).toBe(returns);
 });
+
+async function defineAccordion(root: Document | HTMLElement) {
+  const cleanups = [
+    Root.define(root),
+    Item.define(root),
+    Header.define(root),
+    Trigger.define(root),
+    Content.define(root),
+  ];
+  await Promise.resolve();
+  return () => cleanups.forEach((cleanup) => cleanup());
+}

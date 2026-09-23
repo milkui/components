@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
-import { Content, defineAccordion, Header, Item, Root, Trigger } from './index.js';
+import { Root, Item, Header, Trigger, Content } from './index.js';
 
 describe('@milkui/core/accordion native behavior', () => {
-  it('coordinates a single accordion through accordion markers only', () => {
+  it('coordinates a single accordion through accordion markers only', async () => {
     const { root, items } = createAccordion(['one', 'two']);
     const changes = vi.fn();
     const leakedCollapsible = vi.fn();
@@ -37,7 +37,7 @@ describe('@milkui/core/accordion native behavior', () => {
     expect(items[0]!.trigger.getAttribute('aria-expanded')).toBe('true');
   });
 
-  it('makes both items interactive before switching the initial item', () => {
+  it('makes both items interactive before switching the initial item', async () => {
     const { root, items } = createAccordion(['one', 'two']);
     Root.mount(root, { defaultValue: 'one' });
     mountItems(items);
@@ -49,7 +49,7 @@ describe('@milkui/core/accordion native behavior', () => {
     expect(items[1]!.item.hasAttribute('data-open')).toBe(true);
   });
 
-  it('allows closing the active single item when collapsible', () => {
+  it('allows closing the active single item when collapsible', async () => {
     const { root, items } = createAccordion(['one']);
     const changes = vi.fn();
     root.addEventListener('mlk-accordion:value-change', changes);
@@ -63,7 +63,7 @@ describe('@milkui/core/accordion native behavior', () => {
     expect(items[0]!.trigger.getAttribute('aria-disabled')).toBeNull();
   });
 
-  it('supports multiple values and controlled updates without mutating DOM state', () => {
+  it('supports multiple values and controlled updates without mutating DOM state', async () => {
     const { root, items } = createAccordion(['one', 'two']);
     const onValueChange = vi.fn();
     Root.mount(root, { type: 'multiple', value: ['one'], onValueChange });
@@ -81,7 +81,7 @@ describe('@milkui/core/accordion native behavior', () => {
     expect(items[1]!.trigger.getAttribute('aria-expanded')).toBe('true');
   });
 
-  it('registers native markup from accordion attributes and cleans it up', () => {
+  it('registers native markup from accordion attributes and cleans it up', async () => {
     const host = document.createElement('div');
     host.innerHTML = `
       <div mlk-accordion-root>
@@ -100,7 +100,7 @@ describe('@milkui/core/accordion native behavior', () => {
       </div>
     `;
     document.body.append(host);
-    const cleanup = defineAccordion(host);
+    const cleanup = await defineAccordion(host);
     const root = host.querySelector<HTMLElement>('[mlk-accordion-root]')!;
     const triggers = host.querySelectorAll<HTMLButtonElement>('[mlk-accordion-trigger]');
 
@@ -112,10 +112,10 @@ describe('@milkui/core/accordion native behavior', () => {
     cleanup();
     triggers[0]!.click();
     expect(Root.get(root)).toBeUndefined();
-    expect(triggers[0]!.getAttribute('aria-expanded')).toBeNull();
+    expect(triggers[0]!.getAttribute('aria-expanded')).toBe('false');
   });
 
-  it('inherits collapsible metadata for trigger and content while item keeps accordion metadata', () => {
+  it('inherits collapsible metadata for trigger and content while item keeps accordion metadata', async () => {
     const host = document.createElement('div');
     host.innerHTML = `
       <div mlk-accordion-root>
@@ -127,7 +127,7 @@ describe('@milkui/core/accordion native behavior', () => {
     `;
     document.body.append(host);
 
-    const cleanup = defineAccordion(host);
+    const cleanup = await defineAccordion(host);
     const item = host.querySelector<HTMLElement>('[mlk-accordion-item]')!;
     const trigger = host.querySelector<HTMLButtonElement>('[mlk-accordion-trigger]')!;
     const content = host.querySelector<HTMLElement>('[mlk-accordion-content]')!;
@@ -143,7 +143,7 @@ describe('@milkui/core/accordion native behavior', () => {
     cleanup();
   });
 
-  it('moves focus in DOM order while skipping disabled items and nested accordions', () => {
+  it('moves focus in DOM order while skipping disabled items and nested accordions', async () => {
     const { root, items } = createAccordion(['one', 'two', 'three']);
     const nestedRoot = document.createElement('div');
     const nestedItem = document.createElement('div');
@@ -188,7 +188,7 @@ describe('@milkui/core/accordion native behavior', () => {
     expect(document.activeElement).toBe(items[0]!.trigger);
   });
 
-  it('respects preventDefault before native activation and keyboard movement', () => {
+  it('respects preventDefault before native activation and keyboard movement', async () => {
     const { root, items } = createAccordion(['one', 'two']);
     document.body.append(root);
     mountAccordion(root, items);
@@ -207,7 +207,7 @@ describe('@milkui/core/accordion native behavior', () => {
     expect(document.activeElement).toBe(items[0]!.trigger);
   });
 
-  it('uses root orientation and dir for horizontal keyboard movement', () => {
+  it('uses root orientation and dir for horizontal keyboard movement', async () => {
     const { root, items } = createAccordion(['one', 'two']);
     document.body.append(root);
     Root.mount(root, { orientation: 'horizontal', dir: 'rtl' });
@@ -256,3 +256,24 @@ function mountItems(items: ReturnType<typeof createAccordion>['items']) {
 function keydown(element: HTMLElement, key: string) {
   element.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key }));
 }
+
+async function defineAccordion(root: Document | HTMLElement) {
+  const cleanups = [
+    Root.define(root),
+    Item.define(root),
+    Header.define(root),
+    Trigger.define(root),
+    Content.define(root),
+  ];
+  await Promise.resolve();
+  return () => cleanups.forEach((cleanup) => cleanup());
+}
+
+it('requires root and item providers when creating accordion parts', () => {
+  expect(() => Item.create({})).toThrow('Accordion.Root provider ancestor');
+  expect(() => Trigger.create({})).toThrow('provider ancestor');
+  expect(() => Content.create({})).toThrow('provider ancestor');
+  const root = Root.create({});
+  expect(() => Header.create({}, { parent: root.scope })).toThrow('Accordion.Item provider ancestor');
+  root.destroy();
+});

@@ -1,4 +1,4 @@
-import { Primitive, createPrimitive, definePrimitives, type AttributesFor } from '../primitive/index.js';
+import { Primitive, createPrimitive, type AttributesFor } from '../primitive/index.js';
 
 /* -------------------------------------------------------------------------------------------------
  * ButtonPrimitive
@@ -25,9 +25,5 @@ const Button = /*#__PURE__*/ createPrimitive(ButtonPrimitive);
 
 /* ---------------------------------------------------------------------------------------------- */
 
-function defineButton(root: Document | HTMLElement = document) {
-  return definePrimitives([Button], root);
-}
-
 export type { ButtonProps };
-export { Button, defineButton };
+export { Button };

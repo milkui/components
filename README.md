@@ -32,12 +32,17 @@ The Vite app lives in `docs/`. Vite server-renders the docs before React hydrate
 Install `@milkui/core` and import the components you need:
 
 ```ts
-import { defineAccordion } from '@milkui/core/accordion';
-import { defineButton } from '@milkui/core/button';
-import { defineCollapsible } from '@milkui/core/collapsible';
+import { Root, Item, Trigger, Content } from '@milkui/core/accordion';
+
+Root.define(document);
+Item.define(document);
+Trigger.define(document);
+Content.define(document);
 ```
 
-The package root also exports these setup functions, `Accordion` and `Collapsible` namespaces, and `Button`. Shared APIs for building primitives are available from `@milkui/core/primitive`. All entry points support tree-shaking.
+Register only the parts your markup uses. Each `.define(root)` returns a cleanup function; repeated calls for the same part and root return the same cleanup. Discovery runs in a microtask, mounting parents before children regardless of registration order. Inserted and removed elements are handled automatically; attributes are never observed. Use `.mount(element, props)` when you need a synchronous instance; mount its providers first. Parts rendered outside their required provider ancestry throw an error instead of using fallback context.
+
+The package root exports `Accordion` and `Collapsible` namespaces, and `Button`. Button uses `Button.define(document)`; Collapsible uses `Root.define`, `Trigger.define`, and `Content.define` from its entry point. Shared APIs for building primitives are available from `@milkui/core/primitive`. All entry points support tree-shaking. React adapters manage their own lifecycle and do not call `.define()`.
 
 ## React imports
 

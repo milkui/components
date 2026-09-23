@@ -1,4 +1,5 @@
 import type { HTMLAttributes } from 'dom-types/native';
+import { definePrimitive } from './registry.js';
 
 export type Attributes = Record<string, string | number | boolean | undefined>;
 /** Native HTML names and serializable values; listeners belong in primitive events. */
@@ -25,13 +26,16 @@ export type PrimitiveScope = { parent?: PrimitiveScope; values: Map<object, unkn
 export type PrimitiveOptions = { id?: string; parent?: PrimitiveScope };
 type Cleanup = () => void;
 
+declare const contextValue: unique symbol;
+
 export interface PrimitiveContext<T> {
-  readonly defaultValue: T;
+  readonly [contextValue]?: T;
+  readonly name: string;
   readonly consumers: Set<Primitive<any>>;
 }
 
-export function createContext<T>(defaultValue: T): PrimitiveContext<T> {
-  return { defaultValue, consumers: new Set() };
+export function createContext<T>(name: string): PrimitiveContext<T> {
+  return { name, consumers: new Set() };
 }
 
 const attached = new WeakMap<Element, Set<Primitive<any>>>();
@@ -106,7 +110,6 @@ export abstract class Primitive<Props extends object = object> {
     for (const context of this.#contexts) context.consumers.delete(this);
     if (this.element) attached.get(this.element)?.delete(this);
     this.element = null;
-    for (const context of this.scope.values.keys()) this.#notifyContext(context as PrimitiveContext<unknown>);
   }
 
   destroy() {
@@ -180,7 +183,7 @@ export abstract class Primitive<Props extends object = object> {
         ancestor = ancestor.parentElement;
       }
     }
-    return context.defaultValue;
+    throw new Error(`${this.constructor.name} requires a ${context.name} provider ancestor.`);
   }
 
   protected provide<T>(context: PrimitiveContext<T>, value: T) {
@@ -248,6 +251,7 @@ export interface PrimitiveDefinition<
   readonly defaultAttributes: AttributesFor<Tag> | null;
   create(props: P, options?: PrimitiveOptions): PrimitiveInstance;
   mount(element: HTMLElement, props?: Partial<P>): PrimitiveInstance;
+  define(root?: Document | HTMLElement): Cleanup;
   get(element: Element): PrimitiveInstance | undefined;
   update(element: Element, props: Partial<P>): PrimitiveInstance | undefined;
   unmount(element: Element): void;
@@ -297,11 +301,18 @@ export function createPrimitive<
         return existing;
       }
       const propsWithDefaults = { ...PrimitiveClass.initialProps?.(element), ...props } as P;
-      const primitive = part.create(propsWithDefaults, { id: element.id || undefined });
+      const primitive = new PrimitiveClass(propsWithDefaults, { id: element.id || undefined });
       instances.set(element, primitive);
-      primitive.connect(element);
+      try {
+        primitive.connect(element);
+      } catch (error) {
+        primitive.destroy();
+        instances.delete(element);
+        throw error;
+      }
       return primitive;
     },
+    define: (root) => definePrimitive(part, root),
     get: (element) => instances.get(element),
     update(element, props) {
       const primitive = instances.get(element);
