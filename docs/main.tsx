@@ -1048,7 +1048,6 @@ function AnatomySection(props: { framework: Framework; page: DocsPage }) {
       )}
       <CodeBlock
         title={props.framework === 'react' ? 'React anatomy' : 'Native anatomy'}
-        css={props.page.styles}
         code={props.framework === 'react' ? props.page.reactAnatomy : props.page.nativeAnatomy}
       />
     </section>
