@@ -413,8 +413,8 @@ const collapsibleNativeAnatomy = `<div mlk-collapsible-root>
 
 const accordionReactAnatomy = `import * as Accordion from '@milkui/react/accordion';
 
-<Accordion.Root type="single">
-  <Accordion.Item value="item-1">
+<Accordion.Root>
+  <Accordion.Item>
     <Accordion.Header>
       <Accordion.Trigger />
     </Accordion.Header>
