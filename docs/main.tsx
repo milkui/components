@@ -407,8 +407,8 @@ const collapsibleReactAnatomy = `import * as Collapsible from '@milkui/react/col
 </Collapsible.Root>`;
 
 const collapsibleNativeAnatomy = `<div mlk-collapsible-root>
-  <a mlk-collapsible-trigger href="#collapsible-content"></a>
-  <div mlk-collapsible-content id="collapsible-content"></div>
+  <a mlk-collapsible-trigger></a>
+  <div mlk-collapsible-content></div>
 </div>`;
 
 const accordionReactAnatomy = `import * as Accordion from '@milkui/react/accordion';
@@ -422,12 +422,12 @@ const accordionReactAnatomy = `import * as Accordion from '@milkui/react/accordi
   </Accordion.Item>
 </Accordion.Root>`;
 
-const accordionNativeAnatomy = `<div mlk-accordion-root data-type="single">
+const accordionNativeAnatomy = `<div mlk-accordion-root>
   <div mlk-accordion-item>
     <h3 mlk-accordion-header>
-      <a mlk-accordion-trigger href="#item-1-content"></a>
+      <a mlk-accordion-trigger></a>
     </h3>
-    <div mlk-accordion-content id="item-1-content"></div>
+    <div mlk-accordion-content></div>
   </div>
 </div>`;
 
